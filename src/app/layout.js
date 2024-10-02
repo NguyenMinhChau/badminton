@@ -1,5 +1,7 @@
+'use client';
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
+import { ProviderContext } from '../../context/';
 import './globals.css';
 
 import { Navbar } from '@/components/Navbar';
@@ -20,11 +22,13 @@ export default function RootLayout({ children }) {
 				<meta property="og:image" content="./img/fpt-logo-meta.png" />
 			</head>
 			<body className={inter.className}>
-				<ThemeProvider attribute="class">
-					<Navbar />
-					<div>{children}</div>
-					<Footer />
-				</ThemeProvider>
+				<ProviderContext>
+					<ThemeProvider attribute="class">
+						<Navbar />
+						<div>{children}</div>
+						<Footer />
+					</ThemeProvider>
+				</ProviderContext>
 			</body>
 		</html>
 	);
