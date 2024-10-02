@@ -40,9 +40,7 @@ export const Hero = () => {
 							src={heroImg}
 							width="616"
 							height="617"
-							className={
-								'aspect-video rounded-xl overflow-hidden'
-							}
+							className={'aspect-auto rounded-xl overflow-hidden'}
 							alt="Background Image"
 							loading="eager"
 							placeholder="blur"

@@ -28,10 +28,10 @@ export const Navbar = () => {
 						<span>
 							<Image
 								src="/fpt-logo.png"
-								width="100"
+								width="130"
 								alt="FPT TELECOM"
-								height="100"
-								className="w-[100px]"
+								height="130"
+								className="w-[130px]"
 							/>
 						</span>
 					</span>
