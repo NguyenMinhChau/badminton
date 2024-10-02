@@ -46,7 +46,11 @@ export function Footer() {
 							Liên hệ với chúng tôi qua:{' '}
 						</div>
 						<div className="flex flex-col gap-5 mt-5 text-white">
-							<a href="/" target="_blank" rel="noopener">
+							<a
+								href="https://www.facebook.com/FiLFUNisLife?mibextid=JRoKGi"
+								target="_blank"
+								rel="noopener"
+							>
 								<span className="sr-only">Facebook</span>
 								<div className="flex flex-row flex-wrap items-center gap-1">
 									<Facebook />
@@ -55,7 +59,11 @@ export function Footer() {
 									</span>
 								</div>
 							</a>
-							<a href="/" target="_blank" rel="noopener">
+							<a
+								href="https://fpt.workplace.com/profile.php?id=100092727603366"
+								target="_blank"
+								rel="noopener"
+							>
 								<span className="sr-only">Workplace</span>
 								<div className="flex flex-row flex-wrap items-center gap-1">
 									<Workplace />
