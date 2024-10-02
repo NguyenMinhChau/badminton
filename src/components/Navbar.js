@@ -48,6 +48,14 @@ export const Navbar = () => {
 							Đăng nhập
 						</Link>
 					</div>
+					<div className="hidden lg:flex nav__item">
+						<Link
+							href="/"
+							className="px-6 py-2 text-[#ea580c] bg-gray-200 border border-[#ea580c] rounded-md"
+						>
+							Đăng ký
+						</Link>
+					</div>
 				</div>
 
 				<Disclosure>
@@ -84,7 +92,7 @@ export const Navbar = () => {
 										<Link
 											key={index}
 											href={item?.href}
-											className="w-full px-4 py-2 -ml-4 text-gray-500 rounded-md dark:text-gray-300 hover:text-indigo-500 focus:text-indigo-500 focus:bg-[#ea580c3a] focus:outline-none"
+											className="w-full font-bold px-4 py-2 -ml-4 text-gray-500 rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-[#ea580c3a] focus:outline-none"
 											style={{
 												color: checkActiveRoute(item)
 													? '#ea580c'
@@ -97,6 +105,12 @@ export const Navbar = () => {
 									<Link
 										href="/login"
 										className="w-full px-6 py-2 mt-3 text-center text-white bg-[#ea580c] rounded-md lg:ml-5"
+									>
+										Đăng nhập
+									</Link>
+									<Link
+										href="/"
+										className="w-full px-6 py-2 mt-3 text-center text-[#ea580c] bg-gray-200 border border-[#ea580c] rounded-md lg:ml-5"
 									>
 										Đăng nhập
 									</Link>
@@ -113,7 +127,7 @@ export const Navbar = () => {
 							<li className="mr-3 nav__item" key={index}>
 								<Link
 									href={menu?.href}
-									className={`inline-block px-4 py-2 text-lg font-normal text-gray-800 no-underline rounded-md dark:text-gray-200 hover:text-indigo-500 focus:text-indigo-500 focus:bg-[#ea580c3a] focus:outline-none`}
+									className={`inline-block font-bold px-4 py-2 text-lg text-gray-800 no-underline rounded-md dark:text-gray-200 hover:text-indigo-500 focus:text-indigo-500 focus:bg-[#ea580c3a] focus:outline-none`}
 									style={{
 										color: checkActiveRoute(menu)
 											? '#ea580c'
