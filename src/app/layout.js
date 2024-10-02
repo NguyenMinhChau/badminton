@@ -19,7 +19,7 @@ export default function RootLayout({ children }) {
 					content="FTEL NHẤT - CHƠI CẦU LÔNG CHẤT"
 				/>
 				<link rel="icon" href="/favicon.png" />
-				<meta property="og:image" content="./img/fpt-logo-meta.png" />
+				<meta property="og:image" content="/fpt-logo-meta.png" />
 			</head>
 			<body className={inter.className}>
 				<ProviderContext>
