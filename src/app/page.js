@@ -36,11 +36,11 @@ export default function Home() {
 				<Faq />
 
 				<div className="flex flex-col justify-center mt-12">
-					<div className="text-3xl text-center text-gray-800 dark:text-white font-bold lg:leading-tight lg:text-4xl">
+					<div className="text-3xl text-center text-white font-bold lg:leading-tight lg:text-4xl">
 						ĐƠN VỊ ĐỒNG HÀNH CÙNG GIẢI ĐẤU
 					</div>
 					<div className="flex flex-wrap justify-center gap-5 mt-10 md:justify-around">
-						<div className="pt-2 text-gray-400 dark:text-gray-400">
+						<div className="pt-2 text-gray-400">
 							<Image
 								src="/fpt-logo.png"
 								width="130"
@@ -49,7 +49,7 @@ export default function Home() {
 								className="w-[130px]"
 							/>
 						</div>
-						<div className="pt-2 text-gray-400 dark:text-gray-400">
+						<div className="pt-2 text-gray-400">
 							<Image
 								src="/fpt-logo.png"
 								width="130"
@@ -58,7 +58,7 @@ export default function Home() {
 								className="w-[130px]"
 							/>
 						</div>
-						<div className="pt-2 text-gray-400 dark:text-gray-400">
+						<div className="pt-2 text-gray-400">
 							<Image
 								src="/fpt-logo.png"
 								width="130"

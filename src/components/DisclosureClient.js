@@ -19,7 +19,7 @@ export function DisclosureClient(props) {
 			{({ open }) => (
 				<div className="flex flex-wrap items-center justify-between w-full lg:w-auto">
 					<Link href={logo.href || '/'}>
-						<span className="flex items-center space-x-2 text-2xl font-medium text-indigo-500 dark:text-gray-100">
+						<span className="flex items-center space-x-2 text-2xl font-medium">
 							<span>
 								<Image
 									src={logo.image.url}
