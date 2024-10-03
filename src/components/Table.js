@@ -149,12 +149,12 @@ export const Table = ({
 					</div>
 					<div className="flex">
 						<ul
-							class="flex justify-center items-center gap-x-[10px] z-30"
+							className="flex justify-center items-center gap-x-[10px] z-30"
 							role="navigation"
 							aria-label="Pagination"
 						>
 							<li
-								class={` prev-btn flex items-center justify-center w-[36px] rounded-[6px] h-[36px] border-[1px] border-solid border-[#E4E4EB] disabled] ${
+								className={` prev-btn flex items-center justify-center w-[36px] rounded-[6px] h-[36px] border-[1px] border-solid border-[#E4E4EB] disabled] ${
 									currentPage == 0
 										? 'bg-[#cccccc] pointer-events-none'
 										: ' cursor-pointer'
@@ -172,7 +172,7 @@ export const Table = ({
 							</li>
 							{renderPagination()}
 							<li
-								class={`flex items-center justify-center w-[36px] rounded-[6px] h-[36px] border-[1px] border-solid border-[#E4E4EB] ${
+								className={`flex items-center justify-center w-[36px] rounded-[6px] h-[36px] border-[1px] border-solid border-[#E4E4EB] ${
 									currentPage == totalPage - 1
 										? 'bg-[#cccccc] pointer-events-none'
 										: ' cursor-pointer'

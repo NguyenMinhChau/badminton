@@ -27,6 +27,9 @@
 		background: #ea580c;
 		border-radius: 10px;
 	}
+	#schedule_match::-webkit-scrollbar {
+		width: 0px;
+	}
 
 	/* LOADING */
 

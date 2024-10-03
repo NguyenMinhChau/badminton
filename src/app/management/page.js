@@ -105,16 +105,19 @@ export default function Management() {
 
 	return (
 		<Container className="!p-0">
-			<div className="w-full p-2 mx-auto rounded-2xl">
+			<div className="w-full p-2 mx-auto flex flex-row flex-wrap justify-between gap-2 rounded-2xl">
 				{managementData.map((item, index) => (
-					<div key={item.question} className="mb-5">
-						<Disclosure>
+					<div
+						key={index}
+						className="mb-5 w-full md:w-[49%] lg:w-[49%]"
+					>
+						<Disclosure defaultOpen={true}>
 							{({ open }) => (
 								<>
 									<DisclosureButton
-										className={`flex items-center justify-between w-full px-4 py-4 text-l text-left text-white rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-indigo-100 focus-visible:ring-opacity-75`}
+										className={`flex items-center bg-gray-200 justify-between font-bold w-full px-4 py-4 text-l text-left rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-indigo-100 focus-visible:ring-opacity-75`}
 										style={{
-											backgroundColor: item.color,
+											color: item.color,
 										}}
 									>
 										<span>{item.question}</span>
@@ -123,12 +126,20 @@ export default function Management() {
 												open
 													? 'transform rotate-180'
 													: ''
-											} w-5 h-5 text-white`}
+											} w-5 h-5 font-bold`}
+											style={{
+												color: item.color,
+											}}
 										/>
 									</DisclosureButton>
-									<DisclosurePanel className="px-4 pt-4 pb-2 text-white bg-black bg-opacity-30 rounded-lg">
+									<DisclosurePanel
+										className="px-4 pt-4 pb-2 text-white rounded-lg"
+										style={{
+											backgroundColor: item.color + '3a',
+										}}
+									>
 										{item?.file && (
-											<div className="p-2 rounded-lg flex flex-row items-center gap-2 bg-white mb-3">
+											<div className="p-2 rounded-lg flex flex-row items-center gap-2 bg-gray-200 mb-3">
 												<div className="text-green-500">
 													<SheetSVG />
 												</div>

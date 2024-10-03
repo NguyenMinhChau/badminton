@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import heroImg from '../../public/img/badminton_bg.png';
+import heroImg from '../../public/img/badminton_bg.jpg';
 
 export const Hero = () => {
 	return (

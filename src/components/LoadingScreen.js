@@ -32,26 +32,26 @@ export function LoadingScreen() {
 					<path d="m15.707 10.707-1.414-1.414L12 11.586 9.707 9.293l-1.414 1.414L10.586 13l-2.293 2.293 1.414 1.414L12 14.414l2.293 2.293 1.414-1.414L13.414 13z"></path>
 				</svg>
 			</div>
-			<div class="loader">
-				<div class="box box-1">
-					<div class="side-left"></div>
-					<div class="side-right"></div>
-					<div class="side-top"></div>
+			<div className="loader">
+				<div className="box box-1">
+					<div className="side-left"></div>
+					<div className="side-right"></div>
+					<div className="side-top"></div>
 				</div>
-				<div class="box box-2">
-					<div class="side-left"></div>
-					<div class="side-right"></div>
-					<div class="side-top"></div>
+				<div className="box box-2">
+					<div className="side-left"></div>
+					<div className="side-right"></div>
+					<div className="side-top"></div>
 				</div>
-				<div class="box box-3">
-					<div class="side-left"></div>
-					<div class="side-right"></div>
-					<div class="side-top"></div>
+				<div className="box box-3">
+					<div className="side-left"></div>
+					<div className="side-right"></div>
+					<div className="side-top"></div>
 				</div>
-				<div class="box box-4">
-					<div class="side-left"></div>
-					<div class="side-right"></div>
-					<div class="side-top"></div>
+				<div className="box box-4">
+					<div className="side-left"></div>
+					<div className="side-right"></div>
+					<div className="side-top"></div>
 				</div>
 			</div>
 		</div>
