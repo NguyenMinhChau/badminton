@@ -20,7 +20,7 @@ export const TournamentBrackets = ({ rounds = [], handleChangeSeed }) => {
 							<input
 								type="text"
 								defaultValue={score0?.toString()}
-								onChange={(e) => {
+								onBlur={(e) => {
 									handleChangeSeed(
 										roundIndex,
 										seedIndex,
@@ -42,7 +42,7 @@ export const TournamentBrackets = ({ rounds = [], handleChangeSeed }) => {
 							<input
 								type="text"
 								defaultValue={score1?.toString()}
-								onChange={(e) => {
+								onBlur={(e) => {
 									handleChangeSeed(
 										roundIndex,
 										seedIndex,

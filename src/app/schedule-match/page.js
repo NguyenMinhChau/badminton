@@ -4,8 +4,11 @@ import { TournamentBrackets } from '@/components/TournamentBrackets';
 import moment from 'moment';
 import 'moment/locale/vi';
 import React from 'react';
+import { useToast } from '../../../hooks';
+import { TYPE_TOAST } from '@/components/Toast';
 
 export default function ScheduleMatch() {
+	const { openToast } = useToast();
 	const rounds = [
 		{
 			title: 'Vòng đấu 1',
@@ -99,17 +102,13 @@ export default function ScheduleMatch() {
 	const [_rounds, setRounds] = React.useState(rounds);
 
 	const handleChangeSeed = (roundIndex, seedIndex, position, value) => {
-		if (value) {
-			const isConfirm = window.confirm(
-				`Bạn có chắc thay đổi tỉ số ${_rounds[roundIndex].seeds[seedIndex].teams[position].name} thành ${value}`,
-			);
-			if (isConfirm) {
-				const newRounds = [..._rounds];
-				newRounds[roundIndex].seeds[seedIndex].teams[position].score =
-					value;
-				setRounds(newRounds);
-			}
-		}
+		const newRounds = [..._rounds];
+		newRounds[roundIndex].seeds[seedIndex].teams[position].score = value;
+		setRounds(newRounds);
+		openToast({
+			type: TYPE_TOAST.SUCCESS,
+			message: 'Cập nhật tỉ số thành công',
+		});
 	};
 
 	return (

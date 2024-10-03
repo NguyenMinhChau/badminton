@@ -12,7 +12,7 @@ import { benefitOne } from '@/components/data';
 import Image from 'next/image';
 
 export default function Home() {
-	const { state, dispatch } = useAppContext();
+	const { state } = useAppContext();
 	const { isLoading } = state.set_toggle;
 	return (
 		<>

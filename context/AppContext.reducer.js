@@ -1,9 +1,10 @@
 import { SET_DATA, SET_TOGGLE } from './AppContext.actions';
-import { USER } from './AppContext.state';
+import { TOAST, USER } from './AppContext.state';
 
 const initialStateApp = {
 	set_data: {
 		user: USER,
+		toast: TOAST,
 	},
 	set_toggle: {
 		isLoading: false,
