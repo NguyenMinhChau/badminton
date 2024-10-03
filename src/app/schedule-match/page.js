@@ -120,7 +120,7 @@ export default function ScheduleMatch() {
 		} else {
 			openToast({
 				type: TYPE_TOAST.WARNING,
-				message: 'Vui lòng nhập tỉ số',
+				message: 'Tỉ số không được để trống',
 			});
 			return;
 		}
