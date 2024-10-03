@@ -103,12 +103,19 @@ export default function ScheduleMatch() {
 
 	const handleChangeSeed = (roundIndex, seedIndex, position, value) => {
 		const newRounds = [..._rounds];
-		newRounds[roundIndex].seeds[seedIndex].teams[position].score = value;
-		setRounds(newRounds);
-		openToast({
-			type: TYPE_TOAST.SUCCESS,
-			message: 'Cập nhật tỉ số thành công',
-		});
+		if (
+			newRounds[roundIndex].seeds[seedIndex].teams[
+				position
+			].score?.toString() !== value
+		) {
+			newRounds[roundIndex].seeds[seedIndex].teams[position].score =
+				value;
+			setRounds(newRounds);
+			openToast({
+				type: TYPE_TOAST.SUCCESS,
+				message: 'Cập nhật tỉ số thành công',
+			});
+		}
 	};
 
 	return (
