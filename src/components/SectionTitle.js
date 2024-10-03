@@ -3,8 +3,8 @@ import { Container } from '@/components/Container';
 
 export const SectionTitle = (props) => {
 	return (
-		<Container
-			className={`flex w-full flex-col mt-4 ${
+		<div
+			className={`flex w-full flex-col mt-10 mb-5 ${
 				props.align === 'left'
 					? ''
 					: 'items-center justify-center text-center'
@@ -17,16 +17,16 @@ export const SectionTitle = (props) => {
 			)}
 
 			{props.title && (
-				<h2 className="max-w-2xl mt-3 text-3xl font-bold leading-snug tracking-tight text-white lg:leading-tight lg:text-4xl">
+				<h2 className="max-w-2xl mt-3 text-2xl font-bold leading-snug tracking-tight text-white lg:leading-tight lg:text-4xl">
 					{props.title}
 				</h2>
 			)}
 
 			{props.children && (
-				<p className="max-w-2xl py-4 text-lg leading-normal text-white lg:text-xl xl:text-xl">
+				<p className="max-w-2xl py-4 text-l leading-normal text-white lg:text-xl xl:text-xl">
 					{props.children}
 				</p>
 			)}
-		</Container>
+		</div>
 	);
 };

@@ -1,9 +1,26 @@
+'use client';
 import React from 'react';
+import { useAppContext } from '../../hooks';
+import { actions } from '../../context';
 
 export function LoadingScreen() {
+	const { dispatch } = useAppContext();
+
+	const closeLoading = () => {
+		dispatch(
+			actions.SET_TOGGLE_PAYLOAD({
+				key: 'isLoading',
+				value: false,
+			}),
+		);
+	};
+
 	return (
-		<div className="fixed top-0 right-0 bottom-0 left-0 z-50 bg-black bg-opacity-50 flex flex-col gap-[60px] items-center justify-center">
-			<div className="absolute top-5 right-5" onClick={() => {}}>
+		<div className="fixed top-0 right-0 bottom-0 left-0 z-50 bg-black bg-opacity-50 flex items-center justify-center">
+			<div
+				className="absolute top-5 right-5 cursor-pointer"
+				onClick={closeLoading}
+			>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					width="56"
@@ -36,9 +53,6 @@ export function LoadingScreen() {
 					<div class="side-right"></div>
 					<div class="side-top"></div>
 				</div>
-			</div>
-			<div className="bg-transparent text-white">
-				Đang xử lý dữ liệu, vui lòng đợi...
 			</div>
 		</div>
 	);

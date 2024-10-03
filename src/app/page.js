@@ -13,9 +13,10 @@ import Image from 'next/image';
 
 export default function Home() {
 	const { state, dispatch } = useAppContext();
+	const { isLoading } = state.set_toggle;
 	return (
 		<>
-			{/* <LoadingScreen /> */}
+			{isLoading && <LoadingScreen />}
 			<Container>
 				<Hero />
 
@@ -25,6 +26,11 @@ export default function Home() {
 				</SectionTitle>
 
 				<Benefits data={benefitOne} />
+
+				<SectionTitle
+					preTitle="SHARE"
+					title="NHỮNG CHIA SẺ THÚ VỊ"
+				></SectionTitle>
 				<Testimonials />
 
 				{/* <Benefits imgPos="right" data={benefitTwo} /> */}
@@ -35,34 +41,18 @@ export default function Home() {
 				</SectionTitle>
 				<Faq />
 
-				<div className="flex flex-col justify-center mt-12">
-					<div className="text-3xl text-center text-white font-bold lg:leading-tight lg:text-4xl">
-						ĐƠN VỊ ĐỒNG HÀNH CÙNG GIẢI ĐẤU
-					</div>
-					<div className="flex flex-wrap justify-center gap-5 mt-10 md:justify-around">
+				<SectionTitle
+					preTitle="SPONSORS"
+					title="ĐƠN VỊ ĐỒNG HÀNH CÙNG GIẢI ĐẤU"
+				></SectionTitle>
+
+				<div className="flex flex-col justify-center">
+					<div className="flex flex-wrap justify-center gap-5 md:justify-around">
 						<div className="pt-2 text-gray-400">
 							<Image
-								src="/fpt-logo.png"
+								src="/sponsors/INF_logo.png"
 								width="130"
-								alt="FPT TELECOM"
-								height="130"
-								className="w-[130px]"
-							/>
-						</div>
-						<div className="pt-2 text-gray-400">
-							<Image
-								src="/fpt-logo.png"
-								width="130"
-								alt="FPT TELECOM"
-								height="130"
-								className="w-[130px]"
-							/>
-						</div>
-						<div className="pt-2 text-gray-400">
-							<Image
-								src="/fpt-logo.png"
-								width="130"
-								alt="FPT TELECOM"
+								alt="INF LOGO"
 								height="130"
 								className="w-[130px]"
 							/>

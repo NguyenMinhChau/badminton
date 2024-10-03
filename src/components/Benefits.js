@@ -4,7 +4,7 @@ import React from 'react';
 export const Benefits = (props) => {
 	const { data } = props;
 	return (
-		<div className="flex flex-wrap mb-20 lg:gap-10 lg:flex-nowrap ">
+		<div className="flex flex-wrap mb-10 lg:gap-10 lg:flex-nowrap ">
 			<div
 				className={`flex items-center justify-center w-full lg:w-1/2 ${
 					props.imgPos === 'right' ? 'lg:order-1' : ''
@@ -29,15 +29,17 @@ export const Benefits = (props) => {
 				}`}
 			>
 				<div>
-					<div className="flex flex-col w-full mt-4">
-						<h3 className="max-w-2xl mt-3 text-3xl font-bold leading-snug tracking-tight text-white lg:leading-tight lg:text-4xl">
-							{data.title}
-						</h3>
+					{(data?.title || data?.desc) && (
+						<div className="flex flex-col w-full mt-4">
+							<h3 className="max-w-2xl mt-3 text-3xl font-bold leading-snug tracking-tight text-white lg:leading-tight lg:text-4xl">
+								{data.title}
+							</h3>
 
-						<p className="max-w-2xl py-4 text-lg leading-normal text-white lg:text-xl xl:text-xl">
-							{data.desc}
-						</p>
-					</div>
+							<p className="max-w-2xl py-4 text-lg leading-normal text-white lg:text-xl xl:text-xl">
+								{data.desc}
+							</p>
+						</div>
+					)}
 
 					<div className="w-full mt-5">
 						{data.bullets.map((item, index) => (

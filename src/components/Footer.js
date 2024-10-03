@@ -55,7 +55,7 @@ export function Footer() {
 								<div className="flex flex-row flex-wrap items-center gap-1">
 									<Facebook />
 									<span className="text-white">
-										Fanpage: FiL - FUN is Life
+										FiL - FUN is Life
 									</span>
 								</div>
 							</a>
@@ -68,7 +68,7 @@ export function Footer() {
 								<div className="flex flex-row flex-wrap items-center gap-1">
 									<Workplace />
 									<span className="text-white">
-										Fanpage: FiL - FUN is Life
+										FiL - FUN is Life
 									</span>
 								</div>
 							</a>
@@ -81,7 +81,7 @@ export function Footer() {
 								<div className="flex flex-row flex-wrap items-center gap-1">
 									<Phone />
 									<span className="text-white">
-										Hotline: LinhTTT41
+										LinhTTT41
 									</span>
 								</div>
 							</a>
@@ -94,7 +94,7 @@ export function Footer() {
 								<div className="flex flex-row flex-wrap items-center gap-1">
 									<Email />
 									<span className="text-white">
-										Email: FUNFTEL@FPT.COM
+										FUNFTEL@FPT.COM
 									</span>
 								</div>
 							</a>

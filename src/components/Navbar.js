@@ -92,7 +92,7 @@ export const Navbar = () => {
 										<Link
 											key={index}
 											href={item?.href}
-											className="w-full text-white font-bold px-4 py-2 -ml-4 rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-[#ea580c3a] focus:outline-none"
+											className="w-full text-white uppercase font-bold px-4 py-2 -ml-4 rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-[#ea580c3a] focus:outline-none"
 											style={{
 												color: checkActiveRoute(item)
 													? '#ea580c'
@@ -127,7 +127,7 @@ export const Navbar = () => {
 							<li className="mr-3 nav__item" key={index}>
 								<Link
 									href={menu?.href}
-									className={`inline-block text-white font-bold px-4 py-2 text-lg no-underline rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-[#ea580c3a] focus:outline-none`}
+									className={`inline-block uppercase text-white font-bold px-4 py-2 text-lg no-underline rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-[#ea580c3a] focus:outline-none`}
 									style={{
 										color: checkActiveRoute(menu)
 											? '#ea580c'
