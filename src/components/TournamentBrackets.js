@@ -10,14 +10,17 @@ export const TournamentBrackets = ({ rounds = [], handleChangeSeed }) => {
 			<Seed mobileBreakpoint={breakpoint} style={{ fontSize: 12 }}>
 				<SeedItem>
 					<div>
+						<div className="text-center text-orange-500 mt-1 capitalize">
+							{seed?.date}
+						</div>
 						<div className="flex flex-row gap-1 items-center">
-							<SeedTeam className="text-white text-[15px] flex-1">
+							<SeedTeam className="text-white text-[15px] flex-1 capitalize">
 								{seed.teams[0]?.name || 'NO TEAM '}
 							</SeedTeam>
 							<input
 								type="text"
 								defaultValue={score0?.toString()}
-								onBlur={(e) => {
+								onChange={(e) => {
 									handleChangeSeed(
 										roundIndex,
 										seedIndex,
@@ -33,13 +36,13 @@ export const TournamentBrackets = ({ rounds = [], handleChangeSeed }) => {
 							/>
 						</div>
 						<div className="flex flex-row gap-1 items-center">
-							<SeedTeam className="text-white text-[15px] flex-1">
+							<SeedTeam className="text-white text-[15px] flex-1 capitalize">
 								{seed.teams[1]?.name || 'NO TEAM '}
 							</SeedTeam>
 							<input
 								type="text"
 								defaultValue={score1?.toString()}
-								onBlur={(e) => {
+								onChange={(e) => {
 									handleChangeSeed(
 										roundIndex,
 										seedIndex,
@@ -56,7 +59,6 @@ export const TournamentBrackets = ({ rounds = [], handleChangeSeed }) => {
 						</div>
 					</div>
 				</SeedItem>
-				<div className="text-center text-orange-500">{seed?.date}</div>
 			</Seed>
 		);
 	};

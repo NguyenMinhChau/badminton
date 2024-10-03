@@ -2,16 +2,19 @@
 import { Container } from '@/components/Container';
 import { TournamentBrackets } from '@/components/TournamentBrackets';
 import moment from 'moment';
+import 'moment/locale/vi';
 import React from 'react';
 
 export default function ScheduleMatch() {
 	const rounds = [
 		{
-			title: 'Vòng 1',
+			title: 'Vòng đấu 1',
 			seeds: [
 				{
 					id: 1,
-					date: moment(new Date()).format('DD/MM/YYYY HH:mm:ss'),
+					date: moment(new Date())
+						.locale('vi')
+						.format('dddd, DD/MM/YYYY HH:mm'),
 					teams: [
 						{ name: 'Team A', score: 2 },
 						{ name: 'Team B', score: 1 },
@@ -21,7 +24,8 @@ export default function ScheduleMatch() {
 					id: 2,
 					date: moment(new Date())
 						.add(1.5, 'hours')
-						.format('DD/MM/YYYY HH:mm:ss'),
+						.locale('vi')
+						.format('dddd, DD/MM/YYYY HH:mm'),
 					teams: [
 						{ name: 'Team C', score: 2 },
 						{ name: 'Team D', score: 1 },
@@ -31,7 +35,8 @@ export default function ScheduleMatch() {
 					id: 3,
 					date: moment(new Date())
 						.add(1.5, 'hours')
-						.format('DD/MM/YYYY HH:mm:ss'),
+						.locale('vi')
+						.format('dddd, DD/MM/YYYY HH:mm'),
 					teams: [
 						{ name: 'Team E', score: 3 },
 						{ name: 'Team F', score: 0 },
@@ -41,7 +46,8 @@ export default function ScheduleMatch() {
 					id: 4,
 					date: moment(new Date())
 						.add(1.5, 'hours')
-						.format('DD/MM/YYYY HH:mm:ss'),
+						.locale('vi')
+						.format('dddd, DD/MM/YYYY HH:mm'),
 					teams: [
 						{ name: 'Team G', score: 1 },
 						{ name: 'Team H', score: 2 },
@@ -50,13 +56,13 @@ export default function ScheduleMatch() {
 			],
 		},
 		{
-			title: 'Vòng 2',
+			title: 'Vòng đấu 2',
 			seeds: [
 				{
 					id: 6,
-					date: moment(
-						new Date().setDate(new Date().getDate() + 2),
-					).format('DD/MM/YYYY HH:mm:ss'),
+					date: moment(new Date().setDate(new Date().getDate() + 2))
+						.locale('vi')
+						.format('dddd, DD/MM/YYYY HH:mm'),
 					teams: [
 						{ name: 'Team A', score: 2 },
 						{ name: 'Team C', score: 1 },
@@ -64,9 +70,9 @@ export default function ScheduleMatch() {
 				},
 				{
 					id: 7,
-					date: moment(
-						new Date().setDate(new Date().getDate() + 2),
-					).format('DD/MM/YYYY HH:mm:ss'),
+					date: moment(new Date().setDate(new Date().getDate() + 2))
+						.locale('vi')
+						.format('dddd, DD/MM/YYYY HH:mm'),
 					teams: [
 						{ name: 'Team E', score: 1 },
 						{ name: 'Team H', score: 2 },
@@ -75,11 +81,13 @@ export default function ScheduleMatch() {
 			],
 		},
 		{
-			title: 'Vòng 3',
+			title: 'Vòng đấu 3',
 			seeds: [
 				{
 					id: 8,
-					date: moment(new Date()).format('DD/MM/YYYY HH:mm:ss'),
+					date: moment(new Date().setDate(new Date().getDate() + 4))
+						.locale('vi')
+						.format('dddd, DD/MM/YYYY HH:mm'),
 					teams: [
 						{ name: 'Team A', score: 2 },
 						{ name: 'Team H', score: 1 },
@@ -91,9 +99,17 @@ export default function ScheduleMatch() {
 	const [_rounds, setRounds] = React.useState(rounds);
 
 	const handleChangeSeed = (roundIndex, seedIndex, position, value) => {
-		const newRounds = [..._rounds];
-		newRounds[roundIndex].seeds[seedIndex].teams[position].score = value;
-		setRounds(newRounds);
+		if (value) {
+			const isConfirm = window.confirm(
+				`Bạn có chắc thay đổi tỉ số ${_rounds[roundIndex].seeds[seedIndex].teams[position].name} thành ${value}`,
+			);
+			if (isConfirm) {
+				const newRounds = [..._rounds];
+				newRounds[roundIndex].seeds[seedIndex].teams[position].score =
+					value;
+				setRounds(newRounds);
+			}
+		}
 	};
 
 	return (
