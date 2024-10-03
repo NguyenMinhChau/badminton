@@ -102,19 +102,27 @@ export default function ScheduleMatch() {
 	const [_rounds, setRounds] = React.useState(rounds);
 
 	const handleChangeSeed = (roundIndex, seedIndex, position, value) => {
-		const newRounds = [..._rounds];
-		if (
-			newRounds[roundIndex].seeds[seedIndex].teams[
-				position
-			].score?.toString() !== value
-		) {
-			newRounds[roundIndex].seeds[seedIndex].teams[position].score =
-				value;
-			setRounds(newRounds);
+		if (value) {
+			const newRounds = [..._rounds];
+			if (
+				newRounds[roundIndex].seeds[seedIndex].teams[
+					position
+				].score?.toString() !== value
+			) {
+				newRounds[roundIndex].seeds[seedIndex].teams[position].score =
+					value;
+				setRounds(newRounds);
+				openToast({
+					type: TYPE_TOAST.SUCCESS,
+					message: 'Cập nhật tỉ số thành công',
+				});
+			}
+		} else {
 			openToast({
-				type: TYPE_TOAST.SUCCESS,
-				message: 'Cập nhật tỉ số thành công',
+				type: TYPE_TOAST.WARNING,
+				message: 'Vui lòng nhập tỉ số',
 			});
+			return;
 		}
 	};
 
