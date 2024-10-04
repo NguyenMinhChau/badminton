@@ -91,7 +91,7 @@ export const TournamentBrackets = ({
 											e.target.value,
 										);
 									}}
-									className={`w-[40px] py-2 bg-opacity-30 outline-none border-none text-[14px] mr-1 ${colorPosition0} ${backgroundPosition1} font-bold p-[2px] rounded-tr-md rounded-bl-md text-center`}
+									className={`w-[40px] py-2 bg-opacity-30 outline-none border-none text-[14px] mr-1 ${colorPosition1} ${backgroundPosition1} font-bold p-[2px] rounded-tr-md rounded-bl-md text-center`}
 								/>
 							</div>
 						</div>
