@@ -20,6 +20,11 @@ export default function Home() {
 			<Container>
 				<Hero />
 
+				<SectionTitle
+					preTitle="PRIZE STRUCTURE"
+					title="CƠ CẤU GIẢI THƯỞNG  "
+				></SectionTitle>
+
 				<SectionTitle preTitle="BENEFITS" title="LỢI ÍCH KHI THAM GIA">
 					Chơi cầu lông mang lại nhiều lợi ích cả về sức khỏe và tinh
 					thần. Dưới đây là một số lợi ích chính
@@ -47,7 +52,16 @@ export default function Home() {
 				></SectionTitle>
 
 				<div className="flex flex-col justify-center">
-					<div className="flex flex-wrap justify-center gap-5 md:justify-around">
+					<div className="flex flex-wrap items-center justify-center gap-10 md:justify-center">
+						<div className="pt-2 text-gray-400">
+							<Image
+								src="/fpt-logo.png"
+								width="130"
+								alt="INF LOGO"
+								height="130"
+								className="w-[130px]"
+							/>
+						</div>
 						<div className="pt-2 text-gray-400">
 							<Image
 								src="/sponsors/INF_logo.png"

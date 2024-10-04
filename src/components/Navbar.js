@@ -48,14 +48,14 @@ export const Navbar = () => {
 							Đăng nhập
 						</Link>
 					</div>
-					<div className="hidden lg:flex nav__item">
+					{/* <div className="hidden lg:flex nav__item">
 						<Link
 							href="/"
 							className="px-6 py-2 text-[#ea580c] bg-gray-200 border border-[#ea580c] rounded-md"
 						>
 							Đăng ký
 						</Link>
-					</div>
+					</div> */}
 				</div>
 
 				<Disclosure>
@@ -108,12 +108,12 @@ export const Navbar = () => {
 									>
 										Đăng nhập
 									</Link>
-									<Link
+									{/* <Link
 										href="/"
 										className="w-full px-6 py-2 mt-3 text-center text-[#ea580c] bg-gray-200 border border-[#ea580c] rounded-md lg:ml-5"
 									>
 										Đăng ký
-									</Link>
+									</Link> */}
 								</>
 							</Disclosure.Panel>
 						</>

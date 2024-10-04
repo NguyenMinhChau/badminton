@@ -9,8 +9,7 @@ export function Footer() {
 			<Container>
 				<div className="grid max-w-screen-xl grid-cols-1 gap-10 pt-10 mx-auto mt-5 border-t border-gray-300 lg:grid-cols-3">
 					<div className="lg:col-span-2">
-						<div>
-							{' '}
+						{/* <div>
 							<Link
 								href="/"
 								className="flex items-center space-x-2 text-2xl font-medium"
@@ -23,10 +22,9 @@ export function Footer() {
 									className="w-[130px]"
 								/>
 							</Link>
-						</div>
-
-						<div className="w-full text-justify mt-4 text-white">
-							<b className="text-green-600">
+						</div> */}
+						<div className="w-full text-justify text-white">
+							<b className="text-white">
 								FTEL NHẤT - CHƠI CẦU LÔNG CHẤT
 							</b>{' '}
 							là một chương trình thi đấu cầu lông do FPT Telecom
@@ -77,11 +75,11 @@ export function Footer() {
 								target="_blank"
 								rel="noopener"
 							>
-								<span className="sr-only">Instagram</span>
+								<span className="sr-only">Phone</span>
 								<div className="flex flex-row flex-wrap items-center gap-1">
 									<Phone />
 									<span className="text-white">
-										LinhTTT41
+										0908.023.600 (LinhTTT41)
 									</span>
 								</div>
 							</a>
@@ -90,7 +88,7 @@ export function Footer() {
 								target="_blank"
 								rel="noopener"
 							>
-								<span className="sr-only">Instagram</span>
+								<span className="sr-only">Mail</span>
 								<div className="flex flex-row flex-wrap items-center gap-1">
 									<Email />
 									<span className="text-white">

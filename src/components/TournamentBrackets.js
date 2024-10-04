@@ -48,7 +48,7 @@ export const TournamentBrackets = ({
 											e.target.value,
 										);
 									}}
-									className={`flex-1 bg-opacity-30 outline-none border-none text-[13px] mx-1 ${colorPosition0} ${backgroundPosition0} font-bold p-[2px] rounded-tl-md rounded-br-md text-center`}
+									className={`flex-1 bg-opacity-30 outline-none border-none py-2 text-[14px] mx-1 ${colorPosition0} ${backgroundPosition0} font-bold p-[2px] rounded-tl-md rounded-br-md text-center`}
 								/>
 								<input
 									type="text"
@@ -61,7 +61,7 @@ export const TournamentBrackets = ({
 											e.target.value,
 										);
 									}}
-									className={`w-[30px] bg-opacity-30 outline-none border-none text-[13px] mr-1 ${colorPosition0} ${backgroundPosition0} font-bold p-[2px] rounded-tr-md rounded-bl-md text-center`}
+									className={`w-[40px] bg-opacity-30 py-2 outline-none border-none text-[14px] mr-1 ${colorPosition0} ${backgroundPosition0} font-bold p-[2px] rounded-tr-md rounded-bl-md text-center`}
 								/>
 							</div>
 							<div className="flex flex-row gap-1 items-center">
@@ -78,7 +78,7 @@ export const TournamentBrackets = ({
 											e.target.value,
 										);
 									}}
-									className={`flex-1 bg-opacity-30 outline-none border-none text-[13px] mx-1 ${colorPosition1} ${backgroundPosition1} font-bold p-[2px] rounded-tl-md rounded-br-md text-center`}
+									className={`flex-1 bg-opacity-30 py-2 outline-none border-none text-[14px] mx-1 ${colorPosition1} ${backgroundPosition1} font-bold p-[2px] rounded-tl-md rounded-br-md text-center`}
 								/>
 								<input
 									type="text"
@@ -91,7 +91,7 @@ export const TournamentBrackets = ({
 											e.target.value,
 										);
 									}}
-									className={`w-[30px] bg-opacity-30 outline-none border-none text-[13px] mr-1 ${colorPosition0} ${backgroundPosition1} font-bold p-[2px] rounded-tr-md rounded-bl-md text-center`}
+									className={`w-[40px] py-2 bg-opacity-30 outline-none border-none text-[14px] mr-1 ${colorPosition0} ${backgroundPosition1} font-bold p-[2px] rounded-tr-md rounded-bl-md text-center`}
 								/>
 							</div>
 						</div>
