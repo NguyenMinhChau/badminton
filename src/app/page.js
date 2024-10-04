@@ -7,6 +7,7 @@ import { Testimonials } from '@/components/Testimonials';
 import { Faq } from '@/components/Faq';
 import { LoadingScreen } from '@/components/LoadingScreen';
 import { useAppContext } from '../../hooks/';
+import prizeStructureImg from '../../public/img/prize_structure.png';
 
 import { benefitOne } from '@/components/data';
 import Image from 'next/image';
@@ -22,8 +23,22 @@ export default function Home() {
 
 				<SectionTitle
 					preTitle="PRIZE STRUCTURE"
-					title="CƠ CẤU GIẢI THƯỞNG  "
+					title="CƠ CẤU GIẢI THƯỞNG"
 				></SectionTitle>
+
+				<div className="flex items-center justify-center w-full">
+					<div className="">
+						<Image
+							src={prizeStructureImg}
+							width="1000"
+							height="617"
+							className={'aspect-auto rounded-xl overflow-hidden'}
+							alt="Background Image"
+							loading="eager"
+							placeholder="blur"
+						/>
+					</div>
+				</div>
 
 				<SectionTitle preTitle="BENEFITS" title="LỢI ÍCH KHI THAM GIA">
 					Chơi cầu lông mang lại nhiều lợi ích cả về sức khỏe và tinh
