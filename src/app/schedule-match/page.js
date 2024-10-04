@@ -101,21 +101,31 @@ export default function ScheduleMatch() {
 	];
 	const [_rounds, setRounds] = React.useState(rounds);
 
-	const handleChangeSeed = (roundIndex, seedIndex, position, value) => {
+	const handleChangeSeedScore = (roundIndex, seedIndex, position, value) => {
+		const newRounds = [..._rounds];
 		if (value) {
-			const newRounds = [..._rounds];
-			if (
-				newRounds[roundIndex].seeds[seedIndex].teams[
-					position
-				].score?.toString() !== value
-			) {
-				newRounds[roundIndex].seeds[seedIndex].teams[position].score =
-					value;
-				setRounds(newRounds);
+			if (Number(value) <= 31 && Number(value) >= 0) {
+				if (
+					newRounds[roundIndex].seeds[seedIndex].teams[
+						position
+					].score?.toString() !== value
+				) {
+					newRounds[roundIndex].seeds[seedIndex].teams[
+						position
+					].score = value;
+					setRounds(newRounds);
+					openToast({
+						type: TYPE_TOAST.SUCCESS,
+						message: 'Cập nhật tỉ số thành công',
+					});
+				}
+			} else {
 				openToast({
-					type: TYPE_TOAST.SUCCESS,
-					message: 'Cập nhật tỉ số thành công',
+					type: TYPE_TOAST.WARNING,
+					message:
+						'Tỉ số lớn hơn hoặc bằng 0 và nhỏ hơn hoặc bằng 31',
 				});
+				return;
 			}
 		} else {
 			openToast({
@@ -126,12 +136,38 @@ export default function ScheduleMatch() {
 		}
 	};
 
+	const handleChangeSeedName = (roundIndex, seedIndex, position, value) => {
+		if (value) {
+			const newRounds = [..._rounds];
+			if (
+				newRounds[roundIndex].seeds[seedIndex].teams[
+					position
+				].name?.toString() !== value
+			) {
+				newRounds[roundIndex].seeds[seedIndex].teams[position].name =
+					value;
+				setRounds(newRounds);
+				openToast({
+					type: TYPE_TOAST.SUCCESS,
+					message: 'Cập nhật nhân sự thi đấu thành công',
+				});
+			}
+		} else {
+			openToast({
+				type: TYPE_TOAST.WARNING,
+				message: 'Nhân sự thi đấu không được để trống',
+			});
+			return;
+		}
+	};
+
 	return (
 		<Container className="!p-0">
 			<div className="max-w-full overflow-y-hidden" id="schedule_match">
 				<TournamentBrackets
 					rounds={_rounds}
-					handleChangeSeed={handleChangeSeed}
+					handleChangeSeedScore={handleChangeSeedScore}
+					handleChangeSeedName={handleChangeSeedName}
 				/>
 			</div>
 		</Container>
