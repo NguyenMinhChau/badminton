@@ -16,7 +16,7 @@ export const Navbar = () => {
 	];
 
 	const checkActiveRoute = (route) => {
-		return pathName.startsWith(route.href);
+		return route?.href === pathName;
 	};
 
 	return (
@@ -92,12 +92,11 @@ export const Navbar = () => {
 										<Link
 											key={index}
 											href={item?.href}
-											className="w-full text-white uppercase font-bold px-4 py-2 -ml-4 rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-[#ea580c3a] focus:outline-none"
-											style={{
-												color: checkActiveRoute(item)
-													? '#ea580c'
-													: 'text-white',
-											}}
+											className={`w-full text-white uppercase font-bold px-4 py-2 -ml-4 rounded-md hover:text-[#ea580c] focus:text-[#ea580c] focus:bg-[#ea580c3a] focus:outline-none ${
+												checkActiveRoute(item)
+													? 'active'
+													: ''
+											}`}
 										>
 											{item?.label}
 										</Link>
@@ -123,21 +122,26 @@ export const Navbar = () => {
 				{/* menu  */}
 				<div className="hidden text-center lg:flex lg:items-center">
 					<ul className="items-center justify-end flex-1 pt-6 list-none lg:pt-0 lg:flex">
-						{navigation.map((menu, index) => (
-							<li className="mr-3 nav__item" key={index}>
-								<Link
-									href={menu?.href}
-									className={`inline-block uppercase text-white font-bold px-4 py-2 text-lg no-underline rounded-md hover:text-indigo-500 focus:text-indigo-500 focus:bg-[#ea580c3a] focus:outline-none`}
-									style={{
-										color: checkActiveRoute(menu)
-											? '#ea580c'
-											: 'text-white',
-									}}
-								>
-									{menu?.label}
-								</Link>
-							</li>
-						))}
+						{navigation.map((menu, index) => {
+							console.log({
+								menu: checkActiveRoute(menu) ? menu : '',
+							});
+
+							return (
+								<li className="mr-3 nav__item" key={index}>
+									<Link
+										href={menu?.href}
+										className={`inline-block uppercase text-white font-bold px-4 py-2 text-lg no-underline rounded-md hover:text-[#ea580c] focus:text-[#ea580c] focus:bg-[#ea580c3a] focus:outline-none ${
+											checkActiveRoute(menu)
+												? 'active'
+												: ''
+										}`}
+									>
+										{menu?.label}
+									</Link>
+								</li>
+							);
+						})}
 					</ul>
 				</div>
 			</nav>
