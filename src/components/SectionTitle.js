@@ -10,11 +10,11 @@ export const SectionTitle = (props) => {
 					: 'items-center justify-center text-center'
 			}`}
 		>
-			{props.preTitle && (
+			{/* {props.preTitle && (
 				<div className="text-sm font-bold tracking-wider text-[#ea580c] uppercase">
 					{props.preTitle}
 				</div>
-			)}
+			)} */}
 
 			{props.title && (
 				<h2 className="max-w-2xl mt-3 text-2xl font-bold leading-snug tracking-tight text-white lg:leading-tight lg:text-4xl">

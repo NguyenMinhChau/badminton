@@ -96,7 +96,7 @@ export const Navbar = () => {
 											style={{
 												color: checkActiveRoute(item)
 													? '#ea580c'
-													: 'inherit',
+													: 'text-white',
 											}}
 										>
 											{item?.label}
@@ -131,7 +131,7 @@ export const Navbar = () => {
 									style={{
 										color: checkActiveRoute(menu)
 											? '#ea580c'
-											: 'inherit',
+											: 'text-white',
 									}}
 								>
 									{menu?.label}

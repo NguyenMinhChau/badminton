@@ -7,7 +7,7 @@ export const Hero = () => {
 			<div className="flex flex-wrap gap-3">
 				<div className="flex items-center w-full md:flex-1 lg:w-1/2">
 					<div className="max-w-2xl mb-8">
-						<h1 className="text-3xl font-bold leading-snug tracking-tight text-white lg:text-3xl lg:leading-tight xl:text-5xl xl:leading-tight">
+						<h1 className="text-2xl font-bold leading-snug tracking-tight text-white lg:text-2xl lg:leading-tight xl:text-4xl xl:leading-tight">
 							FTEL NHẤT - CHƠI CẦU LÔNG CHẤT
 						</h1>
 						<p className="py-5 text-l leading-normal text-justify text-white lg:text-l xl:text-xl">
