@@ -10,6 +10,22 @@ export const TournamentBrackets = ({
 	const CustomSeed = ({ seed, breakpoint, roundIndex, seedIndex }) => {
 		const score0 = Number(seed?.teams[0]?.score);
 		const score1 = Number(seed?.teams[1]?.score);
+		const isScore0HigherOrEqual = score0 >= score1;
+		const isScore1HigherOrEqual = score1 >= score0;
+
+		const backgroundPosition0 = isScore0HigherOrEqual
+			? 'bg-green-500'
+			: 'bg-gray-500';
+		const colorPosition0 = isScore0HigherOrEqual
+			? 'text-green-500'
+			: 'text-gray-500';
+
+		const backgroundPosition1 = isScore1HigherOrEqual
+			? 'bg-green-500'
+			: 'bg-gray-500';
+		const colorPosition1 = isScore1HigherOrEqual
+			? 'text-green-500'
+			: 'text-gray-500';
 		return (
 			<Seed mobileBreakpoint={breakpoint} style={{ fontSize: 12 }}>
 				<SeedItem>
@@ -17,7 +33,7 @@ export const TournamentBrackets = ({
 						<div className="text-center text-orange-500 mt-1 capitalize">
 							{seed?.date}
 						</div>
-						<div className="flex flex-col gap-2 my-2">
+						<div className="flex flex-col gap-3 my-2">
 							<div className="flex flex-row gap-1 items-center">
 								<input
 									type="text"
@@ -32,15 +48,7 @@ export const TournamentBrackets = ({
 											e.target.value,
 										);
 									}}
-									className={`flex-1 bg-opacity-30 outline-none border-none text-[13px] mx-1 ${
-										score0 > score1 || score0 === score1
-											? 'text-green-500'
-											: 'text-gray-500'
-									} ${
-										score0 > score1 || score0 === score1
-											? 'bg-green-500'
-											: 'bg-gray-500'
-									} font-bold p-[2px] rounded-tl-md rounded-br-md text-center`}
+									className={`flex-1 bg-opacity-30 outline-none border-none text-[13px] mx-1 ${colorPosition0} ${backgroundPosition0} font-bold p-[2px] rounded-tl-md rounded-br-md text-center`}
 								/>
 								<input
 									type="text"
@@ -53,15 +61,7 @@ export const TournamentBrackets = ({
 											e.target.value,
 										);
 									}}
-									className={`w-[30px] bg-opacity-30 outline-none border-none text-[13px] mr-1 ${
-										score0 > score1 || score0 === score1
-											? 'text-green-500'
-											: 'text-gray-500'
-									} ${
-										score0 > score1 || score0 === score1
-											? 'bg-green-500'
-											: 'bg-gray-500'
-									} font-bold p-[2px] rounded-tr-md rounded-bl-md text-center`}
+									className={`w-[30px] bg-opacity-30 outline-none border-none text-[13px] mr-1 ${colorPosition0} ${backgroundPosition0} font-bold p-[2px] rounded-tr-md rounded-bl-md text-center`}
 								/>
 							</div>
 							<div className="flex flex-row gap-1 items-center">
@@ -78,15 +78,7 @@ export const TournamentBrackets = ({
 											e.target.value,
 										);
 									}}
-									className={`flex-1 bg-opacity-30 outline-none border-none text-[13px] mx-1 ${
-										score1 > score0 || score1 === score0
-											? 'text-green-500'
-											: 'text-gray-500'
-									} ${
-										score1 > score0 || score1 === score0
-											? 'bg-green-500'
-											: 'bg-gray-500'
-									} font-bold p-[2px] rounded-tl-md rounded-br-md text-center`}
+									className={`flex-1 bg-opacity-30 outline-none border-none text-[13px] mx-1 ${colorPosition1} ${backgroundPosition1} font-bold p-[2px] rounded-tl-md rounded-br-md text-center`}
 								/>
 								<input
 									type="text"
@@ -99,15 +91,7 @@ export const TournamentBrackets = ({
 											e.target.value,
 										);
 									}}
-									className={`w-[30px] bg-opacity-30 outline-none border-none text-[13px] mr-1 ${
-										score1 > score0 || score1 === score0
-											? 'text-green-500'
-											: 'text-gray-500'
-									} ${
-										score1 > score0 || score1 === score0
-											? 'bg-green-500'
-											: 'bg-gray-500'
-									} font-bold p-[2px] rounded-tr-md rounded-bl-md text-center`}
+									className={`w-[30px] bg-opacity-30 outline-none border-none text-[13px] mr-1 ${colorPosition0} ${backgroundPosition1} font-bold p-[2px] rounded-tr-md rounded-bl-md text-center`}
 								/>
 							</div>
 						</div>
