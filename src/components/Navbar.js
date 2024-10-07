@@ -9,9 +9,9 @@ export const Navbar = () => {
 	const pathName = usePathname();
 	const navigation = [
 		{ label: 'Danh sách tham gia', href: '/list-users-join' },
-		{ label: 'Bảng kết quả', href: '/table-result' },
-		{ label: 'Xếp hạng', href: '/range' },
-		{ label: 'Quản lý', href: '/management' },
+		// { label: 'Bảng kết quả', href: '/table-result' },
+		// { label: 'Xếp hạng', href: '/range' },
+		// { label: 'Quản lý', href: '/management' },
 		{ label: 'Lịch thi đấu', href: '/schedule-match' },
 	];
 

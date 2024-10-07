@@ -4,8 +4,8 @@ import React from 'react';
 export const Benefits = (props) => {
 	const { data } = props;
 	return (
-		<div className="flex flex-wrap mb-10 lg:gap-10 lg:flex-nowrap ">
-			<div
+		<div className="flex flex-wrap mb-10 lg:gap-10 lg:flex-nowrap">
+			{/* <div
 				className={`flex items-center justify-center w-full lg:w-1/2 ${
 					props.imgPos === 'right' ? 'lg:order-1' : ''
 				}`}
@@ -21,12 +21,11 @@ export const Benefits = (props) => {
 						blurDataURL={data.image.src}
 					/>
 				</div>
-			</div>
+			</div> */}
 
 			<div
-				className={`flex flex-wrap items-center w-full lg:w-1/2 ${
-					data.imgPos === 'right' ? 'lg:justify-end' : ''
-				}`}
+				// lg:w-1/2 ${data.imgPos === 'right' ? 'lg:justify-end' : ''}
+				className={`flex flex-wrap items-center w-full`}
 			>
 				<div>
 					{(data?.title || data?.desc) && (
@@ -41,7 +40,8 @@ export const Benefits = (props) => {
 						</div>
 					)}
 
-					<div className="w-full mt-5">
+					{/* add: flex flex-row flex-wrap */}
+					<div className="flex flex-row flex-wrap w-full mt-5">
 						{data.bullets.map((item, index) => (
 							<Benefit
 								key={index}

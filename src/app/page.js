@@ -55,11 +55,11 @@ export default function Home() {
 
 				{/* <Benefits imgPos="right" data={benefitTwo} /> */}
 				{/* <Video videoId="fZ0D0cnR88E" /> */}
-				<SectionTitle preTitle="FAQ " title="CÁC CÂU HỎI THƯỜNG GẶP">
+				{/* <SectionTitle preTitle="FAQ " title="CÁC CÂU HỎI THƯỜNG GẶP">
 					Giúp cho người dùng có thể biết được những thắc mắc mà mình
 					đang gặp phải về chương trình
 				</SectionTitle>
-				<Faq />
+				<Faq /> */}
 
 				<SectionTitle
 					preTitle="SPONSORS"
