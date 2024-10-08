@@ -187,9 +187,9 @@ export default function ListUsersJoin() {
 								</DisclosureButton>
 								<DisclosurePanel
 									className="p-2 text-white rounded-lg"
-									style={{
-										backgroundColor: item.color + '3a',
-									}}
+									// style={{
+									// 	backgroundColor: item.color + '3a',
+									// }}
 								>
 									{item?.file && (
 										<div className="p-2 rounded-lg flex flex-row items-center gap-2 bg-gray-200 mb-3">
