@@ -3,7 +3,7 @@ export const FileUpload = ({ color, onChangeFile, file }) => {
 	return (
 		<div className={`flex items-center justify-center w-full`}>
 			<label
-				for="dropzone-file"
+				// for="dropzone-file"
 				className="flex flex-col items-center justify-center w-full h-64 border-2 bg-gray-200 border-dashed rounded-lg cursor-pointer"
 				style={{
 					borderColor: color,
@@ -49,7 +49,7 @@ export const FileUpload = ({ color, onChangeFile, file }) => {
 					</p>
 				</div>
 				<input
-					id="dropzone-file"
+					// id="dropzone-file"
 					type="file"
 					className="hidden"
 					onChange={(e) => {

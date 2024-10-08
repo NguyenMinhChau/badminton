@@ -87,14 +87,14 @@ export const Table = ({
 	};
 	return (
 		<div className="flex items-center justify-center">
-			<div className="w-full px-2">
+			<div className="w-full">
 				{title && (
 					<div>
 						<h1 className="text-2xl font-bold">{title}</h1>
 					</div>
 				)}
-				<div className="w-full overflow-x-scroll md:overflow-auto  max-w-7xl 2xl:max-w-none mt-2">
-					<table className="table-auto overflow-scroll md:overflow-auto w-full text-left font-inter border">
+				<div className="w-full overflow-x-scroll md:overflow-auto max-w-7xl 2xl:max-w-none mt-2 rounded-xl overflow-hidden border">
+					<table className="table-auto overflow-scroll md:overflow-auto w-full text-left font-inte">
 						<thead className="rounded-lg text-base text-white font-semibold w-full">
 							<tr className="bg-[#ea580c]">
 								{columns?.map((column, _idx) => (

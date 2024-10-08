@@ -1,10 +1,10 @@
 'use client';
-export const FileUploadSmall = ({ color, onChangeFile, file }) => {
+export const FileUploadSmall = ({ color, onChange, file, className }) => {
 	return (
 		<div className={`flex items-center justify-center`}>
 			<label
-				for="dropzone-file"
-				className="flex flex-col items-center justify-center w-full border-2 bg-gray-200 border-dashed rounded-lg cursor-pointer"
+				// for="dropzone-file"
+				className={`flex flex-col items-center justify-center w-full border-2 bg-gray-200 border-dashed rounded-lg cursor-pointer ${className}`}
 				style={{
 					borderColor: color,
 				}}
@@ -30,11 +30,11 @@ export const FileUploadSmall = ({ color, onChangeFile, file }) => {
 					</svg>
 				</div>
 				<input
-					id="dropzone-file"
+					// id="dropzone-file"
 					type="file"
 					className="hidden"
 					onChange={(e) => {
-						onChangeFile(e.target.files);
+						onChange(e.target.files);
 					}}
 					accept=".xlsx,.xls"
 				/>

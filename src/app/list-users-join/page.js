@@ -52,121 +52,56 @@ const _columns = [
 ];
 
 export default function ListUsersJoin() {
-	const [fileDonNam, setFileDonNam] = React.useState(null);
-	const [fileDonNu, setFileDonNu] = React.useState(null);
-	const [fileDoiNam, setFileDoiNam] = React.useState(null);
-	const [fileDoiNu, setFileDoiNu] = React.useState(null);
 	const managementData = [
 		{
 			question: 'ĐƠN NAM',
 			color: '#0ea5e9',
-			onChange: (files) => {
-				setFileDonNam(files?.[0]);
-			},
-			file: fileDonNam,
+			file: null,
 			data: data,
 			columns: _columns,
 		},
 		{
 			question: 'ĐƠN NỮ',
 			color: '#6366f1',
-			onChange: (files) => {
-				setFileDonNu(files?.[0]);
-			},
-			file: fileDonNu,
+			file: null,
 			data: data,
 			columns: _columns,
 		},
 		{
 			question: 'ĐÔI NAM',
 			color: '#a855f7',
-			onChange: (files) => {
-				setFileDoiNam(files?.[0]);
-			},
-			file: fileDoiNam,
+			file: null,
 			data: data,
 			columns: _columns,
 		},
 		{
 			question: 'ĐÔI NỮ',
 			color: '#ec4899',
-			onChange: (files) => {
-				setFileDoiNu(files?.[0]);
-			},
-			file: fileDoiNu,
+			file: null,
 			data: data,
 			columns: _columns,
 		},
 	];
+
 	const [dataManagement, setDataManagement] = React.useState(managementData);
 
-	React.useEffect(() => {
-		setDataManagement([
-			...dataManagement,
-			{
-				question: 'ĐƠN NAM',
-				color: '#0ea5e9',
-				onChange: (files) => {
-					setFileDonNam(files?.[0]);
-				},
-				file: fileDonNam,
-			},
-		]);
-	}, [fileDonNam]);
-	React.useEffect(() => {
-		setDataManagement([
-			...dataManagement,
-			{
-				question: 'ĐƠN NỮ',
-				color: '#6366f1',
-				onChange: (files) => {
-					setFileDonNu(files?.[0]);
-				},
-				file: fileDonNu,
-			},
-		]);
-	}, [fileDonNu]);
-	React.useEffect(() => {
-		setDataManagement([
-			...dataManagement,
-			{
-				question: 'ĐÔI NAM',
-				color: '#a855f7',
-				onChange: (files) => {
-					setFileDoiNam(files?.[0]);
-				},
-				file: fileDoiNam,
-			},
-		]);
-	}, [fileDoiNam]);
-	React.useEffect(() => {
-		setDataManagement([
-			...dataManagement,
-			{
-				question: 'ĐÔI NỮ',
-				color: '#ec4899',
-				onChange: (files) => {
-					setFileDoiNu(files?.[0]);
-				},
-				file: fileDoiNu,
-			},
-		]);
-	}, [fileDoiNu]);
+	console.log({ dataManagement });
+
 	return (
 		<Container className="!p-0">
-			{managementData.map((item, index) => (
+			{dataManagement.map((item, index) => (
 				<div key={index} className="mb-5 w-full">
 					<Disclosure defaultOpen={true}>
 						{({ open }) => (
 							<>
-								<DisclosureButton
-									className={`flex items-center bg-gray-200 justify-between font-bold w-full p-2 text-l text-left rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-indigo-100 focus-visible:ring-opacity-75`}
-									style={{
-										color: item.color,
-									}}
-								>
-									<span>{item.question}</span>
-									<div className="flex flex-row gap-2 items-center">
+								<div className="flex flex-row">
+									<DisclosureButton
+										className={`flex items-center bg-gray-200 justify-between font-bold w-full px-2 py-3 text-l text-left rounded-tl-lg rounded-bl-lg  focus:outline-none focus-visible:ring focus-visible:ring-indigo-100 focus-visible:ring-opacity-75`}
+										style={{
+											color: item.color,
+										}}
+									>
+										<span>{item.question}</span>
 										<ChevronUpIcon
 											className={`${
 												open
@@ -177,22 +112,25 @@ export default function ListUsersJoin() {
 												color: item.color,
 											}}
 										/>
-										<FileUploadSmall
-											color={item.color}
-											onChangeFile={(files) => {
-												item?.onChange(files);
-											}}
-										/>
-									</div>
-								</DisclosureButton>
-								<DisclosurePanel
-									className="p-2 text-white rounded-lg"
-									// style={{
-									// 	backgroundColor: item.color + '3a',
-									// }}
-								>
+									</DisclosureButton>
+									<FileUploadSmall
+										color={item.color}
+										onChange={(files) => {
+											const _newDataManagement = [
+												...dataManagement,
+											];
+											_newDataManagement[index].file =
+												files[0];
+											setDataManagement(
+												_newDataManagement,
+											);
+										}}
+										className="rounded-tl-none rounded-bl-none px-[6px] rounded-tr-lg rounded-br-lg border-0 border-l-2 h-full"
+									/>
+								</div>
+								<DisclosurePanel className="text-white rounded-lg">
 									{item?.file && (
-										<div className="p-2 rounded-lg flex flex-row items-center gap-2 bg-gray-200 mb-3">
+										<div className="p-2 rounded-lg flex flex-row items-center gap-2 bg-gray-200 mt-2">
 											<div className="text-green-500">
 												<SheetSVG />
 											</div>
