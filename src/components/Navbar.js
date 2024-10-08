@@ -123,10 +123,6 @@ export const Navbar = () => {
 				<div className="hidden text-center lg:flex lg:items-center">
 					<ul className="items-center justify-end flex-1 pt-6 list-none lg:pt-0 lg:flex">
 						{navigation.map((menu, index) => {
-							console.log({
-								menu: checkActiveRoute(menu) ? menu : '',
-							});
-
 							return (
 								<li className="mr-3 nav__item" key={index}>
 									<Link
