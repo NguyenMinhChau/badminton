@@ -35,7 +35,7 @@ export const Hero = () => {
 								<a
 									href="https://maps.app.goo.gl/8S4pwtk4VEZSyoc9A"
 									target="_blank"
-									className="italic text-blue-500 cursor-pointer"
+									className="italic text-orange-500 cursor-pointer"
 								>
 									107 Đ. Nguyễn Văn Linh, Tân Thuận Tây, Quận
 									7, Hồ Chí Minh, Việt Nam
