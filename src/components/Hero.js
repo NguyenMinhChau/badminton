@@ -31,7 +31,7 @@ export const Hero = () => {
 								</span>{' '}
 							</p>
 							<p className="font-bold">
-								<u>Địa điểm:</u>{' '}
+								<u>Địa điểm (Sân Cầu Lông ECO):</u>{' '}
 								<a
 									href="https://maps.app.goo.gl/8S4pwtk4VEZSyoc9A"
 									target="_blank"
