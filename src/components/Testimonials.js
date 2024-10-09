@@ -7,17 +7,16 @@ export const Testimonials = ({ data }) => {
 				{data?.map((item, index) => {
 					const { fullName, position, content, image } = { ...item };
 					return (
-						<div key={index} className="lg:col-span-2 xl:col-auto">
-							<div className="flex flex-col justify-between w-full h-full bg-gray-200 rounded-2xl p-5">
-								<p className="text-[18px] leading-normal text-black">
-									<q>{content}</q>
-								</p>
-
+						<div key={index} className="">
+							<div className="flex flex-col w-full h-full bg-gray-200 rounded-2xl overflow-hidden">
 								<Avatar
 									image={image}
 									name={fullName}
 									title={position}
 								/>
+								<p className="text-[18px] p-5 pt-0 leading-normal text-black mt-3">
+									<q>{content}</q>
+								</p>
 							</div>
 						</div>
 					);
@@ -47,20 +46,31 @@ export const Testimonials = ({ data }) => {
 
 function Avatar(props) {
 	return (
-		<div className="flex items-center mt-8 space-x-3">
-			<div className="flex-shrink-0 overflow-hidden rounded-full w-14 h-14">
+		<div className="flex flex-col items-start">
+			<div className="w-full h-[300px] relative">
+				<div
+					className="absolute top-0 right-0 bottom-0 top-0 left-0 z-50"
+					style={{
+						backgroundImage: `url(${props.image})`,
+						backgroundSize: 'cover',
+						backgroundPosition: 'center',
+						backgroundRepeat: 'no-repeat',
+						backgroundBlendMode: 'overlay',
+						filter: 'blur(20px)',
+					}}
+				></div>
 				<img
 					src={props.image}
-					width="40"
-					height="40"
-					className="cursor-pointer"
+					width="100"
+					height="100"
+					className="cursor-pointer w-full h-full object-contain aspect-auto absolute top-0 right-0 bottom-0 left-0 z-50"
 					alt="Avatar"
 					onClick={() => {
 						window.open(props?.image, '_blank');
 					}}
 				/>
 			</div>
-			<div>
+			<div className="px-5 pt-3">
 				<div className="text-lg font-medium text-black">
 					{props.name}
 				</div>
