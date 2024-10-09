@@ -14,7 +14,7 @@ export const Testimonials = ({ data }) => {
 									name={fullName}
 									title={position}
 								/>
-								<p className="text-[18px] p-5 pt-0 leading-normal text-black mt-3">
+								<p className="text-[18px] p-5 pt-0 leading-normal text-black text-justify mt-3">
 									<q>{content}</q>
 								</p>
 							</div>
