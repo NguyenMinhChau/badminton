@@ -23,15 +23,15 @@ export const Hero = () => {
 							nhận được những phần thưởng giá trị từ chương trình.
 						</p>
 
-						<div className="pb-5 text-[22px] leading-normal text-left text-white lg:text-[22px] xl:text-[28px]">
+						<div className="pb-5 text-l leading-normal text-left text-white lg:text-l xl:text-xl">
 							<p className="font-bold">
-								<u>Thời gian:</u>{' '}
+								Thời gian:{' '}
 								<span className="text-orange-500 italic">
 									Từ 7h30 - 16h ngày 27/10/2024
 								</span>{' '}
 							</p>
 							<p className="font-bold">
-								<u>Địa điểm (Sân Cầu Lông ECO):</u>{' '}
+								Địa điểm (Sân Cầu Lông ECO):{' '}
 								<a
 									href="https://maps.app.goo.gl/8S4pwtk4VEZSyoc9A"
 									target="_blank"
@@ -45,7 +45,7 @@ export const Hero = () => {
 
 						<div className="flex flex-col items-start space-y-3 sm:space-x-4 sm:space-y-0 sm:items-center sm:flex-row">
 							<a
-								href="https://drive.google.com/file/d/18GoIzIijEiRHh5PfkBBNLoSD9XiByTC1/view?usp=sharing"
+								href="https://drive.google.com/file/d/1zV2hj3E4zKecQcJIOEoBvuWLPmTANo3i/view?usp=sharing"
 								target="_blank"
 								rel="noopener"
 								className="px-8 py-4 text-sm font-medium text-center text-white bg-[#ea580c] rounded-md "

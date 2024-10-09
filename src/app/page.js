@@ -4,13 +4,36 @@ import { Hero } from '@/components/Hero';
 import { SectionTitle } from '@/components/SectionTitle';
 import { Benefits } from '@/components/Benefits';
 import { Testimonials } from '@/components/Testimonials';
-import { Faq } from '@/components/Faq';
 import { LoadingScreen } from '@/components/LoadingScreen';
 import { useAppContext } from '../../hooks/';
 import prizeStructureImg from '../../public/img/prize_structure.png';
 
 import { benefitOne } from '@/components/data';
 import Image from 'next/image';
+
+const DATA_TESTIMONIALS = [
+	{
+		fullName: 'Hoàng Mạnh Thắng',
+		position: 'Phó GĐ Trung tâm Kinh doanh CCD FTI - FPT Telecom',
+		content:
+			'Chơi cầu lông cũng như làm kinh doanh, không phải cứ đập mạnh là thắng, mà phải biết tính toán để đưa cầu vào đúng chỗ! Đập cầu giống như chốt hợp đồng: lúc nào cũng phải đúng thời điểm.',
+		image: 'https://i.imgur.com/IM2xONq.jpeg',
+	},
+	{
+		fullName: 'Đỗ Xuân Anh',
+		position: 'Trưởng ban Truyền thông FPT Telecom',
+		content:
+			'Vui nhất ở giải đấu này không phải là đi thi lấy giải, mà bất ngờ khám phá nhiều đồng môn yêu thích cầu lông ngay tại FTEL. Thế là trong Ban cùng thống nhất ít nhất phải đánh cầu với nhau 1 lần/tuần, cùng nhau khỏe, cùng nhau giảm cân thon thả, tạm gác công việc để dành thời gian cho nhau, không còn khoảng cách sếp- nhân viên sau giờ làm.',
+		image: 'https://i.imgur.com/IxqMIn6.jpeg',
+	},
+	{
+		fullName: 'Trần Văn Tùng',
+		position: 'Cán bộ Quản lý Hạ tầng INF - Chi nhánh FPT Telecom Nghệ An',
+		content:
+			'Mình không ngại vào Sài Gòn, mình chỉ cần lý do....Khoảng cách địa lý không là vấn đề khi bạn muốn chơi cầu và kết nối, giao lưu học hỏi cùng các đồng nghiệp FTEL. Cầu lông không chỉ là một môn thể thao, mà còn là một cách sống.',
+		image: 'https://i.imgur.com/A32kZ8m.jpeg',
+	},
+];
 
 export default function Home() {
 	const { state } = useAppContext();
@@ -51,7 +74,7 @@ export default function Home() {
 					preTitle="SHARE"
 					title="NHỮNG CHIA SẺ THÚ VỊ"
 				></SectionTitle>
-				<Testimonials />
+				<Testimonials data={DATA_TESTIMONIALS} />
 
 				{/* <Benefits imgPos="right" data={benefitTwo} /> */}
 				{/* <Video videoId="fZ0D0cnR88E" /> */}

@@ -81,6 +81,13 @@ export default function ListUsersJoin() {
 			data: data,
 			columns: _columns,
 		},
+		{
+			question: 'ĐÔI NAM NỮ',
+			color: '#059669',
+			file: null,
+			data: data,
+			columns: _columns,
+		},
 	];
 
 	const [dataManagement, setDataManagement] = React.useState(managementData);
