@@ -8,9 +8,9 @@ export const Testimonials = ({ data }) => {
 					const { fullName, position, content, image } = { ...item };
 					return (
 						<div key={index} className="lg:col-span-2 xl:col-auto">
-							<div className="flex flex-col justify-between w-full h-full bg-gray-200 px-14 rounded-2xl py-14">
-								<p className="text-2xl leading-normal text-black">
-									{content}
+							<div className="flex flex-col justify-between w-full h-full bg-gray-200 rounded-2xl p-5">
+								<p className="text-[18px] leading-normal text-black">
+									<q>{content}</q>
 								</p>
 
 								<Avatar
