@@ -92,8 +92,6 @@ export default function ListUsersJoin() {
 
 	const [dataManagement, setDataManagement] = React.useState(managementData);
 
-	console.log({ dataManagement });
-
 	return (
 		<Container className="!p-0">
 			{dataManagement.map((item, index) => (
