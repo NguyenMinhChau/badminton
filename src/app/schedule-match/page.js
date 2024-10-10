@@ -152,7 +152,7 @@ export default function ScheduleMatch() {
 			<Container className="!p-0">
 				{_seeds.map((item, index) => (
 					<div key={index} className="mb-5 w-full">
-						<Disclosure defaultOpen={true}>
+						<Disclosure defaultOpen={index === 0}>
 							{({ open }) => (
 								<>
 									<div className="flex flex-row">
@@ -176,7 +176,7 @@ export default function ScheduleMatch() {
 										</DisclosureButton>
 									</div>
 									<DisclosurePanel className="text-white rounded-lg p-2">
-										{item?.data?.length > 0 && (
+										{/* {item?.data?.length > 0 && (
 											<button
 												className="flex items-center mb-3 justify-center rounded-md py-4 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp bg-[#ea580c] disabled:bg-opacity-50 disabled:cursor-default cursor-pointer"
 												onClick={handleSubmitted}
@@ -189,7 +189,7 @@ export default function ScheduleMatch() {
 											>
 												Cập nhật thay đổi
 											</button>
-										)}
+										)} */}
 										<div
 											className="max-w-full overflow-y-hidden"
 											id="schedule_match"

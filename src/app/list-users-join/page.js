@@ -133,7 +133,7 @@ export default function ListUsersJoin() {
 			<Container className="!p-0">
 				{dataManagement.map((item, index) => (
 					<div key={index} className="mb-5 w-full">
-						<Disclosure defaultOpen={true}>
+						<Disclosure defaultOpen={index === 0}>
 							{({ open }) => (
 								<>
 									<div className="flex flex-row">
