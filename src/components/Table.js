@@ -88,7 +88,7 @@ export const Table = ({
 
 	React.useEffect(() => {
 		setProductList(data);
-		setRowsToShow(data.slice(0, rowsLimit));
+		setRowsToShow(data?.slice(0, rowsLimit));
 	}, [data]);
 	return (
 		<div className="flex items-center justify-center">
