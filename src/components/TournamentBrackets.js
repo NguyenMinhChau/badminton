@@ -77,44 +77,48 @@ export const TournamentBrackets = ({
 									className={`w-[50px] bg-opacity-30 py-2 outline-none border-none text-[14px] mr-1 ${colorPosition0} ${backgroundPosition0} font-bold p-[2px] rounded-tr-md rounded-bl-md text-center`}
 								/>
 							</div>
-							<div className="flex flex-row gap-1 items-start">
-								<div className="flex flex-col items-start">
+							{seed.teams[1]?.name && (
+								<div className="flex flex-row gap-1 items-start">
+									<div className="flex flex-col items-start">
+										<input
+											type="text"
+											defaultValue={
+												seed.teams[1]?.name ||
+												'NO TEAM '
+											}
+											onBlur={(e) => {
+												handleChangeSeedName(
+													roundIndex,
+													seedIndex,
+													1,
+													e.target.value,
+													paramsHandleChangeSeedName,
+												);
+											}}
+											className={`bg-opacity-30 py-2 outline-none border-none text-[14px] mx-1 ${colorPosition1} ${backgroundPosition1} font-bold p-[2px] rounded-tl-md rounded-br-md text-center`}
+										/>
+										<span className="font-bold mx-2 text-[8px] italic">
+											Phòng Ban:{' '}
+											{seed?.teams[1]?.department ||
+												'---'}
+										</span>
+									</div>
 									<input
 										type="text"
-										defaultValue={
-											seed.teams[1]?.name || 'NO TEAM '
-										}
+										defaultValue={score1?.toString()}
 										onBlur={(e) => {
-											handleChangeSeedName(
+											handleChangeSeedScore(
 												roundIndex,
 												seedIndex,
 												1,
 												e.target.value,
-												paramsHandleChangeSeedName,
+												paramsHandleChangeSeedScore,
 											);
 										}}
-										className={`bg-opacity-30 py-2 outline-none border-none text-[14px] mx-1 ${colorPosition1} ${backgroundPosition1} font-bold p-[2px] rounded-tl-md rounded-br-md text-center`}
+										className={`w-[50px] py-2 bg-opacity-30 outline-none border-none text-[14px] mr-1 ${colorPosition1} ${backgroundPosition1} font-bold p-[2px] rounded-tr-md rounded-bl-md text-center`}
 									/>
-									<span className="font-bold mx-2 text-[8px] italic">
-										Phòng Ban:{' '}
-										{seed?.teams[1]?.department || '---'}
-									</span>
 								</div>
-								<input
-									type="text"
-									defaultValue={score1?.toString()}
-									onBlur={(e) => {
-										handleChangeSeedScore(
-											roundIndex,
-											seedIndex,
-											1,
-											e.target.value,
-											paramsHandleChangeSeedScore,
-										);
-									}}
-									className={`w-[50px] py-2 bg-opacity-30 outline-none border-none text-[14px] mr-1 ${colorPosition1} ${backgroundPosition1} font-bold p-[2px] rounded-tr-md rounded-bl-md text-center`}
-								/>
-							</div>
+							)}
 						</div>
 					</div>
 				</SeedItem>
