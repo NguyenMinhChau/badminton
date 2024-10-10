@@ -32,19 +32,21 @@ const _columns = [
 							window.open(row.image, '_blank');
 						}}
 					/>
-					<img
-						src={
-							row.image ||
-							'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPHVvfXupg0nld10nBo2PfTM6Zi_l-CUy1GQ&s'
-						}
-						width="35"
-						alt={row.full_name}
-						height="35"
-						className="w-[35px] h-[35px] cursor-pointer rounded-full overflow-hidden object-fill aspect-auto"
-						onClick={() => {
-							window.open(row.image, '_blank');
-						}}
-					/>
+					{row.player2 && (
+						<img
+							src={
+								row.image ||
+								'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPHVvfXupg0nld10nBo2PfTM6Zi_l-CUy1GQ&s'
+							}
+							width="35"
+							alt={row.full_name}
+							height="35"
+							className="w-[35px] h-[35px] cursor-pointer rounded-full overflow-hidden object-fill aspect-auto"
+							onClick={() => {
+								window.open(row.image, '_blank');
+							}}
+						/>
+					)}
 				</div>
 			);
 		},
@@ -56,7 +58,7 @@ const _columns = [
 			return (
 				<div className="flex flex-col gap-6 w-full justify-between">
 					<div>{row.player1 || '---'}</div>
-					<div>{row.player2 || '---'}</div>
+					{row.player2 && <div>{row.player2}</div>}
 				</div>
 			);
 		},
@@ -68,7 +70,7 @@ const _columns = [
 			return (
 				<div className="flex flex-col gap-6 w-full justify-between">
 					<div>{row.department1 || '---'}</div>
-					<div>{row.department2 || '---'}</div>
+					{row.player2 && <div>{row.department2 || '---'}</div>}
 				</div>
 			);
 		},
