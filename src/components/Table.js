@@ -3,7 +3,7 @@ import Image from 'next/image';
 import React, { useState, useMemo } from 'react';
 
 export const Table = ({
-	limitPage = 5,
+	limitPage = 99999999,
 	columns = [],
 	data = [],
 	title = '',
