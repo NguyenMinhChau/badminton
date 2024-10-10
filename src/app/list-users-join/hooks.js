@@ -1,6 +1,6 @@
 'use client';
 import { useAppContext } from '../../../hooks/';
-import { GET_LIST_PLAYERS } from '../../services';
+import { GET_LIST_PLAYERS, GET_LIST_SCHEDULE_MATCH } from '../../services';
 import useToggle from '../../utils/useToogle';
 
 export const useListUserJoin = () => {
@@ -12,7 +12,12 @@ export const useListUserJoin = () => {
 	const CallApiGetListPlayers = () => {
 		GET_LIST_PLAYERS({
 			dispatch,
-			_submitting,
+			_setSubmitting,
+		});
+	};
+	const CallApiGetListScheduleMatch = () => {
+		GET_LIST_SCHEDULE_MATCH({
+			dispatch,
 			_setSubmitting,
 		});
 	};
@@ -20,7 +25,9 @@ export const useListUserJoin = () => {
 	return {
 		_submitting,
 		user_list_join,
+		schedule_match,
 
 		CallApiGetListPlayers,
+		CallApiGetListScheduleMatch,
 	};
 };
