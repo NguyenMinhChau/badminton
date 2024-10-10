@@ -9,162 +9,200 @@ import {
 } from '@headlessui/react';
 import { ChevronUpIcon } from '@heroicons/react/24/solid';
 import React from 'react';
+import { useListUserJoin } from './hooks';
+import { LoadingScreen } from '@/components/LoadingScreen';
 
-const data = [
-	{
-		image: 'https://plus.unsplash.com/premium_photo-1728033936981-600bffc3fda4?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxMHx8fGVufDB8fHx8fA%3D%3D',
-		full_name: 'Nguyễn Văn A',
-		phone: '0398.365.xxx',
-	},
-	{
-		image: 'https://images.unsplash.com/photo-1726293993561-ae9901d8c6d0?w=700&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzfHx8ZW58MHx8fHx8',
-		full_name: 'Nguyễn Văn B',
-		phone: '0398.365.xxx',
-	},
-];
 const _columns = [
 	{
 		key: 'image',
 		Header: 'Ảnh',
 		accessor: (row) => {
 			return (
-				<img
-					src={row.image}
-					width="50"
-					alt={row.full_name}
-					height="50"
-					className="w-[50px] h-[50px] cursor-pointer rounded-full overflow-hidden object-fill aspect-auto"
-					onClick={() => {
-						window.open(row.image, '_blank');
-					}}
-				/>
+				<div className="flex flex-col gap-3">
+					<img
+						src={
+							row.image ||
+							'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPHVvfXupg0nld10nBo2PfTM6Zi_l-CUy1GQ&s'
+						}
+						width="35"
+						alt={row.full_name}
+						height="35"
+						className="w-[35px] h-[35px] cursor-pointer rounded-full overflow-hidden object-fill aspect-auto"
+						onClick={() => {
+							window.open(row.image, '_blank');
+						}}
+					/>
+					<img
+						src={
+							row.image ||
+							'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPHVvfXupg0nld10nBo2PfTM6Zi_l-CUy1GQ&s'
+						}
+						width="35"
+						alt={row.full_name}
+						height="35"
+						className="w-[35px] h-[35px] cursor-pointer rounded-full overflow-hidden object-fill aspect-auto"
+						onClick={() => {
+							window.open(row.image, '_blank');
+						}}
+					/>
+				</div>
 			);
 		},
 	},
 	{
-		key: 'full_name',
+		key: 'player1',
 		Header: 'Họ và tên',
+		accessor: (row) => {
+			return (
+				<div className="flex flex-col gap-6 w-full justify-between">
+					<div>{row.player1 || '---'}</div>
+					<div>{row.player2 || '---'}</div>
+				</div>
+			);
+		},
 	},
 	{
-		key: 'phone',
-		Header: 'Số điện thoại',
+		key: 'department1',
+		Header: 'Phòng ban',
+		accessor: (row) => {
+			return (
+				<div className="flex flex-col gap-6 w-full justify-between">
+					<div>{row.department1 || '---'}</div>
+					<div>{row.department2 || '---'}</div>
+				</div>
+			);
+		},
 	},
 ];
 
 export default function ListUsersJoin() {
+	const { _submitting, user_list_join, CallApiGetListPlayers } =
+		useListUserJoin();
+	const { donNam, donNu, doiNam, doiNu, doiNamNu } = { ...user_list_join };
 	const managementData = [
 		{
 			question: 'ĐƠN NAM',
 			color: '#0ea5e9',
 			file: null,
-			data: data,
+			data: donNam || [],
 			columns: _columns,
 		},
 		{
 			question: 'ĐƠN NỮ',
 			color: '#6366f1',
 			file: null,
-			data: data,
+			data: donNu || [],
 			columns: _columns,
 		},
 		{
 			question: 'ĐÔI NAM',
 			color: '#a855f7',
 			file: null,
-			data: data,
+			data: doiNam || [],
 			columns: _columns,
 		},
 		{
 			question: 'ĐÔI NỮ',
 			color: '#ec4899',
 			file: null,
-			data: data,
+			data: doiNu || [],
 			columns: _columns,
 		},
 		{
 			question: 'ĐÔI NAM NỮ',
 			color: '#059669',
 			file: null,
-			data: data,
+			data: doiNamNu || [],
 			columns: _columns,
 		},
 	];
 
+	React.useEffect(() => {
+		CallApiGetListPlayers();
+	}, []);
+
 	const [dataManagement, setDataManagement] = React.useState(managementData);
 
+	React.useEffect(() => {
+		setDataManagement(managementData);
+	}, [user_list_join]);
+
 	return (
-		<Container className="!p-0">
-			{dataManagement.map((item, index) => (
-				<div key={index} className="mb-5 w-full">
-					<Disclosure defaultOpen={true}>
-						{({ open }) => (
-							<>
-								<div className="flex flex-row">
-									<DisclosureButton
-										className={`flex items-center bg-gray-200 justify-between font-bold w-full px-2 py-3 text-l text-left rounded-tl-lg rounded-bl-lg  focus:outline-none focus-visible:ring focus-visible:ring-indigo-100 focus-visible:ring-opacity-75`}
-										style={{
-											color: item.color,
-										}}
-									>
-										<span>{item.question}</span>
-										<ChevronUpIcon
-											className={`${
-												open
-													? 'transform rotate-180'
-													: ''
-											} w-5 h-5 font-bold`}
+		<>
+			{_submitting && <LoadingScreen />}
+			<Container className="!p-0">
+				{dataManagement.map((item, index) => (
+					<div key={index} className="mb-5 w-full">
+						<Disclosure defaultOpen={true}>
+							{({ open }) => (
+								<>
+									<div className="flex flex-row">
+										<DisclosureButton
+											className={`flex items-center bg-gray-200 justify-between font-bold w-full px-2 py-3 text-l text-left rounded-tl-lg rounded-bl-lg  focus:outline-none focus-visible:ring focus-visible:ring-indigo-100 focus-visible:ring-opacity-75`}
 											style={{
 												color: item.color,
 											}}
+										>
+											<span>{item.question}</span>
+											<ChevronUpIcon
+												className={`${
+													open
+														? 'transform rotate-180'
+														: ''
+												} w-5 h-5 font-bold`}
+												style={{
+													color: item.color,
+												}}
+											/>
+										</DisclosureButton>
+										<FileUploadSmall
+											color={item.color}
+											onChange={(files) => {
+												const _newDataManagement = [
+													...dataManagement,
+												];
+												_newDataManagement[index].file =
+													files[0];
+												setDataManagement(
+													_newDataManagement,
+												);
+											}}
+											className="rounded-tl-none rounded-bl-none px-[6px] rounded-tr-lg rounded-br-lg border-0 border-l-2 h-full"
 										/>
-									</DisclosureButton>
-									<FileUploadSmall
-										color={item.color}
-										onChange={(files) => {
-											const _newDataManagement = [
-												...dataManagement,
-											];
-											_newDataManagement[index].file =
-												files[0];
-											setDataManagement(
-												_newDataManagement,
-											);
-										}}
-										className="rounded-tl-none rounded-bl-none px-[6px] rounded-tr-lg rounded-br-lg border-0 border-l-2 h-full"
-									/>
-								</div>
-								<DisclosurePanel className="text-white rounded-lg">
-									{item?.file && (
-										<div className="p-2 rounded-lg flex flex-row items-center gap-2 bg-gray-200 mt-2">
-											<div className="text-green-500">
-												<SheetSVG />
+									</div>
+									<DisclosurePanel className="text-white rounded-lg">
+										{item?.file && (
+											<div className="p-2 rounded-lg flex flex-row items-center gap-2 bg-gray-200 mt-2">
+												<div className="text-green-500">
+													<SheetSVG />
+												</div>
+												<div className="flex flex-col flex-1">
+													<span className="text-gray-500 text-[13px] font-bold">
+														{item?.file?.name}
+													</span>
+													<span className="text-gray-500 text-[13px]">
+														Size:{' '}
+														{(
+															item?.file?.size /
+															(1024 * 1024)
+														).toFixed(2)}{' '}
+														MB
+													</span>
+												</div>
 											</div>
-											<div className="flex flex-col flex-1">
-												<span className="text-gray-500 text-[13px] font-bold">
-													{item?.file?.name}
-												</span>
-												<span className="text-gray-500 text-[13px]">
-													Size:{' '}
-													{(
-														item?.file?.size /
-														(1024 * 1024)
-													).toFixed(2)}{' '}
-													MB
-												</span>
-											</div>
-										</div>
-									)}
-									<Table
-										columns={item.columns}
-										data={item.data}
-									/>
-								</DisclosurePanel>
-							</>
-						)}
-					</Disclosure>
-				</div>
-			))}
-		</Container>
+										)}
+										<Table
+											columns={item.columns}
+											data={item.data}
+										/>
+									</DisclosurePanel>
+								</>
+							)}
+						</Disclosure>
+					</div>
+				))}
+			</Container>
+		</>
 	);
 }
 

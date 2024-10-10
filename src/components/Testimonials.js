@@ -21,7 +21,7 @@ export const Testimonials = ({ data }) => {
 						</div>
 					);
 				})}
-				{/* s
+				{/*
 					//lg:col-span-2 xl:col-auto
 					<div className="">
 						<div className="flex flex-col justify-between w-full h-full bg-gray-200 px-14 rounded-2xl py-14">

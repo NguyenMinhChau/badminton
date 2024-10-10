@@ -1,21 +1,21 @@
 'use client';
 import Image from 'next/image';
-import { useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 
 export const Table = ({
-	limitPage = 3,
+	limitPage = 5,
 	columns = [],
 	data = [],
 	title = '',
 }) => {
-	const [productList] = useState(data);
-	const [rowsLimit] = useState(limitPage);
+	const rowsLimit = limitPage;
+	const [productList, setProductList] = useState(data);
 	const [rowsToShow, setRowsToShow] = useState(
 		productList.slice(0, rowsLimit),
 	);
 	const [customPagination, setCustomPagination] = useState([]);
-	const [totalPage] = useState(Math.ceil(productList?.length / rowsLimit));
 	const [currentPage, setCurrentPage] = useState(0);
+	const totalPage = Math.ceil(productList?.length / rowsLimit);
 	const nextPage = () => {
 		const startIndex = rowsLimit * (currentPage + 1);
 		const endIndex = startIndex + rowsLimit;
@@ -85,6 +85,11 @@ export const Table = ({
 
 		return pages;
 	};
+
+	React.useEffect(() => {
+		setProductList(data);
+		setRowsToShow(productList.slice(0, rowsLimit));
+	}, [data]);
 	return (
 		<div className="flex items-center justify-center">
 			<div className="w-full">
@@ -108,33 +113,51 @@ export const Table = ({
 							</tr>
 						</thead>
 						<tbody>
-							{rowsToShow?.map((data, index) => {
-								return (
-									<tr
-										className={`${
-											index % 2 == 0
-												? 'bg-black bg-opacity-50'
-												: 'bg-transparent'
-										}`}
-										key={index}
+							{rowsToShow?.length > 0 ? (
+								rowsToShow?.map((data, index) => {
+									return (
+										<tr
+											className={`${
+												index % 2 == 0
+													? 'bg-black bg-opacity-50'
+													: 'bg-transparent'
+											}`}
+											key={index}
+										>
+											{columns?.map((column, idx) => (
+												<td
+													key={idx}
+													className={`p-3 font-normal text-base ${
+														index ==
+														rowsToShow?.length
+															? 'border-y'
+															: 'border-t'
+													} whitespace-nowrap`}
+												>
+													{column?.accessor
+														? column?.accessor(
+																data,
+														  ) || '---'
+														: `${
+																data?.[
+																	column?.key
+																] || '---'
+														  }`}
+												</td>
+											))}
+										</tr>
+									);
+								})
+							) : (
+								<tr>
+									<td
+										className="text-center py-3 italic"
+										colSpan={columns?.length}
 									>
-										{columns?.map((column, idx) => (
-											<td
-												key={idx}
-												className={`p-3  font-normal text-base ${
-													index == rowsToShow?.length
-														? 'border-y'
-														: 'border-t'
-												} whitespace-nowrap`}
-											>
-												{column?.accessor
-													? column?.accessor(data)
-													: `${data?.[column?.key]}`}
-											</td>
-										))}
-									</tr>
-								);
-							})}
+										Không có dữ liệu
+									</td>
+								</tr>
+							)}
 						</tbody>
 					</table>
 				</div>

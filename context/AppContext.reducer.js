@@ -1,9 +1,9 @@
 import { SET_DATA, SET_TOGGLE } from './AppContext.actions';
-import { TOAST, USER } from './AppContext.state';
+import { TOAST, DATA_STATE } from './AppContext.state';
 
 const initialStateApp = {
 	set_data: {
-		user: USER,
+		data: DATA_STATE,
 		toast: TOAST,
 	},
 	set_toggle: {
