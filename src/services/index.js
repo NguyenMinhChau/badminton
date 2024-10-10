@@ -25,13 +25,13 @@ const RENDER_SEEDS = (data = []) => {
 						.format('dddd, DD/MM/YYYY HH:mm'),
 					teams: [
 						{
-							name: player1 || '---',
+							name: player1 || '',
 							department: department1 || '---',
 							score: 0,
 							...restTeam1,
 						},
 						{
-							name: player2 || '---',
+							name: player2 || '',
 							department: department1 || '---',
 							score: 0,
 							...restTeam2,
