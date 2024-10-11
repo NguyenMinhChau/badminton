@@ -11,7 +11,6 @@ import {
 	DisclosureButton,
 	DisclosurePanel,
 } from '@headlessui/react';
-import { ChevronUpIcon } from '@heroicons/react/24/solid';
 import { LoadingScreen } from '@/components/LoadingScreen';
 
 export default function ScheduleMatch() {
@@ -133,7 +132,8 @@ export default function ScheduleMatch() {
 		}
 	};
 
-	const handleSubmitted = () => {
+	const handleSubmitted = (e) => {
+		e.stopPropagation();
 		const isConfirmed = window.confirm(
 			'Bạn có chắc muốn cập nhật những thay đổi??',
 		);
@@ -157,39 +157,30 @@ export default function ScheduleMatch() {
 								<>
 									<div className="flex flex-row">
 										<DisclosureButton
-											className={`flex items-center bg-gray-200 justify-between font-bold w-full px-2 py-3 text-l text-left rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-indigo-100 focus-visible:ring-opacity-75`}
+											className={`flex items-center justify-between gap-3 font-bold w-full px-2 py-3 text-l text-left rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-indigo-100 focus-visible:ring-opacity-75`}
 											style={{
-												color: item.color,
+												color: '#FFF',
 											}}
 										>
-											<span>{item.question}</span>
-											<ChevronUpIcon
-												className={`${
-													open
-														? 'transform rotate-180'
-														: ''
-												} w-5 h-5 font-bold`}
-												style={{
-													color: item.color,
-												}}
-											/>
-										</DisclosureButton>
-									</div>
-									<DisclosurePanel className="text-white rounded-lg p-2">
-										{/* {item?.data?.length > 0 && (
+											<span className="text-xl underline">
+												NỘI DUNG: {item.question}
+											</span>
 											<button
-												className="flex items-center mb-3 justify-center rounded-md py-4 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp bg-[#ea580c] disabled:bg-opacity-50 disabled:cursor-default cursor-pointer"
+												className="flex items-center justify-center rounded-md py-2 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp bg-[#ea580c] disabled:bg-opacity-30 disabled:cursor-default cursor-pointer"
 												onClick={handleSubmitted}
 												disabled={
 													!hasDataChanged(
 														item?.data[0],
 														_seeds,
-													)
+													) ||
+													item?.data?.length === 0
 												}
 											>
-												Cập nhật thay đổi
+												Cập nhật
 											</button>
-										)} */}
+										</DisclosureButton>
+									</div>
+									<DisclosurePanel className="text-white rounded-lg p-2 bg-white bg-opacity-10">
 										<div
 											className="max-w-full overflow-y-hidden"
 											id="schedule_match"

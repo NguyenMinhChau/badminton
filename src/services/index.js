@@ -12,7 +12,8 @@ export const TYPE_PLAY = {
 
 const RENDER_SEEDS = (data = []) => {
 	return data?.payload?.map((item) => {
-		const { _id, round, team1, team2, ...rest } = { ...item };
+		const { _id, round, team1, team2, score_team1, score_team2, ...rest } =
+			{ ...item };
 		const { player1, department1, ...restTeam1 } = { ...team1 };
 		const { player2, department2, ...restTeam2 } = { ...team2 };
 		return {
@@ -28,7 +29,7 @@ const RENDER_SEEDS = (data = []) => {
 								{
 									name: team1?.player1 || '',
 									department: team1?.department1 || '---',
-									score: 0,
+									score: score_team1 || 0,
 									...restTeam1,
 								},
 							],
@@ -42,7 +43,7 @@ const RENDER_SEEDS = (data = []) => {
 								{
 									name: team2?.player1 || '',
 									department: team2?.department1 || '---',
-									score: 0,
+									score: score_team2 || 0,
 									...restTeam2,
 								},
 							],
@@ -58,13 +59,13 @@ const RENDER_SEEDS = (data = []) => {
 								{
 									name: player1 || '',
 									department: department1 || '---',
-									score: 0,
+									score: score_team1 || 0,
 									...restTeam1,
 								},
 								{
 									name: player2 || '',
 									department: department1 || '---',
-									score: 0,
+									score: score_team2 || 0,
 									...restTeam2,
 								},
 							],

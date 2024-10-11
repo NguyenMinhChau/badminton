@@ -14,6 +14,37 @@ import { LoadingScreen } from '@/components/LoadingScreen';
 
 const _columns = [
 	{
+		key: 'index',
+		Header: 'STT',
+		accessor: (row, index) => {
+			return (
+				<div className="flex flex-col gap-3">
+					<div>
+						{index +
+							(!row?.noiDungDangKy?.toLowerCase()?.includes('đơn')
+								? index === 0
+									? 1
+									: index + 1
+								: 1) || '---'}
+					</div>
+					{row.player2 &&
+						!row?.noiDungDangKy?.toLowerCase()?.includes('đơn') && (
+							<div>
+								{index +
+									(!row?.noiDungDangKy
+										?.toLowerCase()
+										?.includes('đơn')
+										? index === 0
+											? 2
+											: index + 2
+										: 2) || '---'}
+							</div>
+						)}
+				</div>
+			);
+		},
+	},
+	{
 		key: 'image',
 		Header: 'Ảnh',
 		accessor: (row) => {
@@ -32,21 +63,22 @@ const _columns = [
 							window.open(row.image, '_blank');
 						}}
 					/>
-					{row.player2 && (
-						<img
-							src={
-								row.image ||
-								'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPHVvfXupg0nld10nBo2PfTM6Zi_l-CUy1GQ&s'
-							}
-							width="35"
-							alt={row.full_name}
-							height="35"
-							className="w-[35px] h-[35px] cursor-pointer rounded-full overflow-hidden object-fill aspect-auto"
-							onClick={() => {
-								window.open(row.image, '_blank');
-							}}
-						/>
-					)}
+					{row.player2 &&
+						!row?.noiDungDangKy?.toLowerCase()?.includes('đơn') && (
+							<img
+								src={
+									row.image ||
+									'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPHVvfXupg0nld10nBo2PfTM6Zi_l-CUy1GQ&s'
+								}
+								width="35"
+								alt={row.full_name}
+								height="35"
+								className="w-[35px] h-[35px] cursor-pointer rounded-full overflow-hidden object-fill aspect-auto"
+								onClick={() => {
+									window.open(row.image, '_blank');
+								}}
+							/>
+						)}
 				</div>
 			);
 		},
@@ -58,7 +90,10 @@ const _columns = [
 			return (
 				<div className="flex flex-col gap-6 w-full justify-between">
 					<div>{row.player1 || '---'}</div>
-					{row.player2 && <div>{row.player2}</div>}
+					{row.player2 &&
+						!row?.noiDungDangKy?.toLowerCase()?.includes('đơn') && (
+							<div>{row.player2}</div>
+						)}
 				</div>
 			);
 		},
@@ -70,7 +105,10 @@ const _columns = [
 			return (
 				<div className="flex flex-col gap-6 w-full justify-between">
 					<div>{row.department1 || '---'}</div>
-					{row.player2 && <div>{row.department2 || '---'}</div>}
+					{row.player2 &&
+						!row?.noiDungDangKy?.toLowerCase()?.includes('đơn') && (
+							<div>{row.department2 || '---'}</div>
+						)}
 				</div>
 			);
 		},
@@ -134,19 +172,21 @@ export default function ListUsersJoin() {
 			{_submitting && <LoadingScreen />}
 			<Container className="!p-0">
 				{dataManagement.map((item, index) => (
-					<div key={index} className="mb-5 w-full">
+					<div key={index} className="mb-10 w-full">
 						<Disclosure defaultOpen={index === 0}>
 							{({ open }) => (
 								<>
 									<div className="flex flex-row">
 										<DisclosureButton
-											className={`flex items-center bg-gray-200 justify-between font-bold w-full px-2 py-3 text-l text-left rounded-tl-lg rounded-bl-lg  focus:outline-none focus-visible:ring focus-visible:ring-indigo-100 focus-visible:ring-opacity-75`}
+											className={`flex items-center justify-between font-bold w-full px-2 py-3 text-l text-left rounded-tl-lg rounded-bl-lg  focus:outline-none focus-visible:ring focus-visible:ring-indigo-100 focus-visible:ring-opacity-75`}
 											style={{
-												color: item.color,
+												color: '#FFF',
 											}}
 										>
-											<span>{item.question}</span>
-											<ChevronUpIcon
+											<span className="text-xl underline">
+												NỘI DUNG: {item.question}
+											</span>
+											{/* <ChevronUpIcon
 												className={`${
 													open
 														? 'transform rotate-180'
@@ -155,7 +195,7 @@ export default function ListUsersJoin() {
 												style={{
 													color: item.color,
 												}}
-											/>
+											/> */}
 										</DisclosureButton>
 										<FileUploadSmall
 											color={item.color}
@@ -169,7 +209,7 @@ export default function ListUsersJoin() {
 													_newDataManagement,
 												);
 											}}
-											className="rounded-tl-none rounded-bl-none px-[6px] rounded-tr-lg rounded-br-lg border-0 border-l-2 h-full"
+											className="px-[12px] border-none h-full"
 										/>
 									</div>
 									<DisclosurePanel className="text-white rounded-lg">

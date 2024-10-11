@@ -40,14 +40,14 @@ export const Navbar = () => {
 				{/* get started  */}
 				<div className="gap-3 nav__item mr-2 lg:flex ml-auto lg:ml-0 lg:order-2">
 					{/* <ThemeChanger /> */}
-					<div className="hidden lg:flex nav__item">
+					{/* <div className="hidden lg:flex nav__item">
 						<Link
 							href="/login"
 							className="px-6 py-2 text-white bg-[#ea580c] rounded-md"
 						>
 							Đăng nhập
 						</Link>
-					</div>
+					</div> */}
 					{/* <div className="hidden lg:flex nav__item">
 						<Link
 							href="/"
@@ -101,12 +101,12 @@ export const Navbar = () => {
 											{item?.label}
 										</Link>
 									))}
-									<Link
+									{/* <Link
 										href="/login"
 										className="w-full px-6 py-2 mt-3 text-center text-white bg-[#ea580c] rounded-md lg:ml-5"
 									>
 										Đăng nhập
-									</Link>
+									</Link> */}
 									{/* <Link
 										href="/"
 										className="w-full px-6 py-2 mt-3 text-center text-[#ea580c] bg-gray-200 border border-[#ea580c] rounded-md lg:ml-5"

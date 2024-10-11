@@ -137,6 +137,7 @@ export const Table = ({
 													{column?.accessor
 														? column?.accessor(
 																data,
+																index,
 														  ) || '---'
 														: `${
 																data?.[
@@ -161,7 +162,7 @@ export const Table = ({
 						</tbody>
 					</table>
 				</div>
-				<div className="w-full  flex justify-center sm:justify-between flex-col sm:flex-row gap-5 mt-1.5 px-1 items-center">
+				{/* <div className="w-full  flex justify-center sm:justify-between flex-col sm:flex-row gap-5 mt-1.5 px-1 items-center">
 					<div className="text-lg text-[#ea580c]">
 						Hiển thị{' '}
 						{currentPage == 0 ? 1 : currentPage * rowsLimit + 1} đến{' '}
@@ -212,7 +213,7 @@ export const Table = ({
 							</li>
 						</ul>
 					</div>
-				</div>
+				</div> */}
 			</div>
 		</div>
 	);
