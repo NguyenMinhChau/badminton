@@ -10,6 +10,8 @@ export const TournamentBrackets = ({
 	paramsHandleChangeSeedName = {},
 }) => {
 	const CustomSeed = ({ seed, breakpoint, roundIndex, seedIndex }) => {
+		const _checkDisabled = roundIndex !== rounds?.length - 1;
+
 		const score0 = Number(seed?.teams[0]?.score);
 
 		const _checkWin0 = seed?.teams[0]?.winner;
@@ -37,23 +39,24 @@ export const TournamentBrackets = ({
 									<div className="flex-1 flex flex-col items-start">
 										<input
 											type="text"
-											defaultValue={
+											value={
 												seed.teams[0]?.name ||
 												'NO TEAM '
 											}
-											onBlur={(e) => {
-												handleChangeSeedName(
-													roundIndex,
-													seedIndex,
-													0,
-													e.target.value,
-													paramsHandleChangeSeedName,
-												);
-											}}
-											style={{
-												width: '-webkit-fill-available',
-											}}
-											className={`bg-opacity-30 outline-none border-none py-2 text-[14px] mx-1 ${textWin} ${bgWin} font-bold p-[2px] rounded-tl-md rounded-br-md text-center`}
+											// defaultValue={
+											// 	seed.teams[0]?.name ||
+											// 	'NO TEAM '
+											// }
+											// onBlur={(e) => {
+											// 	handleChangeSeedName(
+											// 		roundIndex,
+											// 		seedIndex,
+											// 		0,
+											// 		e.target.value,
+											// 		paramsHandleChangeSeedName,
+											// 	);
+											// }}
+											className={`bg-opacity-30 w-auto outline-none border-none py-2 text-[14px] mx-1 ${textWin} ${bgWin} font-bold p-[2px] rounded-tl-md rounded-br-md text-center`}
 										/>
 										<span className="font-bold mx-2 text-[8px] italic">
 											Phòng Ban:{' '}
@@ -81,19 +84,23 @@ export const TournamentBrackets = ({
 										<div className="flex flex-col items-start">
 											<input
 												type="text"
-												defaultValue={
+												value={
 													seed.teams[1]?.name ||
 													'NO TEAM '
 												}
-												onBlur={(e) => {
-													handleChangeSeedName(
-														roundIndex,
-														seedIndex,
-														1,
-														e.target.value,
-														paramsHandleChangeSeedName,
-													);
-												}}
+												// defaultValue={
+												// 	seed.teams[1]?.name ||
+												// 	'NO TEAM '
+												// }
+												// onBlur={(e) => {
+												// 	handleChangeSeedName(
+												// 		roundIndex,
+												// 		seedIndex,
+												// 		1,
+												// 		e.target.value,
+												// 		paramsHandleChangeSeedName,
+												// 	);
+												// }}
 												className={`bg-opacity-30 py-2 outline-none border-none text-[14px] mx-1 ${textWin} ${bgWin} font-bold p-[2px] rounded-tl-md rounded-br-md text-center`}
 											/>
 											<span className="font-bold mx-2 text-[8px] italic">
@@ -132,6 +139,8 @@ export const TournamentBrackets = ({
 									);
 								}}
 								className={`w-[50px] bg-opacity-30 py-2 outline-none border-none text-[14px] mr-1 ${textWin} ${bgWin} font-bold p-[2px] rounded-tr-md rounded-bl-md text-center`}
+								disabled={_checkDisabled}
+								readOnly={_checkDisabled}
 							/>
 						</div>
 					</div>

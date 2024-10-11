@@ -47,9 +47,11 @@ const RENDER_SEEDS = (data = []) => {
 									department: team1?.department1 || '---',
 									score: score_team1 || 0,
 									winner: winner?._id === team1?._id,
+									team: 'team1',
 									...restTeam1,
 								},
 							],
+							noiDungDangKy: item.noiDungDangKy,
 						},
 						{
 							id: _id,
@@ -60,9 +62,11 @@ const RENDER_SEEDS = (data = []) => {
 									department: team2?.department1 || '---',
 									score: score_team2 || 0,
 									winner: winner?._id === team2?._id,
+									team: 'team2',
 									...restTeam2,
 								},
 							],
+							noiDungDangKy: item.noiDungDangKy,
 						},
 				  ]
 				: [
@@ -75,6 +79,7 @@ const RENDER_SEEDS = (data = []) => {
 									department: team1?.department1 || '---',
 									score: score_team1 || 0,
 									winner: winner?._id === team1?._id,
+									team: 'team1',
 									...restTeam1,
 								},
 								{
@@ -82,9 +87,11 @@ const RENDER_SEEDS = (data = []) => {
 									department: team1?.department2 || '---',
 									score: score_team1 || 0,
 									winner: winner?._id === team1?._id,
+									team: 'team1',
 									...restTeam1,
 								},
 							],
+							noiDungDangKy: item.noiDungDangKy,
 						},
 						{
 							id: _id,
@@ -95,6 +102,7 @@ const RENDER_SEEDS = (data = []) => {
 									department: team2?.department1 || '---',
 									score: score_team2 || 0,
 									winner: winner?._id === team2?._id,
+									team: 'team2',
 									...restTeam2,
 								},
 								{
@@ -102,9 +110,11 @@ const RENDER_SEEDS = (data = []) => {
 									department: team2?.department2 || '---',
 									score: score_team2 || 0,
 									winner: winner?._id === team2?._id,
+									team: 'team2',
 									...restTeam2,
 								},
 							],
+							noiDungDangKy: item.noiDungDangKy,
 						},
 				  ],
 			...rest,

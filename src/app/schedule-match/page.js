@@ -73,14 +73,22 @@ export default function ScheduleMatch() {
 		const newRounds = [..._seeds];
 		if (value) {
 			if (Number(value) <= 31 && Number(value) >= 0 && isNumeric(value)) {
-				if (
-					newRounds[index].data[roundIndex].seeds[seedIndex].teams[
-						position
-					].score?.toString() !== value
-				) {
-					newRounds[index].data[roundIndex].seeds[seedIndex].teams[
-						position
-					].score = Number(value);
+				const _seedIndex =
+					newRounds[index].data[roundIndex].seeds[seedIndex];
+				if (_seedIndex.teams[position].score?.toString() !== value) {
+					_seedIndex.teams[position].score = Number(value);
+					// console.log({
+					// 	data: _seedIndex,
+					// 	_id: _seedIndex?.id,
+					// 	score_team1:
+					// 		_seedIndex?.teams[0].team === 'team1'
+					// 			? _seedIndex?.teams[0].score
+					// 			: null,
+					// 	score_team2:
+					// 		_seedIndex?.teams[0].team === 'team2'
+					// 			? _seedIndex?.teams[0].score
+					// 			: null,
+					// });
 					setSeeds(newRounds);
 				}
 			} else {
@@ -128,22 +136,6 @@ export default function ScheduleMatch() {
 		}
 	};
 
-	const handleSubmitted = (e, data) => {
-		e.stopPropagation();
-		console.log({ data });
-		return;
-		const isConfirmed = window.confirm(
-			'Bạn có chắc muốn cập nhật những thay đổi??',
-		);
-		if (isConfirmed) {
-			console.log(_seeds);
-			openToast({
-				type: TYPE_TOAST.SUCCESS,
-				message: 'Cập nhật thay đổi thành công',
-			});
-		}
-	};
-
 	return (
 		<>
 			{_submitting && <LoadingScreen />}
@@ -165,17 +157,15 @@ export default function ScheduleMatch() {
 											</span>
 											<button
 												className="flex items-center justify-center rounded-md py-2 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp bg-[#ea580c] disabled:bg-opacity-30 disabled:cursor-default cursor-pointer"
-												onClick={(e) =>
-													handleSubmitted(
-														e,
-														item?.data,
-													)
-												}
+												onClick={(e) => {
+													e.stopPropagation();
+													CallApiGetListScheduleMatch();
+												}}
 												disabled={
 													item?.data?.length === 0
 												}
 											>
-												Cập nhật
+												Tải lại
 											</button>
 										</DisclosureButton>
 									</div>
