@@ -1,6 +1,6 @@
 'use client';
 import { useAppContext, useToast } from '../../../hooks/';
-import { GET_LIST_SCHEDULE_MATCH } from '../../services';
+import { GET_LIST_SCHEDULE_MATCH, UPDATE_CA_THI_DAU } from '../../services';
 import useToggle from '../../utils/useToogle';
 
 export const useScheduleMatch = () => {
@@ -18,10 +18,21 @@ export const useScheduleMatch = () => {
 		});
 	};
 
+	const CallApiUpdate = (id, payload) => {
+		UPDATE_CA_THI_DAU({
+			dispatch,
+			id,
+			payload,
+			_setSubmitting,
+			openToast,
+		});
+	};
+
 	return {
 		_submitting,
 		schedule_match,
 
 		CallApiGetListScheduleMatch,
+		CallApiUpdate,
 	};
 };

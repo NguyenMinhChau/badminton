@@ -1,6 +1,6 @@
 import { TYPE_TOAST } from '@/components/Toast';
 import { actions } from '../../context';
-import { axiosGet } from '../utils/axios';
+import { axiosGet, axiosPut } from '../utils/axios';
 import moment from 'moment';
 import { errorMessage } from '../utils/handleMessageAPI';
 
@@ -46,7 +46,10 @@ const RENDER_SEEDS = (data = []) => {
 									name: team1?.player1 || '',
 									department: team1?.department1 || '---',
 									score: score_team1 || 0,
-									winner: winner?._id === team1?._id,
+									// winner: winner?._id === team1?._id,
+									winner:
+										Number(score_team1 || 0) >
+										Number(score_team2 || 0),
 									team: 'team1',
 									...restTeam1,
 								},
@@ -61,7 +64,10 @@ const RENDER_SEEDS = (data = []) => {
 									name: team2?.player1 || '',
 									department: team2?.department1 || '---',
 									score: score_team2 || 0,
-									winner: winner?._id === team2?._id,
+									// winner: winner?._id === team2?._id,
+									winner:
+										Number(score_team2 || 0) >
+										Number(score_team1 || 0),
 									team: 'team2',
 									...restTeam2,
 								},
@@ -78,7 +84,10 @@ const RENDER_SEEDS = (data = []) => {
 									name: team1?.player1 || '',
 									department: team1?.department1 || '---',
 									score: score_team1 || 0,
-									winner: winner?._id === team1?._id,
+									// winner: winner?._id === team1?._id,
+									winner:
+										Number(score_team1 || 0) >
+										Number(score_team2 || 0),
 									team: 'team1',
 									...restTeam1,
 								},
@@ -86,7 +95,10 @@ const RENDER_SEEDS = (data = []) => {
 									name: team1?.player2 || '',
 									department: team1?.department2 || '---',
 									score: score_team1 || 0,
-									winner: winner?._id === team1?._id,
+									// winner: winner?._id === team1?._id,
+									winner:
+										Number(score_team1 || 0) >
+										Number(score_team2 || 0),
 									team: 'team1',
 									...restTeam1,
 								},
@@ -101,7 +113,10 @@ const RENDER_SEEDS = (data = []) => {
 									name: team2?.player1 || '',
 									department: team2?.department1 || '---',
 									score: score_team2 || 0,
-									winner: winner?._id === team2?._id,
+									// winner: winner?._id === team2?._id,
+									winner:
+										Number(score_team2 || 0) >
+										Number(score_team1 || 0),
 									team: 'team2',
 									...restTeam2,
 								},
@@ -109,7 +124,10 @@ const RENDER_SEEDS = (data = []) => {
 									name: team2?.player2 || '',
 									department: team2?.department2 || '---',
 									score: score_team2 || 0,
-									winner: winner?._id === team2?._id,
+									// winner: winner?._id === team2?._id,
+									winner:
+										Number(score_team2 || 0) >
+										Number(score_team1 || 0),
 									team: 'team2',
 									...restTeam2,
 								},
@@ -235,6 +253,33 @@ export const GET_LIST_SCHEDULE_MATCH = async (props = {}) => {
 			}),
 		);
 		_setSubmitting();
+	} catch (error) {
+		_setSubmitting();
+		openToast({
+			type: TYPE_TOAST.ERROR,
+			message: errorMessage(error),
+		});
+	}
+};
+
+export const UPDATE_CA_THI_DAU = async (props = {}) => {
+	const { dispatch, id, payload, _setSubmitting, openToast } = { ...props };
+	_setSubmitting();
+	try {
+		const resPut = await axiosPut(
+			`/games/badminton/update-schedules/${id}`,
+			payload,
+		);
+		GET_LIST_SCHEDULE_MATCH({
+			dispatch,
+			_setSubmitting,
+			openToast,
+		});
+		_setSubmitting();
+		openToast({
+			type: TYPE_TOAST.SUCCESS,
+			message: 'Cập nhật thành công!',
+		});
 	} catch (error) {
 		_setSubmitting();
 		openToast({

@@ -14,8 +14,12 @@ import {
 import { LoadingScreen } from '@/components/LoadingScreen';
 
 export default function ScheduleMatch() {
-	const { _submitting, schedule_match, CallApiGetListScheduleMatch } =
-		useScheduleMatch();
+	const {
+		_submitting,
+		schedule_match,
+		CallApiGetListScheduleMatch,
+		CallApiUpdate,
+	} = useScheduleMatch();
 	const { seed_donNam, seed_donNu, seed_doiNam, seed_doiNu, seed_doiNamNu } =
 		{ ...schedule_match };
 
@@ -90,6 +94,17 @@ export default function ScheduleMatch() {
 					// 			: null,
 					// });
 					setSeeds(newRounds);
+					const payload = {
+						score_team1:
+							_seedIndex?.teams[0].team === 'team1'
+								? _seedIndex?.teams[0].score
+								: null,
+						score_team2:
+							_seedIndex?.teams[0].team === 'team2'
+								? _seedIndex?.teams[0].score
+								: null,
+					};
+					CallApiUpdate(_seedIndex?.id, payload);
 				}
 			} else {
 				openToast({

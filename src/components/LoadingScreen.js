@@ -2,11 +2,14 @@
 import React from 'react';
 import { useAppContext } from '../../hooks';
 import { actions } from '../../context';
+import useToggle from '@/utils/useToogle';
 
 export function LoadingScreen() {
 	const { dispatch } = useAppContext();
+	const { _submitting, _setSubmitting } = useToggle();
 
 	const closeLoading = () => {
+		_setSubmitting();
 		dispatch(
 			actions.SET_TOGGLE_PAYLOAD({
 				key: 'isLoading',
