@@ -12,6 +12,15 @@ export const TournamentBrackets = ({
 	const CustomSeed = ({ seed, breakpoint, roundIndex, seedIndex }) => {
 		const score0 = Number(seed?.teams[0]?.score);
 		const score1 = Number(seed?.teams[1]?.score);
+
+		const _noiDungDangKy = seed?.teams[0]?.noiDungDangKy;
+
+		const _checkWin0 = seed?.teams[0]?.winner;
+		const _checkWin1 = seed?.teams[1]?.winner;
+
+		const textWin = _checkWin0 ? 'text-green-500' : 'text-gray-500';
+		const bgWin = _checkWin0 ? 'bg-green-500' : 'bg-gray-500';
+
 		return (
 			<Seed mobileBreakpoint={breakpoint} style={{ fontSize: 12 }}>
 				<SeedItem>
@@ -48,7 +57,7 @@ export const TournamentBrackets = ({
 											style={{
 												width: '-webkit-fill-available',
 											}}
-											className={`bg-opacity-30 outline-none border-none py-2 text-[14px] mx-1 text-green-500 bg-green-500 font-bold p-[2px] rounded-tl-md rounded-br-md text-center`}
+											className={`bg-opacity-30 outline-none border-none py-2 text-[14px] mx-1 ${textWin} ${bgWin} font-bold p-[2px] rounded-tl-md rounded-br-md text-center`}
 										/>
 										<span className="font-bold mx-2 text-[8px] italic">
 											Phòng Ban:{' '}
@@ -89,7 +98,7 @@ export const TournamentBrackets = ({
 														paramsHandleChangeSeedName,
 													);
 												}}
-												className={`bg-opacity-30 py-2 outline-none border-none text-[14px] mx-1 text-green-500 bg-green-500 font-bold p-[2px] rounded-tl-md rounded-br-md text-center`}
+												className={`bg-opacity-30 py-2 outline-none border-none text-[14px] mx-1 ${textWin} ${bgWin} font-bold p-[2px] rounded-tl-md rounded-br-md text-center`}
 											/>
 											<span className="font-bold mx-2 text-[8px] italic">
 												Phòng Ban:{' '}
@@ -126,7 +135,7 @@ export const TournamentBrackets = ({
 										paramsHandleChangeSeedScore,
 									);
 								}}
-								className={`w-[50px] bg-opacity-30 py-2 outline-none border-none text-[14px] mr-1 text-green-500 bg-green-500 font-bold p-[2px] rounded-tr-md rounded-bl-md text-center`}
+								className={`w-[50px] bg-opacity-30 py-2 outline-none border-none text-[14px] mr-1 ${textWin} ${bgWin} font-bold p-[2px] rounded-tr-md rounded-bl-md text-center`}
 							/>
 						</div>
 					</div>

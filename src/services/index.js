@@ -11,7 +11,7 @@ export const TYPE_PLAY = {
 };
 
 const RENDER_SEEDS = (data = []) => {
-	return data?.payload?.map((item) => {
+	return data?.payload?.map((item, index) => {
 		const {
 			_id,
 			round,
@@ -80,6 +80,14 @@ const RENDER_SEEDS = (data = []) => {
 									winner: winner?._id === team1?._id,
 									...restTeam1,
 								},
+							],
+						},
+						{
+							id: _id,
+							date: moment(new Date())
+								.locale('vi')
+								.format('dddd, DD/MM/YYYY HH:mm'),
+							teams: [
 								{
 									name: team2?.player1 || '',
 									department: team2?.department1 || '---',
