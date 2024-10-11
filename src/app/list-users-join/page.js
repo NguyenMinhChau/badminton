@@ -197,7 +197,7 @@ export default function ListUsersJoin() {
 												}}
 											/> */}
 										</DisclosureButton>
-										<FileUploadSmall
+										{/* <FileUploadSmall
 											color={item.color}
 											onChange={(files) => {
 												const _newDataManagement = [
@@ -210,7 +210,7 @@ export default function ListUsersJoin() {
 												);
 											}}
 											className="px-[12px] border-none h-full"
-										/>
+										/> */}
 									</div>
 									<DisclosurePanel className="text-white rounded-lg">
 										{item?.file && (
