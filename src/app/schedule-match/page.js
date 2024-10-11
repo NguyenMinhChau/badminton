@@ -108,34 +108,6 @@ export default function ScheduleMatch() {
 		}
 	};
 
-	const handleChangeSeedName = (
-		roundIndex,
-		seedIndex,
-		position,
-		value,
-		{ index },
-	) => {
-		if (value) {
-			const newRounds = [..._seeds];
-			if (
-				newRounds[index].data[roundIndex].seeds[seedIndex].teams[
-					position
-				].name?.toString() !== value
-			) {
-				newRounds[index].data[roundIndex].seeds[seedIndex].teams[
-					position
-				].name = value;
-				setSeeds(newRounds);
-			}
-		} else {
-			openToast({
-				type: TYPE_TOAST.WARNING,
-				message: 'Nhân sự thi đấu không được để trống',
-			});
-			return;
-		}
-	};
-
 	return (
 		<>
 			{_submitting && <LoadingScreen />}
@@ -179,13 +151,7 @@ export default function ScheduleMatch() {
 												handleChangeSeedScore={
 													handleChangeSeedScore
 												}
-												paramsHandleChangeSeedScore={{
-													index: index,
-												}}
-												handleChangeSeedName={
-													handleChangeSeedName
-												}
-												paramsHandleChangeSeedName={{
+												paramsFunc={{
 													index: index,
 												}}
 											/>
