@@ -12,8 +12,16 @@ export const TYPE_PLAY = {
 
 const RENDER_SEEDS = (data = []) => {
 	return data?.payload?.map((item) => {
-		const { _id, round, team1, team2, score_team1, score_team2, ...rest } =
-			{ ...item };
+		const {
+			_id,
+			round,
+			team1,
+			team2,
+			score_team1,
+			score_team2,
+			winner,
+			...rest
+		} = { ...item };
 		const { player1, department1, ...restTeam1 } = { ...team1 };
 		const { player2, department2, ...restTeam2 } = { ...team2 };
 		return {
@@ -30,6 +38,7 @@ const RENDER_SEEDS = (data = []) => {
 									name: team1?.player1 || '',
 									department: team1?.department1 || '---',
 									score: score_team1 || 0,
+									winner: winner?._id === team1?._id,
 									...restTeam1,
 								},
 							],
@@ -44,6 +53,7 @@ const RENDER_SEEDS = (data = []) => {
 									name: team2?.player1 || '',
 									department: team2?.department1 || '---',
 									score: score_team2 || 0,
+									winner: winner?._id === team2?._id,
 									...restTeam2,
 								},
 							],
@@ -57,15 +67,31 @@ const RENDER_SEEDS = (data = []) => {
 								.format('dddd, DD/MM/YYYY HH:mm'),
 							teams: [
 								{
-									name: player1 || '',
-									department: department1 || '---',
+									name: team1?.player1 || '',
+									department: team1?.department1 || '---',
 									score: score_team1 || 0,
+									winner: winner?._id === team1?._id,
 									...restTeam1,
 								},
 								{
-									name: player2 || '',
-									department: department1 || '---',
+									name: team1?.player2 || '',
+									department: team1?.department2 || '---',
+									score: score_team1 || 0,
+									winner: winner?._id === team1?._id,
+									...restTeam1,
+								},
+								{
+									name: team2?.player1 || '',
+									department: team2?.department1 || '---',
 									score: score_team2 || 0,
+									winner: winner?._id === team2?._id,
+									...restTeam2,
+								},
+								{
+									name: team2?.player2 || '',
+									department: team2?.department2 || '---',
+									score: score_team2 || 0,
+									winner: winner?._id === team2?._id,
 									...restTeam2,
 								},
 							],

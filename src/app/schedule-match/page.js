@@ -59,10 +59,6 @@ export default function ScheduleMatch() {
 		setSeeds(seedData);
 	}, [schedule_match]);
 
-	const hasDataChanged = (currentData, initialData) => {
-		return JSON.stringify(currentData) !== JSON.stringify(initialData);
-	};
-
 	function isNumeric(value) {
 		return !isNaN(value) && !isNaN(parseFloat(value));
 	}
@@ -132,8 +128,10 @@ export default function ScheduleMatch() {
 		}
 	};
 
-	const handleSubmitted = (e) => {
+	const handleSubmitted = (e, data) => {
 		e.stopPropagation();
+		console.log({ data });
+		return;
 		const isConfirmed = window.confirm(
 			'Bạn có chắc muốn cập nhật những thay đổi??',
 		);
@@ -167,12 +165,13 @@ export default function ScheduleMatch() {
 											</span>
 											<button
 												className="flex items-center justify-center rounded-md py-2 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp bg-[#ea580c] disabled:bg-opacity-30 disabled:cursor-default cursor-pointer"
-												onClick={handleSubmitted}
+												onClick={(e) =>
+													handleSubmitted(
+														e,
+														item?.data,
+													)
+												}
 												disabled={
-													!hasDataChanged(
-														item?.data[0],
-														_seeds,
-													) ||
 													item?.data?.length === 0
 												}
 											>
