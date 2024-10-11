@@ -17,28 +17,59 @@ const RENDER_SEEDS = (data = []) => {
 		const { player2, department2, ...restTeam2 } = { ...team2 };
 		return {
 			title: `${round}`?.toUpperCase(),
-			seeds: [
-				{
-					id: _id,
-					date: moment(new Date())
-						.locale('vi')
-						.format('dddd, DD/MM/YYYY HH:mm'),
-					teams: [
+			seeds: item.noiDungDangKy?.toLowerCase()?.includes('đơn')
+				? [
 						{
-							name: player1 || '',
-							department: department1 || '---',
-							score: 0,
-							...restTeam1,
+							id: _id,
+							date: moment(new Date())
+								.locale('vi')
+								.format('dddd, DD/MM/YYYY HH:mm'),
+							teams: [
+								{
+									name: team1?.player1 || '',
+									department: team1?.department1 || '---',
+									score: 0,
+									...restTeam1,
+								},
+							],
 						},
 						{
-							name: player2 || '',
-							department: department1 || '---',
-							score: 0,
-							...restTeam2,
+							id: _id,
+							date: moment(new Date())
+								.locale('vi')
+								.format('dddd, DD/MM/YYYY HH:mm'),
+							teams: [
+								{
+									name: team2?.player1 || '',
+									department: team2?.department1 || '---',
+									score: 0,
+									...restTeam2,
+								},
+							],
 						},
-					],
-				},
-			],
+				  ]
+				: [
+						{
+							id: _id,
+							date: moment(new Date())
+								.locale('vi')
+								.format('dddd, DD/MM/YYYY HH:mm'),
+							teams: [
+								{
+									name: player1 || '',
+									department: department1 || '---',
+									score: 0,
+									...restTeam1,
+								},
+								{
+									name: player2 || '',
+									department: department1 || '---',
+									score: 0,
+									...restTeam2,
+								},
+							],
+						},
+				  ],
 			...rest,
 		};
 	});
