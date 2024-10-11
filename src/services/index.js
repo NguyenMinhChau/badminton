@@ -1,6 +1,8 @@
+import { TYPE_TOAST } from '@/components/Toast';
 import { actions } from '../../context';
 import { axiosGet } from '../utils/axios';
 import moment from 'moment';
+import { errorMessage } from '../utils/handleMessageAPI';
 
 export const TYPE_PLAY = {
 	DON_NAM: 'ĐƠN NAM',
@@ -11,6 +13,14 @@ export const TYPE_PLAY = {
 };
 
 const RENDER_SEEDS = (data = []) => {
+	const date = moment('2024-10-27')
+		.set({
+			hour: moment().hour(),
+			minute: moment().minute(),
+			second: moment().second(),
+		})
+		.locale('vi')
+		.format('dddd, DD/MM/YYYY HH:mm');
 	return data?.payload?.map((item, index) => {
 		const {
 			_id,
@@ -30,9 +40,7 @@ const RENDER_SEEDS = (data = []) => {
 				? [
 						{
 							id: _id,
-							date: moment(new Date())
-								.locale('vi')
-								.format('dddd, DD/MM/YYYY HH:mm'),
+							date: date,
 							teams: [
 								{
 									name: team1?.player1 || '',
@@ -45,9 +53,7 @@ const RENDER_SEEDS = (data = []) => {
 						},
 						{
 							id: _id,
-							date: moment(new Date())
-								.locale('vi')
-								.format('dddd, DD/MM/YYYY HH:mm'),
+							date: date,
 							teams: [
 								{
 									name: team2?.player1 || '',
@@ -62,9 +68,7 @@ const RENDER_SEEDS = (data = []) => {
 				: [
 						{
 							id: _id,
-							date: moment(new Date())
-								.locale('vi')
-								.format('dddd, DD/MM/YYYY HH:mm'),
+							date: date,
 							teams: [
 								{
 									name: team1?.player1 || '',
@@ -84,9 +88,7 @@ const RENDER_SEEDS = (data = []) => {
 						},
 						{
 							id: _id,
-							date: moment(new Date())
-								.locale('vi')
-								.format('dddd, DD/MM/YYYY HH:mm'),
+							date: date,
 							teams: [
 								{
 									name: team2?.player1 || '',
@@ -131,7 +133,7 @@ const FORMAT_SEED_BY_ROUND = (data) => {
 };
 
 export const GET_LIST_PLAYERS = async (props = {}) => {
-	const { dispatch, _setSubmitting } = { ...props };
+	const { dispatch, _setSubmitting, openToast } = { ...props };
 	_setSubmitting();
 	try {
 		const resGet = await axiosGet('games/badminton/get-players');
@@ -169,12 +171,15 @@ export const GET_LIST_PLAYERS = async (props = {}) => {
 		_setSubmitting();
 	} catch (error) {
 		_setSubmitting();
-		console.log({ error });
+		openToast({
+			type: TYPE_TOAST.ERROR,
+			message: errorMessage(error),
+		});
 	}
 };
 
 export const GET_LIST_SCHEDULE_MATCH = async (props = {}) => {
-	const { dispatch, _setSubmitting } = { ...props };
+	const { dispatch, _setSubmitting, openToast } = { ...props };
 	_setSubmitting();
 	try {
 		const resGetDonNam = await axiosGet(
@@ -222,6 +227,9 @@ export const GET_LIST_SCHEDULE_MATCH = async (props = {}) => {
 		_setSubmitting();
 	} catch (error) {
 		_setSubmitting();
-		console.log({ error });
+		openToast({
+			type: TYPE_TOAST.ERROR,
+			message: errorMessage(error),
+		});
 	}
 };

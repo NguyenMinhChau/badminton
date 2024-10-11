@@ -11,12 +11,8 @@ export const TournamentBrackets = ({
 }) => {
 	const CustomSeed = ({ seed, breakpoint, roundIndex, seedIndex }) => {
 		const score0 = Number(seed?.teams[0]?.score);
-		const score1 = Number(seed?.teams[1]?.score);
-
-		const _noiDungDangKy = seed?.teams[0]?.noiDungDangKy;
 
 		const _checkWin0 = seed?.teams[0]?.winner;
-		const _checkWin1 = seed?.teams[1]?.winner;
 
 		const textWin = _checkWin0 ? 'text-green-500' : 'text-gray-500';
 		const bgWin = _checkWin0 ? 'bg-green-500' : 'bg-gray-500';

@@ -1,17 +1,17 @@
 'use client';
 import { useAppContext, useToast } from '../../../hooks/';
-import { GET_LIST_PLAYERS } from '../../services';
+import { GET_LIST_SCHEDULE_MATCH } from '../../services';
 import useToggle from '../../utils/useToogle';
 
-export const useListUserJoin = () => {
+export const useScheduleMatch = () => {
 	const { state, dispatch } = useAppContext();
 	const { data } = state.set_data;
 	const { _submitting, _setSubmitting } = useToggle();
-	const { user_list_join } = { ...data };
+	const { schedule_match } = { ...data };
 	const { openToast } = useToast();
 
-	const CallApiGetListPlayers = () => {
-		GET_LIST_PLAYERS({
+	const CallApiGetListScheduleMatch = () => {
+		GET_LIST_SCHEDULE_MATCH({
 			dispatch,
 			_setSubmitting,
 			openToast,
@@ -20,8 +20,8 @@ export const useListUserJoin = () => {
 
 	return {
 		_submitting,
-		user_list_join,
+		schedule_match,
 
-		CallApiGetListPlayers,
+		CallApiGetListScheduleMatch,
 	};
 };

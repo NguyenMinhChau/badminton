@@ -5,7 +5,7 @@ import 'moment/locale/vi';
 import React from 'react';
 import { useToast } from '../../../hooks';
 import { TYPE_TOAST } from '@/components/Toast';
-import { useListUserJoin } from '../list-users-join/hooks';
+import { useScheduleMatch } from './hooks';
 import {
 	Disclosure,
 	DisclosureButton,
@@ -15,7 +15,7 @@ import { LoadingScreen } from '@/components/LoadingScreen';
 
 export default function ScheduleMatch() {
 	const { _submitting, schedule_match, CallApiGetListScheduleMatch } =
-		useListUserJoin();
+		useScheduleMatch();
 	const { seed_donNam, seed_donNu, seed_doiNam, seed_doiNu, seed_doiNamNu } =
 		{ ...schedule_match };
 
