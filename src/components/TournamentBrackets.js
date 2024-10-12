@@ -21,9 +21,9 @@ export const TournamentBrackets = ({
 			<Seed mobileBreakpoint={breakpoint} style={{ fontSize: 12 }}>
 				<SeedItem>
 					<div>
-						<div className="text-center text-orange-500 mt-1 capitalize">
+						{/* <div className="text-center text-orange-500 mt-1 capitalize">
 							{seed?.date}
-						</div>
+						</div> */}
 						<div
 							className="flex flex-row gap-1 my-2"
 							style={{
