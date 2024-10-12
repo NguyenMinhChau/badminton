@@ -99,13 +99,13 @@ export const Table = ({
 					</div>
 				)}
 				<div className="w-full overflow-x-scroll md:overflow-auto max-w-7xl 2xl:max-w-none mt-2 rounded-xl overflow-hidden border">
-					<table className="table-auto overflow-scroll md:overflow-auto w-full text-left font-inte">
+					<table className="table-auto overflow-scroll md:overflow-auto w-full text-left">
 						<thead className="rounded-lg text-base font-semibold w-full">
 							<tr className="bg-white">
 								{columns?.map((column, _idx) => (
 									<th
 										key={_idx}
-										className="p-3 text-[#ea580c] sm:text-base font-bold whitespace-nowrap"
+										className="p-2 text-[#ea580c] sm:text-base font-bold whitespace-nowrap"
 									>
 										{column?.Header || '--'}
 									</th>
@@ -127,7 +127,7 @@ export const Table = ({
 											{columns?.map((column, idx) => (
 												<td
 													key={idx}
-													className={`p-3 font-normal text-base ${
+													className={`p-2 font-normal text-base ${
 														index ==
 														rowsToShow?.length
 															? 'border-y'

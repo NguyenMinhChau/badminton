@@ -10,104 +10,144 @@ import {
 import React from 'react';
 import { useListUserJoin } from './hooks';
 import { LoadingScreen } from '@/components/LoadingScreen';
-
-function getDriveIdBeforeView(url) {
-	const regex1 = /\/d\/([^/]+)/;
-	const regex2 = /(?:id=|\/d\/)([\w-]+)/;
-	const match = `${url}`?.match(regex1) || `${url}`?.match(regex2);
-	if (match) {
-		return 'https://drive.google.com/thumbnail?id=' + match[1]; // Trả về chuỗi ID trước /view
-	}
-	return url; // Không tìm thấy ID
-}
-
-const _columns = [
-	{
-		key: 'index',
-		Header: 'STT',
-		accessor: (row, index) => {
-			return (
-				<div className="flex flex-col gap-3">
-					<div>{index + 1 || '---'}</div>
-				</div>
-			);
-		},
-	},
-	{
-		key: 'image',
-		Header: 'Ảnh',
-		accessor: (row) => {
-			const _uriImgPlayer1 =
-				getDriveIdBeforeView(row?.imagePlayer1) ||
-				'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPHVvfXupg0nld10nBo2PfTM6Zi_l-CUy1GQ&s';
-			const _uriImgPlayer2 =
-				getDriveIdBeforeView(row?.imagePlayer2) ||
-				'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPHVvfXupg0nld10nBo2PfTM6Zi_l-CUy1GQ&s';
-			return (
-				<div className="flex flex-col gap-3">
-					<img
-						src={_uriImgPlayer1}
-						width="45"
-						alt={row.full_name}
-						height="45"
-						className="min-w-[35px] min-h-[35px] max-w-[40px] max-h-[40px] cursor-pointer rounded-full overflow-hidden object-cover aspect-auto"
-						onClick={() => {
-							window.open(_uriImgPlayer1, '_blank');
-						}}
-					/>
-					{row.player2 &&
-						!row?.noiDungDangKy?.toLowerCase()?.includes('đơn') && (
-							<img
-								src={_uriImgPlayer2}
-								width="45"
-								alt={row.full_name}
-								height="45"
-								className="min-w-[35px] min-h-[35px] max-w-[40px] max-h-[40px] cursor-pointer rounded-full overflow-hidden object-cover aspect-auto"
-								onClick={() => {
-									window.open(_uriImgPlayer2, '_blank');
-								}}
-							/>
-						)}
-				</div>
-			);
-		},
-	},
-	{
-		key: 'player1',
-		Header: 'Họ và tên',
-		accessor: (row) => {
-			return (
-				<div className="flex flex-col gap-6 w-full justify-between">
-					<div>{row.player1 || '---'}</div>
-					{row.player2 &&
-						!row?.noiDungDangKy?.toLowerCase()?.includes('đơn') && (
-							<div>{row.player2}</div>
-						)}
-				</div>
-			);
-		},
-	},
-	{
-		key: 'department1',
-		Header: 'Phòng ban',
-		accessor: (row) => {
-			return (
-				<div className="flex flex-col gap-6 w-full justify-between">
-					<div>{row.department1 || '---'}</div>
-					{row.player2 &&
-						!row?.noiDungDangKy?.toLowerCase()?.includes('đơn') && (
-							<div>{row.department2 || '---'}</div>
-						)}
-				</div>
-			);
-		},
-	},
-];
+import { useModal } from '../../../hooks';
+import { getDriveIdBeforeView } from '@/utils/helpers';
 
 export default function ListUsersJoin() {
 	const { _submitting, user_list_join, CallApiGetListPlayers } =
 		useListUserJoin();
+	const { openModal } = useModal();
 	const { donNam, donNu, doiNam, doiNu, doiNamNu } = { ...user_list_join };
+
+	const _columns = [
+		{
+			key: 'index',
+			Header: 'STT',
+			accessor: (row, index) => {
+				return (
+					<div className="flex flex-col gap-3">
+						<div>{index + 1 || '---'}</div>
+					</div>
+				);
+			},
+		},
+		{
+			key: 'image',
+			Header: 'Ảnh',
+			accessor: (row) => {
+				const _uriImgPlayer1 =
+					getDriveIdBeforeView(row?.imagePlayer1) ||
+					'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPHVvfXupg0nld10nBo2PfTM6Zi_l-CUy1GQ&s';
+				const _uriImgPlayer2 =
+					getDriveIdBeforeView(row?.imagePlayer2) ||
+					'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPHVvfXupg0nld10nBo2PfTM6Zi_l-CUy1GQ&s';
+				return (
+					<div className="flex flex-col gap-1">
+						<img
+							src={_uriImgPlayer1}
+							width="45"
+							alt={row.player1}
+							height="45"
+							className="min-w-[25px] min-h-[25px] max-w-[35px] max-h-[35px] cursor-pointer rounded-full overflow-hidden object-cover aspect-auto"
+							onClick={() => {
+								openModal({
+									title: `${row?.player1} [${row?.department1}]`,
+									children: () => {
+										return (
+											<div className="flex items-center justify-center">
+												<img
+													src={_uriImgPlayer1}
+													width="150"
+													alt={row.player1}
+													height="150"
+													className="w-[300px] h-[300px] cursor-pointer object-contain aspect-auto rounded-lg"
+													onClick={() => {
+														window.open(
+															_uriImgPlayer1,
+															'_blank',
+														);
+													}}
+												/>
+											</div>
+										);
+									},
+								});
+							}}
+						/>
+						{row.player2 &&
+							!row?.noiDungDangKy
+								?.toLowerCase()
+								?.includes('đơn') && (
+								<img
+									src={_uriImgPlayer2}
+									width="45"
+									alt={row.player2}
+									height="45"
+									className="min-w-[25px] min-h-[25px] max-w-[35px] max-h-[35px] cursor-pointer rounded-full overflow-hidden object-cover aspect-auto"
+									onClick={() => {
+										openModal({
+											title: `${row?.player2} [${row?.department2}]`,
+											children: () => {
+												return (
+													<div className="flex items-center justify-center">
+														<img
+															src={_uriImgPlayer2}
+															width="150"
+															alt={row.player2}
+															height="150"
+															className="w-[300px] h-[300px] cursor-pointer object-contain aspect-auto rounded-lg"
+															onClick={() => {
+																window.open(
+																	_uriImgPlayer2,
+																	'_blank',
+																);
+															}}
+														/>
+													</div>
+												);
+											},
+										});
+									}}
+								/>
+							)}
+					</div>
+				);
+			},
+		},
+		{
+			key: 'player1',
+			Header: 'Họ và tên',
+			accessor: (row) => {
+				return (
+					<div className="flex flex-col gap-4 w-full justify-between">
+						<div>{row.player1 || '---'}</div>
+						{row.player2 &&
+							!row?.noiDungDangKy
+								?.toLowerCase()
+								?.includes('đơn') && <div>{row.player2}</div>}
+					</div>
+				);
+			},
+		},
+		{
+			key: 'department1',
+			Header: 'Phòng ban',
+			accessor: (row) => {
+				return (
+					<div className="flex flex-col gap-4 w-full justify-between">
+						<div>{row.department1 || '---'}</div>
+						{row.player2 &&
+							!row?.noiDungDangKy
+								?.toLowerCase()
+								?.includes('đơn') && (
+								<div>{row.department2 || '---'}</div>
+							)}
+					</div>
+				);
+			},
+		},
+	];
+
 	const managementData = [
 		{
 			question: 'ĐƠN NAM',
@@ -175,31 +215,7 @@ export default function ListUsersJoin() {
 											<span className="text-xl underline">
 												NỘI DUNG: {item.question}
 											</span>
-											{/* <ChevronUpIcon
-												className={`${
-													open
-														? 'transform rotate-180'
-														: ''
-												} w-5 h-5 font-bold`}
-												style={{
-													color: item.color,
-												}}
-											/> */}
 										</DisclosureButton>
-										{/* <FileUploadSmall
-											color={item.color}
-											onChange={(files) => {
-												const _newDataManagement = [
-													...dataManagement,
-												];
-												_newDataManagement[index].file =
-													files[0];
-												setDataManagement(
-													_newDataManagement,
-												);
-											}}
-											className="px-[12px] border-none h-full"
-										/> */}
 									</div>
 									<DisclosurePanel className="text-white rounded-lg">
 										{item?.file && (

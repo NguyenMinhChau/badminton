@@ -8,3 +8,8 @@ export const TOAST = {
 	message: 'Thao tác thành công',
 	visible: false,
 };
+export const MODAL = {
+	visible: false,
+	title: '',
+	children: null,
+};

@@ -142,18 +142,6 @@ export default function ScheduleMatch() {
 											<span className="text-xl underline">
 												NỘI DUNG: {item.question}
 											</span>
-											<button
-												className="flex items-center justify-center rounded-md py-2 px-9 text-base font-medium text-[#ea580c] transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp bg-white disabled:bg-opacity-30 disabled:cursor-default cursor-pointer"
-												onClick={(e) => {
-													e.stopPropagation();
-													CallApiGetListScheduleMatch();
-												}}
-												disabled={
-													item?.data?.length === 0
-												}
-											>
-												Tải lại
-											</button>
 										</DisclosureButton>
 									</div>
 									<DisclosurePanel className="text-white rounded-lg p-2 bg-white bg-opacity-10">

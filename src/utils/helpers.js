@@ -28,3 +28,13 @@ export const isExist = (val) => {
 		val?.length > 0
 	);
 };
+
+export function getDriveIdBeforeView(url) {
+	const regex1 = /\/d\/([^/]+)/;
+	const regex2 = /(?:id=|\/d\/)([\w-]+)/;
+	const match = `${url}`?.match(regex1) || `${url}`?.match(regex2);
+	if (match) {
+		return 'https://drive.google.com/thumbnail?id=' + match[1]; // Trả về chuỗi ID trước /view
+	}
+	return url; // Không tìm thấy ID
+}

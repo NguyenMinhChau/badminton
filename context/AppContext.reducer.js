@@ -1,10 +1,11 @@
 import { SET_DATA, SET_TOGGLE } from './AppContext.actions';
-import { TOAST, DATA_STATE } from './AppContext.state';
+import { TOAST, DATA_STATE, MODAL } from './AppContext.state';
 
 const initialStateApp = {
 	set_data: {
 		data: DATA_STATE,
 		toast: TOAST,
+		modal: MODAL,
 	},
 	set_toggle: {
 		isLoading: false,

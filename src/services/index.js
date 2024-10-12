@@ -48,6 +48,7 @@ const RENDER_SEEDS = (data = []) => {
 									name: team1?.player1 || '',
 									department: team1?.department1 || '',
 									score: score_team1,
+									image: team1?.imagePlayer1,
 									winner:
 										Number(score_team1 || 0) >
 										Number(score_team2 || 0),
@@ -71,6 +72,7 @@ const RENDER_SEEDS = (data = []) => {
 									name: team2?.player1 || '',
 									department: team2?.department1 || '',
 									score: score_team2,
+									image: team2?.imagePlayer1,
 									winner:
 										Number(score_team2 || 0) >
 										Number(score_team1 || 0),
@@ -97,6 +99,7 @@ const RENDER_SEEDS = (data = []) => {
 									department: team1?.department1 || '',
 									score: score_team1,
 									// winner: winner?._id === team1?._id,
+									image: team1?.imagePlayer1,
 									winner:
 										Number(score_team1 || 0) >
 										Number(score_team2 || 0),
@@ -108,6 +111,7 @@ const RENDER_SEEDS = (data = []) => {
 									department: team1?.department2 || '',
 									score: score_team1,
 									// winner: winner?._id === team1?._id,
+									image: team1?.imagePlayer2,
 									winner:
 										Number(score_team1 || 0) >
 										Number(score_team2 || 0),
@@ -133,6 +137,7 @@ const RENDER_SEEDS = (data = []) => {
 									department: team2?.department1 || '',
 									score: score_team2,
 									// winner: winner?._id === team2?._id,
+									image: team2?.imagePlayer1,
 									winner:
 										Number(score_team2 || 0) >
 										Number(score_team1 || 0),
@@ -144,6 +149,7 @@ const RENDER_SEEDS = (data = []) => {
 									department: team2?.department2 || '',
 									score: score_team2,
 									// winner: winner?._id === team2?._id,
+									image: team2?.imagePlayer2,
 									winner:
 										Number(score_team2 || 0) >
 										Number(score_team1 || 0),

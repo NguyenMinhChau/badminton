@@ -7,6 +7,7 @@ import './globals.css';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { Toast } from '@/components/Toast';
+import { Modal } from '@/components/Modal';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -29,6 +30,7 @@ export default function RootLayout({ children }) {
 						<div>{children}</div>
 						<Footer />
 						<Toast />
+						<Modal />
 					</ThemeProvider>
 				</ProviderContext>
 			</body>
