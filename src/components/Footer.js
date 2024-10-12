@@ -70,19 +70,34 @@ export function Footer() {
 									</span>
 								</div>
 							</a>
-							<a
-								href="tel:0908023600"
-								target="_blank"
-								rel="noopener"
-							>
-								<span className="sr-only">Phone</span>
-								<div className="flex flex-row flex-wrap items-center gap-1">
-									<Phone />
-									<span className="text-white">
-										0908.023.600 (LinhTTT41)
-									</span>
-								</div>
-							</a>
+							<div className="flex flex-row gap-1 items-center flex-wrap">
+								<a
+									href="tel:0908023600"
+									target="_blank"
+									rel="noopener"
+								>
+									<span className="sr-only">Phone</span>
+									<div className="flex flex-row flex-wrap items-center gap-1">
+										<Phone />
+										<span className="text-white">
+											0908.023.600 (LinhTTT41)
+										</span>
+									</div>
+								</a>
+								<b>HOẶC</b>
+								<a
+									href="tel:0523576666"
+									target="_blank"
+									rel="noopener"
+								>
+									<span className="sr-only">Phone</span>
+									<div className="flex flex-row flex-wrap items-center gap-1">
+										<span className="text-white">
+											0523.576.666 (TanTN8)
+										</span>
+									</div>
+								</a>
+							</div>
 							<a
 								href="mailto:funftel@fpt.com"
 								target="_blank"
