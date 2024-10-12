@@ -213,6 +213,7 @@ export const GET_LIST_SCHEDULE_MATCH = async (props = {}) => {
 		const resGetDonNam = await axiosGet(
 			`games/badminton/get-schedules/${TYPE_PLAY.DON_NAM}`,
 		);
+		console.log({ resGetDonNam });
 		const resGetDonNu = await axiosGet(
 			`games/badminton/get-schedules/${TYPE_PLAY.DON_NU}`,
 		);

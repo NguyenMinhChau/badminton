@@ -2,7 +2,6 @@
 'use client';
 import { Container } from '@/components/Container';
 import { Table } from '@/components/Table';
-import { FileUploadSmall } from '@/components/FileUploadSmall';
 import {
 	Disclosure,
 	DisclosureButton,
@@ -13,8 +12,9 @@ import { useListUserJoin } from './hooks';
 import { LoadingScreen } from '@/components/LoadingScreen';
 
 function getDriveIdBeforeView(url) {
-	const regex = /\/d\/([a-zA-Z0-9_-]+)\//;
-	const match = `${url}`?.match(regex);
+	const regex1 = /\/d\/([^/]+)/;
+	const regex2 = /(?:id=|\/d\/)([\w-]+)/;
+	const match = `${url}`?.match(regex1) || `${url}`?.match(regex2);
 	if (match) {
 		return 'https://drive.google.com/thumbnail?id=' + match[1]; // Trả về chuỗi ID trước /view
 	}
@@ -38,12 +38,10 @@ const _columns = [
 		Header: 'Ảnh',
 		accessor: (row) => {
 			const _uriImgPlayer1 =
-				getDriveIdBeforeView(row?.images1) ||
-				getDriveIdBeforeView(row.images?.[0]) ||
+				getDriveIdBeforeView(row?.imagePlayer1) ||
 				'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPHVvfXupg0nld10nBo2PfTM6Zi_l-CUy1GQ&s';
 			const _uriImgPlayer2 =
-				getDriveIdBeforeView(row?.images2) ||
-				getDriveIdBeforeView(row.images?.[1]) ||
+				getDriveIdBeforeView(row?.imagePlayer2) ||
 				'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPHVvfXupg0nld10nBo2PfTM6Zi_l-CUy1GQ&s';
 			return (
 				<div className="flex flex-col gap-3">
