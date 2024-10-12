@@ -56,6 +56,7 @@ export const TournamentBrackets = ({
 						style={{
 							backgroundColor: '#FFF',
 						}}
+						className={`border-color-tournament`}
 					>
 						<div>
 							<div
