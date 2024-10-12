@@ -3,6 +3,7 @@ import { actions } from '../../context';
 import { axiosGet, axiosPut } from '../utils/axios';
 import moment from 'moment';
 import { errorMessage } from '../utils/handleMessageAPI';
+import { isExist } from '../utils/helpers';
 
 export const TYPE_PLAY = {
 	DON_NAM: 'ĐƠN NAM',
@@ -45,18 +46,22 @@ const RENDER_SEEDS = (data = []) => {
 							teams: [
 								{
 									name: team1?.player1 || '',
-									department: team1?.department1 || '---',
+									department: team1?.department1 || '',
 									score: score_team1,
-									// winner: winner?._id === team1?._id,
 									winner:
 										Number(score_team1 || 0) >
 										Number(score_team2 || 0),
 									team: 'team1',
+									desc_bypass:
+										type === 'BYPASS_THI_DAU' &&
+										isExist(team1?.player1)
+											? 'Vận động viên trong lượt thi đấu này được bypass vào vòng tiếp theo'
+											: '',
 									...restTeam1,
 								},
 							],
 							noiDungDangKy: item.noiDungDangKy,
-							type: type,
+							bypass: type === 'BYPASS_THI_DAU',
 						},
 						{
 							id: _id,
@@ -64,18 +69,22 @@ const RENDER_SEEDS = (data = []) => {
 							teams: [
 								{
 									name: team2?.player1 || '',
-									department: team2?.department1 || '---',
+									department: team2?.department1 || '',
 									score: score_team2,
-									// winner: winner?._id === team2?._id,
 									winner:
 										Number(score_team2 || 0) >
 										Number(score_team1 || 0),
 									team: 'team2',
+									desc_bypass:
+										type === 'BYPASS_THI_DAU' &&
+										isExist(team2?.player1)
+											? 'Vận động viên trong lượt thi đấu này được bypass vào vòng tiếp theo'
+											: '',
 									...restTeam2,
 								},
 							],
 							noiDungDangKy: item.noiDungDangKy,
-							type: type,
+							bypass: type === 'BYPASS_THI_DAU',
 						},
 				  ]
 				: [
@@ -85,7 +94,7 @@ const RENDER_SEEDS = (data = []) => {
 							teams: [
 								{
 									name: team1?.player1 || '',
-									department: team1?.department1 || '---',
+									department: team1?.department1 || '',
 									score: score_team1,
 									// winner: winner?._id === team1?._id,
 									winner:
@@ -96,7 +105,7 @@ const RENDER_SEEDS = (data = []) => {
 								},
 								{
 									name: team1?.player2 || '',
-									department: team1?.department2 || '---',
+									department: team1?.department2 || '',
 									score: score_team1,
 									// winner: winner?._id === team1?._id,
 									winner:
@@ -107,7 +116,13 @@ const RENDER_SEEDS = (data = []) => {
 								},
 							],
 							noiDungDangKy: item.noiDungDangKy,
-							type: type,
+							desc_bypass:
+								type === 'BYPASS_THI_DAU' &&
+								isExist(team1?.player1) &&
+								isExist(team1?.player2)
+									? 'Vận động viên trong lượt thi đấu này được bypass vào vòng tiếp theo'
+									: '',
+							bypass: type === 'BYPASS_THI_DAU',
 						},
 						{
 							id: _id,
@@ -115,7 +130,7 @@ const RENDER_SEEDS = (data = []) => {
 							teams: [
 								{
 									name: team2?.player1 || '',
-									department: team2?.department1 || '---',
+									department: team2?.department1 || '',
 									score: score_team2,
 									// winner: winner?._id === team2?._id,
 									winner:
@@ -126,7 +141,7 @@ const RENDER_SEEDS = (data = []) => {
 								},
 								{
 									name: team2?.player2 || '',
-									department: team2?.department2 || '---',
+									department: team2?.department2 || '',
 									score: score_team2,
 									// winner: winner?._id === team2?._id,
 									winner:
@@ -137,7 +152,13 @@ const RENDER_SEEDS = (data = []) => {
 								},
 							],
 							noiDungDangKy: item.noiDungDangKy,
-							type: type,
+							desc_bypass:
+								type === 'BYPASS_THI_DAU' &&
+								isExist(team2?.player1) &&
+								isExist(team2?.player2)
+									? 'Vận động viên trong lượt thi đấu này được bypass vào vòng tiếp theo'
+									: '',
+							bypass: type === 'BYPASS_THI_DAU',
 						},
 				  ],
 			...rest,

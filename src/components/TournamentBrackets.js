@@ -8,16 +8,19 @@ export const TournamentBrackets = ({
 	paramsFunc = {},
 }) => {
 	const CustomSeed = ({ seed, breakpoint, roundIndex, seedIndex }) => {
-		const _checkDisabled = roundIndex !== rounds?.length - 1;
-
 		const score0 = Number(seed?.teams[0]?.score);
-		const bypass = seed?.type === 'BYPASS_THI_DAU';
+		const desc_bypass = seed?.noiDungDangKy?.toLowerCase()?.includes('đơn')
+			? seed?.teams[0]?.desc_bypass
+			: seed?.desc_bypass;
+		const bypass = seed.bypass;
+		const _checkDisabled = roundIndex !== rounds?.length - 1 || bypass;
 
 		const _checkWin0 = seed?.teams[0]?.winner;
 
 		const textWin =
-			_checkWin0 && !bypass ? 'text-green-500' : 'text-gray-500';
-		const bgWin = _checkWin0 && !bypass ? 'bg-green-500' : 'bg-gray-500';
+			_checkWin0 && !desc_bypass ? 'text-green-500' : 'text-gray-500';
+		const bgWin =
+			_checkWin0 && !desc_bypass ? 'bg-green-500' : 'bg-gray-500';
 
 		return (
 			<Seed mobileBreakpoint={breakpoint} style={{ fontSize: 12 }}>
@@ -40,19 +43,21 @@ export const TournamentBrackets = ({
 										<input
 											type="text"
 											value={
-												(seed.teams[0]?.name ||
-													'NO TEAM') +
-												` [${
-													seed?.teams[0]
-														?.department || '---'
-												}]`
+												(seed.teams[0]?.name || '-') +
+												`${
+													seed?.teams[0]?.department
+														? `[${seed?.teams[0]?.department}]`
+														: ''
+												}`
 											}
 											className={`bg-opacity-30 w-[200px] outline-none border-none py-2 text-[14px] mx-1 ${
-												bypass && seed.teams[0]?.name
+												desc_bypass &&
+												seed.teams[0]?.name
 													? 'text-blue-500'
 													: textWin
 											} ${
-												bypass && seed.teams[0]?.name
+												desc_bypass &&
+												seed.teams[0]?.name
 													? 'bg-blue-500'
 													: bgWin
 											} font-bold p-[2px] rounded-tl-md rounded-br-md text-center`}
@@ -66,19 +71,20 @@ export const TournamentBrackets = ({
 												type="text"
 												value={
 													(seed.teams[1]?.name ||
-														'NO TEAM') +
-													` [${
+														'-') +
+													`${
 														seed?.teams[1]
-															?.department ||
-														'---'
-													}]`
+															?.department
+															? `[${seed?.teams[1]?.department}]`
+															: ''
+													}`
 												}
 												className={`bg-opacity-30 py-2 w-[200px] outline-none border-none text-[14px] mx-1 ${
-													bypass
+													desc_bypass
 														? 'text-blue-500'
 														: textWin
 												} ${
-													bypass
+													desc_bypass
 														? 'bg-blue-500'
 														: bgWin
 												} font-bold p-[2px] rounded-tl-md rounded-br-md text-center`}
@@ -90,7 +96,9 @@ export const TournamentBrackets = ({
 							<input
 								type="text"
 								defaultValue={
-									score0 || score0 === 0
+									bypass
+										? '-'
+										: score0 || score0 === 0
 										? score0?.toString()
 										: '-'
 								}
@@ -108,10 +116,9 @@ export const TournamentBrackets = ({
 								readOnly={_checkDisabled}
 							/>
 						</div>
-						{bypass && (
+						{desc_bypass && (
 							<div className="text-[13px] italic text-blue-500 m-1">
-								Vận động viên trong lượt thi đấu này được bypass
-								vào vòng tiếp theo
+								{desc_bypass}
 							</div>
 						)}
 					</div>
