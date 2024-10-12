@@ -46,7 +46,7 @@ export const TournamentBrackets = ({
 												(seed.teams[0]?.name || '-') +
 												`${
 													seed?.teams[0]?.department
-														? `[${seed?.teams[0]?.department}]`
+														? ` [${seed?.teams[0]?.department}]`
 														: ''
 												}`
 											}
@@ -75,7 +75,7 @@ export const TournamentBrackets = ({
 													`${
 														seed?.teams[1]
 															?.department
-															? `[${seed?.teams[1]?.department}]`
+															? ` [${seed?.teams[1]?.department}]`
 															: ''
 													}`
 												}
