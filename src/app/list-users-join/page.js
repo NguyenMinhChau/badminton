@@ -7,7 +7,6 @@ import {
 	DisclosureButton,
 	DisclosurePanel,
 } from '@headlessui/react';
-import { ChevronUpIcon } from '@heroicons/react/24/solid';
 import React from 'react';
 import { useListUserJoin } from './hooks';
 import { LoadingScreen } from '@/components/LoadingScreen';
@@ -19,27 +18,7 @@ const _columns = [
 		accessor: (row, index) => {
 			return (
 				<div className="flex flex-col gap-3">
-					<div>
-						{index +
-							(!row?.noiDungDangKy?.toLowerCase()?.includes('đơn')
-								? index === 0
-									? 1
-									: index + 1
-								: 1) || '---'}
-					</div>
-					{row.player2 &&
-						!row?.noiDungDangKy?.toLowerCase()?.includes('đơn') && (
-							<div>
-								{index +
-									(!row?.noiDungDangKy
-										?.toLowerCase()
-										?.includes('đơn')
-										? index === 0
-											? 2
-											: index + 2
-										: 2) || '---'}
-							</div>
-						)}
+					<div>{index + 1 || '---'}</div>
 				</div>
 			);
 		},
@@ -48,6 +27,7 @@ const _columns = [
 		key: 'image',
 		Header: 'Ảnh',
 		accessor: (row) => {
+			console.log({ row });
 			return (
 				<div className="flex flex-col gap-3">
 					<img
@@ -170,7 +150,7 @@ export default function ListUsersJoin() {
 	return (
 		<>
 			{_submitting && <LoadingScreen />}
-			<Container className="!p-0">
+			<Container className="!p-1">
 				{dataManagement.map((item, index) => (
 					<div key={index} className="mb-10 w-full">
 						<Disclosure defaultOpen={index === 0}>

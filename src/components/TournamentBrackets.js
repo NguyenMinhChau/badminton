@@ -32,22 +32,21 @@ export const TournamentBrackets = ({
 									: 'start',
 							}}
 						>
-							<div className="flex flex-col gap-3">
+							<div className="flex flex-col gap-1">
 								<div className="flex flex-row gap-1 items-start">
 									<div className="flex-1 flex flex-col items-start">
 										<input
 											type="text"
 											value={
-												seed.teams[0]?.name ||
-												'NO TEAM '
+												(seed.teams[0]?.name ||
+													'NO TEAM') +
+												` [${
+													seed?.teams[0]
+														?.department || '---'
+												}]`
 											}
-											className={`bg-opacity-30 w-auto outline-none border-none py-2 text-[14px] mx-1 ${textWin} ${bgWin} font-bold p-[2px] rounded-tl-md rounded-br-md text-center`}
+											className={`bg-opacity-30 w-[200px] outline-none border-none py-2 text-[14px] mx-1 ${textWin} ${bgWin} font-bold p-[2px] rounded-tl-md rounded-br-md text-center`}
 										/>
-										<span className="font-bold mx-2 text-[8px] italic">
-											Phòng Ban:{' '}
-											{seed?.teams[0]?.department ||
-												'---'}
-										</span>
 									</div>
 								</div>
 								{seed.teams[1]?.name && (
@@ -56,23 +55,27 @@ export const TournamentBrackets = ({
 											<input
 												type="text"
 												value={
-													seed.teams[1]?.name ||
-													'NO TEAM '
+													(seed.teams[1]?.name ||
+														'NO TEAM') +
+													` [${
+														seed?.teams[1]
+															?.department ||
+														'---'
+													}]`
 												}
-												className={`bg-opacity-30 py-2 outline-none border-none text-[14px] mx-1 ${textWin} ${bgWin} font-bold p-[2px] rounded-tl-md rounded-br-md text-center`}
+												className={`bg-opacity-30 py-2 w-[200px] outline-none border-none text-[14px] mx-1 ${textWin} ${bgWin} font-bold p-[2px] rounded-tl-md rounded-br-md text-center`}
 											/>
-											<span className="font-bold mx-2 text-[8px] italic">
-												Phòng Ban:{' '}
-												{seed?.teams[1]?.department ||
-													'---'}
-											</span>
 										</div>
 									</div>
 								)}
 							</div>
 							<input
 								type="text"
-								defaultValue={score0?.toString()}
+								defaultValue={
+									score0 || score0 === 0
+										? score0?.toString()
+										: '-'
+								}
 								onBlur={(e) => {
 									handleChangeSeedScore(
 										roundIndex,

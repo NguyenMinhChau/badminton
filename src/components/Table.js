@@ -100,12 +100,12 @@ export const Table = ({
 				)}
 				<div className="w-full overflow-x-scroll md:overflow-auto max-w-7xl 2xl:max-w-none mt-2 rounded-xl overflow-hidden border">
 					<table className="table-auto overflow-scroll md:overflow-auto w-full text-left font-inte">
-						<thead className="rounded-lg text-base text-white font-semibold w-full">
-							<tr className="bg-[#ea580c]">
+						<thead className="rounded-lg text-base font-semibold w-full">
+							<tr className="bg-white">
 								{columns?.map((column, _idx) => (
 									<th
 										key={_idx}
-										className="p-3 text-white sm:text-base font-bold whitespace-nowrap"
+										className="p-3 text-[#ea580c] sm:text-base font-bold whitespace-nowrap"
 									>
 										{column?.Header || '--'}
 									</th>
@@ -119,7 +119,7 @@ export const Table = ({
 										<tr
 											className={`${
 												index % 2 == 0
-													? 'bg-black bg-opacity-50'
+													? 'bg-white bg-opacity-10'
 													: 'bg-transparent'
 											}`}
 											key={index}

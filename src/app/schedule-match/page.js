@@ -126,7 +126,7 @@ export default function ScheduleMatch() {
 	return (
 		<>
 			{_submitting && <LoadingScreen />}
-			<Container className="!p-0">
+			<Container className="!p-1">
 				{_seeds.map((item, index) => (
 					<div key={index} className="mb-5 w-full">
 						<Disclosure defaultOpen={index === 0}>
@@ -143,7 +143,7 @@ export default function ScheduleMatch() {
 												NỘI DUNG: {item.question}
 											</span>
 											<button
-												className="flex items-center justify-center rounded-md py-2 px-9 text-base font-medium text-white transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp bg-[#ea580c] disabled:bg-opacity-30 disabled:cursor-default cursor-pointer"
+												className="flex items-center justify-center rounded-md py-2 px-9 text-base font-medium text-[#ea580c] transition duration-300 ease-in-out hover:bg-opacity-80 hover:shadow-signUp bg-white disabled:bg-opacity-30 disabled:cursor-default cursor-pointer"
 												onClick={(e) => {
 													e.stopPropagation();
 													CallApiGetListScheduleMatch();

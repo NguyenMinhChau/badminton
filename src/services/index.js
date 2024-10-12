@@ -45,7 +45,7 @@ const RENDER_SEEDS = (data = []) => {
 								{
 									name: team1?.player1 || '',
 									department: team1?.department1 || '---',
-									score: score_team1 || 0,
+									score: score_team1,
 									// winner: winner?._id === team1?._id,
 									winner:
 										Number(score_team1 || 0) >
@@ -63,7 +63,7 @@ const RENDER_SEEDS = (data = []) => {
 								{
 									name: team2?.player1 || '',
 									department: team2?.department1 || '---',
-									score: score_team2 || 0,
+									score: score_team2,
 									// winner: winner?._id === team2?._id,
 									winner:
 										Number(score_team2 || 0) >
@@ -83,7 +83,7 @@ const RENDER_SEEDS = (data = []) => {
 								{
 									name: team1?.player1 || '',
 									department: team1?.department1 || '---',
-									score: score_team1 || 0,
+									score: score_team1,
 									// winner: winner?._id === team1?._id,
 									winner:
 										Number(score_team1 || 0) >
@@ -94,7 +94,7 @@ const RENDER_SEEDS = (data = []) => {
 								{
 									name: team1?.player2 || '',
 									department: team1?.department2 || '---',
-									score: score_team1 || 0,
+									score: score_team1,
 									// winner: winner?._id === team1?._id,
 									winner:
 										Number(score_team1 || 0) >
@@ -112,7 +112,7 @@ const RENDER_SEEDS = (data = []) => {
 								{
 									name: team2?.player1 || '',
 									department: team2?.department1 || '---',
-									score: score_team2 || 0,
+									score: score_team2,
 									// winner: winner?._id === team2?._id,
 									winner:
 										Number(score_team2 || 0) >
@@ -123,7 +123,7 @@ const RENDER_SEEDS = (data = []) => {
 								{
 									name: team2?.player2 || '',
 									department: team2?.department2 || '---',
-									score: score_team2 || 0,
+									score: score_team2,
 									// winner: winner?._id === team2?._id,
 									winner:
 										Number(score_team2 || 0) >
