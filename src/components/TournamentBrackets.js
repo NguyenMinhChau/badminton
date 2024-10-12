@@ -11,11 +11,13 @@ export const TournamentBrackets = ({
 		const _checkDisabled = roundIndex !== rounds?.length - 1;
 
 		const score0 = Number(seed?.teams[0]?.score);
+		const bypass = seed?.type === 'BYPASS_THI_DAU';
 
 		const _checkWin0 = seed?.teams[0]?.winner;
 
-		const textWin = _checkWin0 ? 'text-green-500' : 'text-gray-500';
-		const bgWin = _checkWin0 ? 'bg-green-500' : 'bg-gray-500';
+		const textWin =
+			_checkWin0 && !bypass ? 'text-green-500' : 'text-gray-500';
+		const bgWin = _checkWin0 && !bypass ? 'bg-green-500' : 'bg-gray-500';
 
 		return (
 			<Seed mobileBreakpoint={breakpoint} style={{ fontSize: 12 }}>
@@ -45,7 +47,15 @@ export const TournamentBrackets = ({
 														?.department || '---'
 												}]`
 											}
-											className={`bg-opacity-30 w-[200px] outline-none border-none py-2 text-[14px] mx-1 ${textWin} ${bgWin} font-bold p-[2px] rounded-tl-md rounded-br-md text-center`}
+											className={`bg-opacity-30 w-[200px] outline-none border-none py-2 text-[14px] mx-1 ${
+												bypass && seed.teams[0]?.name
+													? 'text-blue-500'
+													: textWin
+											} ${
+												bypass && seed.teams[0]?.name
+													? 'bg-blue-500'
+													: bgWin
+											} font-bold p-[2px] rounded-tl-md rounded-br-md text-center`}
 										/>
 									</div>
 								</div>
@@ -63,7 +73,15 @@ export const TournamentBrackets = ({
 														'---'
 													}]`
 												}
-												className={`bg-opacity-30 py-2 w-[200px] outline-none border-none text-[14px] mx-1 ${textWin} ${bgWin} font-bold p-[2px] rounded-tl-md rounded-br-md text-center`}
+												className={`bg-opacity-30 py-2 w-[200px] outline-none border-none text-[14px] mx-1 ${
+													bypass
+														? 'text-blue-500'
+														: textWin
+												} ${
+													bypass
+														? 'bg-blue-500'
+														: bgWin
+												} font-bold p-[2px] rounded-tl-md rounded-br-md text-center`}
 											/>
 										</div>
 									</div>
@@ -90,6 +108,12 @@ export const TournamentBrackets = ({
 								readOnly={_checkDisabled}
 							/>
 						</div>
+						{bypass && (
+							<div className="text-[13px] italic text-blue-500 m-1">
+								Vận động viên trong lượt thi đấu này được bypass
+								vào vòng tiếp theo
+							</div>
+						)}
 					</div>
 				</SeedItem>
 			</Seed>

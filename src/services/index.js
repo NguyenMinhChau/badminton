@@ -30,6 +30,7 @@ const RENDER_SEEDS = (data = []) => {
 			score_team1,
 			score_team2,
 			winner,
+			type,
 			...rest
 		} = { ...item };
 		const { player1, department1, ...restTeam1 } = { ...team1 };
@@ -55,6 +56,7 @@ const RENDER_SEEDS = (data = []) => {
 								},
 							],
 							noiDungDangKy: item.noiDungDangKy,
+							type: type,
 						},
 						{
 							id: _id,
@@ -73,6 +75,7 @@ const RENDER_SEEDS = (data = []) => {
 								},
 							],
 							noiDungDangKy: item.noiDungDangKy,
+							type: type,
 						},
 				  ]
 				: [
@@ -104,6 +107,7 @@ const RENDER_SEEDS = (data = []) => {
 								},
 							],
 							noiDungDangKy: item.noiDungDangKy,
+							type: type,
 						},
 						{
 							id: _id,
@@ -133,6 +137,7 @@ const RENDER_SEEDS = (data = []) => {
 								},
 							],
 							noiDungDangKy: item.noiDungDangKy,
+							type: type,
 						},
 				  ],
 			...rest,
