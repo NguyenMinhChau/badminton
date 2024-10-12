@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 import { Container } from '@/components/Container';
 import { Table } from '@/components/Table';
@@ -10,6 +11,15 @@ import {
 import React from 'react';
 import { useListUserJoin } from './hooks';
 import { LoadingScreen } from '@/components/LoadingScreen';
+
+function getDriveIdBeforeView(url) {
+	const regex = /\/d\/([a-zA-Z0-9_-]+)\//;
+	const match = `${url}`?.match(regex);
+	if (match) {
+		return 'https://drive.google.com/thumbnail?id=' + match[1]; // Trả về chuỗi ID trước /view
+	}
+	return url; // Không tìm thấy ID
+}
 
 const _columns = [
 	{
@@ -27,35 +37,36 @@ const _columns = [
 		key: 'image',
 		Header: 'Ảnh',
 		accessor: (row) => {
-			console.log({ row });
+			const _uriImgPlayer1 =
+				getDriveIdBeforeView(row?.images1) ||
+				getDriveIdBeforeView(row.images?.[0]) ||
+				'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPHVvfXupg0nld10nBo2PfTM6Zi_l-CUy1GQ&s';
+			const _uriImgPlayer2 =
+				getDriveIdBeforeView(row?.images2) ||
+				getDriveIdBeforeView(row.images?.[1]) ||
+				'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPHVvfXupg0nld10nBo2PfTM6Zi_l-CUy1GQ&s';
 			return (
 				<div className="flex flex-col gap-3">
 					<img
-						src={
-							row.image ||
-							'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPHVvfXupg0nld10nBo2PfTM6Zi_l-CUy1GQ&s'
-						}
-						width="35"
+						src={_uriImgPlayer1}
+						width="45"
 						alt={row.full_name}
-						height="35"
-						className="w-[35px] h-[35px] cursor-pointer rounded-full overflow-hidden object-fill aspect-auto"
+						height="45"
+						className="min-w-[35px] min-h-[35px] max-w-[40px] max-h-[40px] cursor-pointer rounded-full overflow-hidden object-cover aspect-auto"
 						onClick={() => {
-							window.open(row.image, '_blank');
+							window.open(_uriImgPlayer1, '_blank');
 						}}
 					/>
 					{row.player2 &&
 						!row?.noiDungDangKy?.toLowerCase()?.includes('đơn') && (
 							<img
-								src={
-									row.image ||
-									'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPHVvfXupg0nld10nBo2PfTM6Zi_l-CUy1GQ&s'
-								}
-								width="35"
+								src={_uriImgPlayer2}
+								width="45"
 								alt={row.full_name}
-								height="35"
-								className="w-[35px] h-[35px] cursor-pointer rounded-full overflow-hidden object-fill aspect-auto"
+								height="45"
+								className="min-w-[35px] min-h-[35px] max-w-[40px] max-h-[40px] cursor-pointer rounded-full overflow-hidden object-cover aspect-auto"
 								onClick={() => {
-									window.open(row.image, '_blank');
+									window.open(_uriImgPlayer2, '_blank');
 								}}
 							/>
 						)}
