@@ -20,7 +20,7 @@ const RENDER_SEEDS = (data = []) => {
 			second: moment().second(),
 		})
 		.locale('vi')
-		.format('dddd, DD/MM/YYYY HH:mm');
+		.format('dddd, DD/MM/YYYY');
 	return data?.payload?.map((item, index) => {
 		const {
 			_id,
