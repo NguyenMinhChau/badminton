@@ -3,7 +3,7 @@
 import React from 'react';
 import { Bracket, Seed, SeedItem } from 'react-brackets';
 import { useModal } from '../../hooks';
-import { getDriveIdBeforeView } from '@/utils/helpers';
+import { getDriveIdBeforeView, isExist } from '@/utils/helpers';
 
 export const TournamentBrackets = ({
 	rounds = [],
@@ -12,7 +12,9 @@ export const TournamentBrackets = ({
 }) => {
 	const { openModal } = useModal();
 	const CustomSeed = ({ seed, breakpoint, roundIndex, seedIndex }) => {
-		const score0 = Number(seed?.teams[0]?.score);
+		const score0 = isExist(seed?.teams[0]?.score)
+			? Number(seed?.teams[0]?.score)
+			: '-';
 		const _noiDungDon = seed?.noiDungDangKy?.toLowerCase()?.includes('đơn');
 		const desc_bypass = _noiDungDon
 			? seed?.teams[0]?.desc_bypass
@@ -43,8 +45,8 @@ export const TournamentBrackets = ({
 			<Seed
 				mobileBreakpoint={breakpoint}
 				className={`hidden_before_tournament ${
-					checkHideSeed ? 'hidden_link' : 'show_link'
-				}`}
+					checkHideSeed ? 'hidden_link' : ''
+				} ${desc_bypass ? 'hide_all_link' : ''} `}
 				style={{
 					fontSize: 12,
 					padding: '0.3em 1.5em',

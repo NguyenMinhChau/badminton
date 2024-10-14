@@ -4,6 +4,7 @@ import {
 	CREATE_MATCH_NEXT_ROUND,
 	GET_LIST_SCHEDULE_MATCH,
 	UPDATE_CA_THI_DAU,
+	UPDATE_CA_THI_DAU_VER2,
 } from '../../services';
 import useToggle from '../../utils/useToogle';
 
@@ -54,6 +55,28 @@ export const useScheduleMatch = () => {
 			openToast,
 		});
 	};
+	const CallApiUpdateVer2 = (data) => {
+		openModal({
+			title: 'Xác nhận cập nhật tỉ số thi đấu',
+			children: () => {
+				return (
+					<div className="text-orange-500">
+						Bạn có chắc muốn cập nhật lịch tỉ số thi đấu cho các
+						trận đấu?
+					</div>
+				);
+			},
+			showSubmitted: true,
+			funcSubmitted: () => {
+				UPDATE_CA_THI_DAU_VER2({
+					dispatch,
+					data,
+					_setSubmitting,
+					openToast,
+				});
+			},
+		});
+	};
 
 	return {
 		_submitting,
@@ -61,6 +84,7 @@ export const useScheduleMatch = () => {
 
 		CallApiGetListScheduleMatch,
 		CallApiUpdate,
+		CallApiUpdateVer2,
 		CallApiCreateMatchNextRound,
 	};
 };

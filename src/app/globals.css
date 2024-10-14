@@ -36,6 +36,10 @@
 		border-color: #fff !important;
 	}
 
+	.hide_all_link:nth-child(odd):not(:last-child)::after {
+		display: none !important;
+	}
+
 	.hidden_before_tournament:nth-child(even)::before {
 		width: 0 !important;
 	}

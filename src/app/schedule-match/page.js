@@ -12,6 +12,7 @@ import {
 	DisclosurePanel,
 } from '@headlessui/react';
 import { LoadingScreen } from '@/components/LoadingScreen';
+import { isExist } from '../../utils/helpers';
 
 export default function ScheduleMatch() {
 	const {
@@ -19,6 +20,7 @@ export default function ScheduleMatch() {
 		schedule_match,
 		CallApiGetListScheduleMatch,
 		CallApiUpdate,
+		CallApiUpdateVer2,
 		CallApiCreateMatchNextRound,
 	} = useScheduleMatch();
 	const { seed_donNam, seed_donNu, seed_doiNam, seed_doiNu, seed_doiNamNu } =
@@ -59,6 +61,7 @@ export default function ScheduleMatch() {
 	}, []);
 
 	const [_seeds, setSeeds] = React.useState(seedData);
+	const [_seedsSubmit, setSeedsSubmit] = React.useState([]);
 
 	React.useEffect(() => {
 		setSeeds(seedData);
@@ -76,15 +79,14 @@ export default function ScheduleMatch() {
 		{ index },
 	) => {
 		const newRounds = [..._seeds];
-		if (value) {
+		if (isExist(value) && value !== '-') {
 			if (Number(value) <= 31 && Number(value) >= 0 && isNumeric(value)) {
 				const _seedIndex =
 					newRounds[index].data[roundIndex].seeds[seedIndex];
-				if (_seedIndex.teams[position].score?.toString() !== value) {
+				if (`${_seedIndex.teams[position].score}` !== value) {
 					_seedIndex.teams[position].score = Number(value);
-					// console.log({
-					// 	data: _seedIndex,
-					// 	_id: _seedIndex?.id,
+					setSeeds(newRounds);
+					// const payload = {
 					// 	score_team1:
 					// 		_seedIndex?.teams[0].team === 'team1'
 					// 			? _seedIndex?.teams[0].score
@@ -93,19 +95,10 @@ export default function ScheduleMatch() {
 					// 		_seedIndex?.teams[0].team === 'team2'
 					// 			? _seedIndex?.teams[0].score
 					// 			: null,
-					// });
-					setSeeds(newRounds);
-					const payload = {
-						score_team1:
-							_seedIndex?.teams[0].team === 'team1'
-								? _seedIndex?.teams[0].score
-								: null,
-						score_team2:
-							_seedIndex?.teams[0].team === 'team2'
-								? _seedIndex?.teams[0].score
-								: null,
-					};
-					CallApiUpdate(_seedIndex?.id, payload);
+					// };
+					// CallApiUpdate(_seedIndex?.id, payload);
+
+					setSeedsSubmit([..._seedsSubmit, _seedIndex]);
 				}
 			} else {
 				openToast({
@@ -115,13 +108,31 @@ export default function ScheduleMatch() {
 				});
 				return;
 			}
-		} else {
-			openToast({
-				type: TYPE_TOAST.WARNING,
-				message: 'Tỉ số không được để trống',
-			});
-			return;
 		}
+		//  else {
+		// 	openToast({
+		// 		type: TYPE_TOAST.WARNING,
+		// 		message: 'Tỉ số không được để trống',
+		// 	});
+		// 	return;
+		// }
+	};
+
+	const handleSubmitSeed = () => {
+		const uniqueTeamsMap = new Map();
+
+		// Duyệt ngược mảng để ưu tiên lấy phần tử cuối cùng có `_id` trùng lặp
+		for (let i = _seedsSubmit.length - 1; i >= 0; i--) {
+			const teamId = _seedsSubmit[i]?.teams[0]?._id;
+			if (teamId && !uniqueTeamsMap.has(teamId)) {
+				uniqueTeamsMap.set(teamId, _seedsSubmit[i]);
+			}
+		}
+
+		const uniqueData = Array.from(uniqueTeamsMap.values());
+		// console.log({ uniqueData });
+		CallApiUpdateVer2(uniqueData);
+		setSeedsSubmit([]);
 	};
 
 	return (
@@ -129,12 +140,24 @@ export default function ScheduleMatch() {
 			{_submitting && <LoadingScreen />}
 			<Container className="!p-1">
 				<div className="sticky top-2 right-2 z-50 w-full flex items-end justify-end">
-					<button
-						className="px-6 py-2 text-[#ea580c] bg-white rounded-md font-bold"
-						onClick={CallApiCreateMatchNextRound}
-					>
-						Tạo lịch thi đấu vòng tiếp theo
-					</button>
+					<div className="flex flex-row flex-wrap gap-2 items-center">
+						<button
+							className="px-6 py-2 text-[#ea580c] bg-white rounded-md font-bold"
+							onClick={() => {
+								CallApiCreateMatchNextRound();
+								setSeedsSubmit([]);
+							}}
+						>
+							Tạo lịch thi đấu vòng tiếp theo
+						</button>
+						<button
+							className="px-6 py-2 text-blue-500 bg-white rounded-md font-bold disabled:bg-gray-400 disabled:text-white"
+							onClick={handleSubmitSeed}
+							disabled={!isExist(_seedsSubmit)}
+						>
+							Cập nhật tỉ số thi đấu
+						</button>
+					</div>
 				</div>
 				{_seeds.map((item, index) => (
 					<div key={index} className="mb-5 w-full">

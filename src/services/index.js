@@ -321,6 +321,56 @@ export const UPDATE_CA_THI_DAU = async (props = {}) => {
 	}
 };
 
+export const UPDATE_CA_THI_DAU_VER2 = async (props = {}) => {
+	const { dispatch, _setSubmitting, openToast, data } = { ...props };
+	_setSubmitting();
+	const arrayData = data?.map((item) => {
+		return {
+			id: item?.id,
+			payload: {
+				score_team1:
+					item?.teams[0].team === 'team1'
+						? item?.teams[0].score
+						: null,
+				score_team2:
+					item?.teams[0].team === 'team2'
+						? item?.teams[0].score
+						: null,
+			},
+		};
+	});
+	const requests = arrayData?.map((item) =>
+		axiosPut(`/games/badminton/update-schedules/${item?.id}`, item?.payload)
+			.then((response) => {
+				return 'Cập nhật thành công!';
+			})
+			.catch((error) => {
+				const msg = errorMessage(error);
+				return msg;
+			}),
+	);
+	const results = await Promise.all(requests);
+	GET_LIST_SCHEDULE_MATCH({
+		dispatch,
+		_setSubmitting,
+		openToast,
+	});
+	_setSubmitting();
+	openToast({
+		type: TYPE_TOAST.INFO,
+		Message: () => {
+			return results?.map((msg, index) => {
+				return (
+					<p key={index} className="mb-3">
+						{msg}
+					</p>
+				);
+			});
+		},
+		autoClose: false,
+	});
+};
+
 export const CREATE_MATCH_NEXT_ROUND = async (props = {}) => {
 	const { dispatch, _setSubmitting, openToast } = { ...props };
 	_setSubmitting();
@@ -335,7 +385,7 @@ export const CREATE_MATCH_NEXT_ROUND = async (props = {}) => {
 		});
 		_setSubmitting();
 		openToast({
-			type: TYPE_TOAST.SUCCESS,
+			type: TYPE_TOAST.INFO,
 			message: isExist(resGet.payload)
 				? ''
 				: 'Tạo lịch thi đấu vòng tiếp theo thành công!',
