@@ -19,6 +19,7 @@ export default function ScheduleMatch() {
 		schedule_match,
 		CallApiGetListScheduleMatch,
 		CallApiUpdate,
+		CallApiCreateMatchNextRound,
 	} = useScheduleMatch();
 	const { seed_donNam, seed_donNu, seed_doiNam, seed_doiNu, seed_doiNamNu } =
 		{ ...schedule_match };
@@ -127,6 +128,14 @@ export default function ScheduleMatch() {
 		<>
 			{_submitting && <LoadingScreen />}
 			<Container className="!p-1">
+				<div className="sticky top-2 right-2 z-50 w-full flex items-end justify-end">
+					<button
+						className="px-6 py-2 text-[#ea580c] bg-white rounded-md font-bold"
+						onClick={CallApiCreateMatchNextRound}
+					>
+						Tạo lịch thi đấu vòng tiếp theo
+					</button>
+				</div>
 				{_seeds.map((item, index) => (
 					<div key={index} className="mb-5 w-full">
 						<Disclosure defaultOpen={index === 0}>

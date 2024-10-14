@@ -6,10 +6,15 @@ export const DATA_STATE = {
 export const TOAST = {
 	type: 'SUCCESS',
 	message: 'Thao tác thành công',
+	Message: null,
 	visible: false,
+	autoClose: true,
 };
 export const MODAL = {
 	visible: false,
+	showSubmitted: false,
+	funcSubmitted: null,
+	funcCancel: null,
 	title: '',
 	children: null,
 };

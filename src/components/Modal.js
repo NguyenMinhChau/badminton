@@ -3,11 +3,19 @@
 import React from 'react';
 import { useAppContext, useModal } from '../../hooks';
 import Image from 'next/image';
+import { isExist } from '@/utils/helpers';
 
 export const Modal = () => {
 	const { state } = useAppContext();
 	const { closeModal } = useModal();
-	const { visible, title, children } = state.set_data.modal;
+	const {
+		showSubmitted,
+		funcSubmitted,
+		funcCancel,
+		visible,
+		title,
+		children,
+	} = state.set_data.modal;
 	return (
 		<>
 			{visible && (
@@ -59,18 +67,27 @@ export const Modal = () => {
 								<button
 									data-modal-hide="popup-modal"
 									type="button"
-									class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
-									onClick={closeModal}
+									class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center"
+									onClick={() => {
+										funcCancel && funcCancel();
+										closeModal();
+									}}
 								>
 									Đóng
 								</button>
-								{/* <button
-								data-modal-hide="popup-modal"
-								type="button"
-								class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-							>
-								No, cancel
-							</button> */}
+								{showSubmitted && (
+									<button
+										data-modal-hide="popup-modal"
+										type="button"
+										class="py-2.5 px-5 ms-3 text-sm font-medium text-white focus:outline-none bg-blue-500 rounded-lg  hover:bg-blue-800 focus:z-10 focus:ring-4 focus:ring-blue-800"
+										onClick={() => {
+											funcSubmitted && funcSubmitted();
+											closeModal();
+										}}
+									>
+										Xác nhận
+									</button>
+								)}
 							</div>
 						</div>
 					</div>

@@ -4,14 +4,16 @@ import useAppContext from './useAppContext';
 
 export default function useToast() {
 	const { state, dispatch } = useAppContext();
-	const openToast = ({ type, message }) => {
+	const openToast = ({ type, message, Message, autoClose = true }) => {
 		dispatch(
 			actions.SET_DATA_PAYLOAD({
 				key: 'toast',
 				value: {
 					type,
 					message,
+					Message,
 					visible: true,
+					autoClose,
 				},
 			}),
 		);
@@ -23,7 +25,9 @@ export default function useToast() {
 				value: {
 					type: 'SUCCESS',
 					message: 'Thao tác thành công',
+					Message: null,
 					visible: false,
+					autoClose: true,
 				},
 			}),
 		);

@@ -320,3 +320,47 @@ export const UPDATE_CA_THI_DAU = async (props = {}) => {
 		});
 	}
 };
+
+export const CREATE_MATCH_NEXT_ROUND = async (props = {}) => {
+	const { dispatch, _setSubmitting, openToast } = { ...props };
+	_setSubmitting();
+	try {
+		const resGet = await axiosGet(
+			'/games/badminton/schedule/create-match-next-round',
+		);
+		GET_LIST_SCHEDULE_MATCH({
+			dispatch,
+			_setSubmitting,
+			openToast,
+		});
+		_setSubmitting();
+		openToast({
+			type: TYPE_TOAST.SUCCESS,
+			message: isExist(resGet.payload)
+				? ''
+				: 'Tạo lịch thi đấu vòng tiếp theo thành công!',
+			Message: () => {
+				return (
+					<>
+						{Object.entries(resGet.payload)?.map(
+							([key, val], index) => {
+								return (
+									<p key={index} className="mb-3">
+										{key}: {val}
+									</p>
+								);
+							},
+						)}
+					</>
+				);
+			},
+			autoClose: !isExist(resGet.payload),
+		});
+	} catch (error) {
+		_setSubmitting();
+		openToast({
+			type: TYPE_TOAST.ERROR,
+			message: errorMessage(error),
+		});
+	}
+};
