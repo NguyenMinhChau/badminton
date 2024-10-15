@@ -49,13 +49,10 @@ const RENDER_SEEDS = (data = []) => {
 									department: team1?.department1 || '',
 									score: score_team1,
 									image: team1?.imagePlayer1,
-									winner:
-										Number(score_team1 || 0) >
-										Number(score_team2 || 0),
+									winner: Number(score_team1 || 0) > Number(score_team2 || 0),
 									team: 'team1',
 									desc_bypass:
-										type === 'BYPASS_THI_DAU' &&
-										isExist(team1?.player1)
+										type === 'BYPASS_THI_DAU' && isExist(team1?.player1)
 											? 'Vận động viên trong lượt thi đấu này được bypass vào vòng tiếp theo'
 											: '',
 									...restTeam1,
@@ -73,13 +70,10 @@ const RENDER_SEEDS = (data = []) => {
 									department: team2?.department1 || '',
 									score: score_team2,
 									image: team2?.imagePlayer1,
-									winner:
-										Number(score_team2 || 0) >
-										Number(score_team1 || 0),
+									winner: Number(score_team2 || 0) > Number(score_team1 || 0),
 									team: 'team2',
 									desc_bypass:
-										type === 'BYPASS_THI_DAU' &&
-										isExist(team2?.player1)
+										type === 'BYPASS_THI_DAU' && isExist(team2?.player1)
 											? 'Vận động viên trong lượt thi đấu này được bypass vào vòng tiếp theo'
 											: '',
 									...restTeam2,
@@ -100,9 +94,7 @@ const RENDER_SEEDS = (data = []) => {
 									score: score_team1,
 									// winner: winner?._id === team1?._id,
 									image: team1?.imagePlayer1,
-									winner:
-										Number(score_team1 || 0) >
-										Number(score_team2 || 0),
+									winner: Number(score_team1 || 0) > Number(score_team2 || 0),
 									team: 'team1',
 									...restTeam1,
 								},
@@ -112,9 +104,7 @@ const RENDER_SEEDS = (data = []) => {
 									score: score_team1,
 									// winner: winner?._id === team1?._id,
 									image: team1?.imagePlayer2,
-									winner:
-										Number(score_team1 || 0) >
-										Number(score_team2 || 0),
+									winner: Number(score_team1 || 0) > Number(score_team2 || 0),
 									team: 'team1',
 									...restTeam1,
 								},
@@ -138,9 +128,7 @@ const RENDER_SEEDS = (data = []) => {
 									score: score_team2,
 									// winner: winner?._id === team2?._id,
 									image: team2?.imagePlayer1,
-									winner:
-										Number(score_team2 || 0) >
-										Number(score_team1 || 0),
+									winner: Number(score_team2 || 0) > Number(score_team1 || 0),
 									team: 'team2',
 									...restTeam2,
 								},
@@ -150,9 +138,7 @@ const RENDER_SEEDS = (data = []) => {
 									score: score_team2,
 									// winner: winner?._id === team2?._id,
 									image: team2?.imagePlayer2,
-									winner:
-										Number(score_team2 || 0) >
-										Number(score_team1 || 0),
+									winner: Number(score_team2 || 0) > Number(score_team1 || 0),
 									team: 'team2',
 									...restTeam2,
 								},
@@ -269,17 +255,11 @@ export const GET_LIST_SCHEDULE_MATCH = async (props = {}) => {
 				key: 'data',
 				value: {
 					schedule_match: {
-						seed_donNam: FORMAT_SEED_BY_ROUND(
-							DATA_SCHEDULE_DON_NAM,
-						),
+						seed_donNam: FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DON_NAM),
 						seed_donNu: FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DON_NU),
-						seed_doiNam: FORMAT_SEED_BY_ROUND(
-							DATA_SCHEDULE_DOI_NAM,
-						),
+						seed_doiNam: FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DOI_NAM),
 						seed_doiNu: FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DOI_NU),
-						seed_doiNamNu: FORMAT_SEED_BY_ROUND(
-							DATA_SCHEDULE_DOI_NAM_NU,
-						),
+						seed_doiNamNu: FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DOI_NAM_NU),
 					},
 				},
 			}),
@@ -329,13 +309,9 @@ export const UPDATE_CA_THI_DAU_VER2 = async (props = {}) => {
 			id: item?.id,
 			payload: {
 				score_team1:
-					item?.teams[0].team === 'team1'
-						? item?.teams[0].score
-						: null,
+					item?.teams[0].team === 'team1' ? item?.teams[0].score : null,
 				score_team2:
-					item?.teams[0].team === 'team2'
-						? item?.teams[0].score
-						: null,
+					item?.teams[0].team === 'team2' ? item?.teams[0].score : null,
 			},
 		};
 	});
@@ -378,34 +354,62 @@ export const CREATE_MATCH_NEXT_ROUND = async (props = {}) => {
 		const resGet = await axiosGet(
 			'/games/badminton/schedule/create-match-next-round',
 		);
-		GET_LIST_SCHEDULE_MATCH({
-			dispatch,
-			_setSubmitting,
-			openToast,
-		});
-		_setSubmitting();
-		openToast({
-			type: TYPE_TOAST.INFO,
-			message: isExist(resGet.payload)
-				? ''
-				: 'Tạo lịch thi đấu vòng tiếp theo thành công!',
-			Message: () => {
-				return (
-					<>
-						{Object.entries(resGet.payload)?.map(
-							([key, val], index) => {
+		// GET PLAYERS
+		setTimeout(async () => {
+			const resGet = await axiosGet('games/badminton/get-players');
+
+			const DATA_DON_NAM = resGet?.payload?.filter(
+				(item) => item?.noiDungDangKy === TYPE_PLAY.DON_NAM,
+			);
+			const DATA_DON_NU = resGet?.payload?.filter(
+				(item) => item?.noiDungDangKy === TYPE_PLAY.DON_NU,
+			);
+			const DATA_DOI_NAM = resGet?.payload?.filter(
+				(item) => item?.noiDungDangKy === TYPE_PLAY.DOI_NAM,
+			);
+			const DATA_DOI_NU = resGet?.payload?.filter(
+				(item) => item?.noiDungDangKy === TYPE_PLAY.DOI_NU,
+			);
+			const DATA_DOI_NAM_NU = resGet?.payload?.filter(
+				(item) => item?.noiDungDangKy === TYPE_PLAY.DOI_NAM_NU,
+			);
+
+			dispatch(
+				actions.SET_DATA_PAYLOAD({
+					key: 'data',
+					value: {
+						user_list_join: {
+							donNam: DATA_DON_NAM,
+							donNu: DATA_DON_NU,
+							doiNam: DATA_DOI_NAM,
+							doiNu: DATA_DOI_NU,
+							doiNamNu: DATA_DOI_NAM_NU,
+						},
+					},
+				}),
+			);
+			_setSubmitting();
+			openToast({
+				type: TYPE_TOAST.INFO,
+				message: isExist(resGet.payload)
+					? ''
+					: 'Tạo lịch thi đấu vòng tiếp theo thành công!',
+				Message: () => {
+					return (
+						<>
+							{Object.entries(resGet.payload)?.map(([key, val], index) => {
 								return (
 									<p key={index} className="mb-3">
 										{key}: {val}
 									</p>
 								);
-							},
-						)}
-					</>
-				);
-			},
-			autoClose: !isExist(resGet.payload),
-		});
+							})}
+						</>
+					);
+				},
+				autoClose: !isExist(resGet.payload),
+			});
+		}, 3000);
 	} catch (error) {
 		_setSubmitting();
 		openToast({
