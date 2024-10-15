@@ -2,7 +2,7 @@
 'use client';
 import React from 'react';
 import { Bracket, Seed, SeedItem } from 'react-brackets';
-import { useModal } from '../../hooks';
+import { useAppContext, useModal } from '../../hooks';
 import { getDriveIdBeforeView, isExist } from '@/utils/helpers';
 
 export const TournamentBrackets = ({
@@ -10,7 +10,13 @@ export const TournamentBrackets = ({
 	handleChangeSeedScore,
 	paramsFunc = {},
 }) => {
+	const { state } = useAppContext();
+	const { user } = state.set_data.data;
+
+	const disabled = user?.email !== process.env.NEXT_PUBLIC_EMAIL;
+
 	const { openModal } = useModal();
+
 	const CustomSeed = ({ seed, breakpoint, roundIndex, seedIndex }) => {
 		const score0 = isExist(seed?.teams[0]?.score)
 			? Number(seed?.teams[0]?.score)
@@ -26,8 +32,7 @@ export const TournamentBrackets = ({
 
 		const textWin =
 			_checkWin0 && !desc_bypass ? 'text-green-500' : 'text-gray-500';
-		const bgWin =
-			_checkWin0 && !desc_bypass ? 'bg-green-500' : 'bg-gray-500';
+		const bgWin = _checkWin0 && !desc_bypass ? 'bg-green-500' : 'bg-gray-500';
 
 		const _uriImgPlayer1 =
 			getDriveIdBeforeView(seed?.teams[0]?.image) ||
@@ -64,9 +69,7 @@ export const TournamentBrackets = ({
 							<div
 								className="flex flex-row gap-1 m-2"
 								style={{
-									alignItems: seed.teams[1]?.name
-										? 'center'
-										: 'start',
+									alignItems: seed.teams[1]?.name ? 'center' : 'start',
 								}}
 							>
 								<div className="flex flex-col gap-1">
@@ -84,22 +87,13 @@ export const TournamentBrackets = ({
 														return (
 															<div className="flex items-center justify-center">
 																<img
-																	src={
-																		_uriImgPlayer1
-																	}
+																	src={_uriImgPlayer1}
 																	width="150"
-																	alt={
-																		seed
-																			.teams[0]
-																			?.name
-																	}
+																	alt={seed.teams[0]?.name}
 																	height="150"
 																	className="w-[300px] h-[300px] cursor-pointer object-contain aspect-auto rounded-lg"
 																	onClick={() => {
-																		window.open(
-																			_uriImgPlayer1,
-																			'_blank',
-																		);
+																		window.open(_uriImgPlayer1, '_blank');
 																	}}
 																/>
 															</div>
@@ -112,23 +106,19 @@ export const TournamentBrackets = ({
 											<input
 												type="text"
 												value={
-													(seed.teams[0]?.name ||
-														'-') +
+													(seed.teams[0]?.name || '-') +
 													`${
-														seed?.teams[0]
-															?.department
+														seed?.teams[0]?.department
 															? ` [${seed?.teams[0]?.department}]`
 															: ''
 													}`
 												}
 												className={`bg-opacity-30 w-[200px] outline-none border-none py-2 text-[14px] ${
-													desc_bypass &&
-													seed.teams[0]?.name
+													desc_bypass && seed.teams[0]?.name
 														? 'text-blue-500'
 														: textWin
 												} ${
-													desc_bypass &&
-													seed.teams[0]?.name
+													desc_bypass && seed.teams[0]?.name
 														? 'bg-blue-500'
 														: bgWin
 												} font-bold p-[2px] rounded-tl-md rounded-br-md text-center`}
@@ -150,22 +140,13 @@ export const TournamentBrackets = ({
 															return (
 																<div className="flex items-center justify-center">
 																	<img
-																		src={
-																			_uriImgPlayer2
-																		}
+																		src={_uriImgPlayer2}
 																		width="150"
-																		alt={
-																			seed
-																				.teams[0]
-																				?.name
-																		}
+																		alt={seed.teams[0]?.name}
 																		height="150"
 																		className="w-[300px] h-[300px] cursor-pointer object-contain aspect-auto rounded-lg"
 																		onClick={() => {
-																			window.open(
-																				_uriImgPlayer2,
-																				'_blank',
-																			);
+																			window.open(_uriImgPlayer2, '_blank');
 																		}}
 																	/>
 																</div>
@@ -178,23 +159,17 @@ export const TournamentBrackets = ({
 												<input
 													type="text"
 													value={
-														(seed.teams[1]?.name ||
-															'-') +
+														(seed.teams[1]?.name || '-') +
 														`${
-															seed?.teams[1]
-																?.department
+															seed?.teams[1]?.department
 																? ` [${seed?.teams[1]?.department}]`
 																: ''
 														}`
 													}
 													className={`bg-opacity-30 py-2 w-[200px] outline-none border-none text-[14px] ${
-														desc_bypass
-															? 'text-blue-500'
-															: textWin
+														desc_bypass ? 'text-blue-500' : textWin
 													} ${
-														desc_bypass
-															? 'bg-blue-500'
-															: bgWin
+														desc_bypass ? 'bg-blue-500' : bgWin
 													} font-bold p-[2px] rounded-tl-md rounded-br-md text-center`}
 												/>
 											</div>
@@ -220,8 +195,8 @@ export const TournamentBrackets = ({
 										);
 									}}
 									className={`w-[50px] bg-opacity-30 py-2 outline-none border-none text-[14px] ${textWin} ${bgWin} font-bold p-[2px] rounded-tr-md rounded-bl-md text-center`}
-									disabled={_checkDisabled}
-									readOnly={_checkDisabled}
+									disabled={_checkDisabled || disabled}
+									readOnly={_checkDisabled || disabled}
 								/>
 							</div>
 							{desc_bypass && (

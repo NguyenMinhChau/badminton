@@ -420,28 +420,45 @@ export const CREATE_MATCH_NEXT_ROUND = async (props = {}) => {
 };
 
 export const HANDLE_LOGIN = async (props = {}) => {
-	const { dispatch, email, password, router, _setSubmitting } = { ...props };
+	const { dispatch, email, password, router, _setSubmitting, openToast } = {
+		...props,
+	};
 	_setSubmitting();
 	setTimeout(() => {
-		const payload = {
-			email,
-			password,
-		};
-		dispatch(
-			actions.SET_DATA_PAYLOAD({
-				key: 'data',
-				value: {
-					user: payload,
-				},
-			}),
-		);
-		localStorage.setItem('currentUser', JSON.stringify(payload));
-		router.push('/');
-		_setSubmitting();
+		if (
+			email !== process.env.NEXT_PUBLIC_EMAIL ||
+			password !== process.env.NEXT_PUBLIC_PASSWORD
+		) {
+			_setSubmitting();
+			openToast({
+				type: TYPE_TOAST.ERROR,
+				message: 'Sai tài khoản hoặc mật khẩu!',
+			});
+		} else {
+			const payload = {
+				email,
+				password,
+			};
+			dispatch(
+				actions.SET_DATA_PAYLOAD({
+					key: 'data',
+					value: {
+						user: payload,
+					},
+				}),
+			);
+			localStorage.setItem('currentUser', JSON.stringify(payload));
+			router.push('/');
+			_setSubmitting();
+			openToast({
+				type: TYPE_TOAST.SUCCESS,
+				message: 'Đăng nhập thành công!',
+			});
+		}
 	}, 3000);
 };
 export const HANDLE_LOGOUT = async (props = {}) => {
-	const { dispatch, router, user, _setSubmitting } = { ...props };
+	const { dispatch, router, user, _setSubmitting, openToast } = { ...props };
 	_setSubmitting();
 	if (isExist(user)) {
 		setTimeout(() => {
@@ -456,6 +473,10 @@ export const HANDLE_LOGOUT = async (props = {}) => {
 			localStorage.setItem('currentUser', null);
 			router.push('/');
 			_setSubmitting();
+			openToast({
+				type: TYPE_TOAST.SUCCESS,
+				message: 'Đăng xuất thành công!',
+			});
 		}, 3000);
 	} else {
 		router.push('/login');

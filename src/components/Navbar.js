@@ -4,7 +4,7 @@ import ThemeChanger from './DarkSwitch';
 import Image from 'next/image';
 import { Disclosure } from '@headlessui/react';
 import { usePathname, useRouter } from 'next/navigation';
-import { useAppContext } from '../../hooks';
+import { useAppContext, useToast } from '../../hooks';
 import { isExist } from '@/utils/helpers';
 import { HANDLE_LOGOUT } from '@/services';
 import React from 'react';
@@ -17,20 +17,16 @@ export const Navbar = () => {
 	const pathName = usePathname();
 	const router = useRouter();
 	const { _setSubmitting, _submitting } = useToggle();
+	const { openToast } = useToast();
 	const NAVIGATION_DATA = [
 		{ label: 'Danh sách tham gia', href: '/list-users-join' },
 		// { label: 'Bảng kết quả', href: '/table-result' },
 		// { label: 'Xếp hạng', href: '/range' },
 		// { label: 'Quản lý', href: '/management' },
-		// ...(user ? [{ label: 'Lịch thi đấu', href: '/schedule-match' }] : []),
 		{ label: 'Lịch thi đấu', href: '/schedule-match' },
 	];
 
 	const [navigation, setNavigation] = React.useState(NAVIGATION_DATA);
-
-	React.useEffect(() => {
-		setNavigation(NAVIGATION_DATA);
-	}, [user]);
 
 	const checkActiveRoute = (route) => {
 		return route?.href === pathName;
@@ -66,7 +62,13 @@ export const Navbar = () => {
 									backgroundColor: isExist(user) ? '#dc2626' : '#ea580c',
 								}}
 								onClick={() => {
-									HANDLE_LOGOUT({ _setSubmitting, dispatch, router, user });
+									HANDLE_LOGOUT({
+										openToast,
+										_setSubmitting,
+										dispatch,
+										router,
+										user,
+									});
 								}}
 							>
 								{isExist(user) ? 'Đăng xuất' : 'Đăng nhập'}
@@ -130,6 +132,7 @@ export const Navbar = () => {
 											}}
 											onClick={() => {
 												HANDLE_LOGOUT({
+													openToast,
 													_setSubmitting,
 													dispatch,
 													router,

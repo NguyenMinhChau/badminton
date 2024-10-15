@@ -12,7 +12,7 @@ export const useScheduleMatch = () => {
 	const { state, dispatch } = useAppContext();
 	const { data } = state.set_data;
 	const { _submitting, _setSubmitting } = useToggle();
-	const { schedule_match } = { ...data };
+	const { schedule_match, user } = { ...data };
 	const { openToast } = useToast();
 	const { openModal } = useModal();
 
@@ -30,8 +30,7 @@ export const useScheduleMatch = () => {
 			children: () => {
 				return (
 					<div className="text-orange-500">
-						Bạn có chắc muốn tạo lịch thi đấu vòng tiếp theo cho các
-						trận đấu?
+						Bạn có chắc muốn tạo lịch thi đấu vòng tiếp theo cho các trận đấu?
 					</div>
 				);
 			},
@@ -61,8 +60,7 @@ export const useScheduleMatch = () => {
 			children: () => {
 				return (
 					<div className="text-orange-500">
-						Bạn có chắc muốn cập nhật lịch tỉ số thi đấu cho các
-						trận đấu?
+						Bạn có chắc muốn cập nhật lịch tỉ số thi đấu cho các trận đấu?
 					</div>
 				);
 			},
@@ -80,6 +78,7 @@ export const useScheduleMatch = () => {
 
 	return {
 		_submitting,
+		user,
 		schedule_match,
 
 		CallApiGetListScheduleMatch,

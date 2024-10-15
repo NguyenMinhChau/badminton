@@ -1,7 +1,7 @@
 'use client';
 import { HANDLE_LOGIN } from '@/services';
 import { useState } from 'react';
-import { useAppContext } from '../../../hooks';
+import { useAppContext, useToast } from '../../../hooks';
 import { isExist } from '@/utils/helpers';
 import { useRouter } from 'next/navigation';
 import useToggle from '@/utils/useToogle';
@@ -13,6 +13,7 @@ export default function Login() {
 	const [password, setPassword] = useState('');
 	const router = useRouter();
 	const { _setSubmitting, _submitting } = useToggle();
+	const { openToast } = useToast();
 	return (
 		<>
 			{_submitting && <LoadingScreen />}
@@ -82,6 +83,7 @@ export default function Login() {
 											e.preventDefault();
 											HANDLE_LOGIN({
 												_setSubmitting,
+												openToast,
 												email,
 												password,
 												dispatch,
