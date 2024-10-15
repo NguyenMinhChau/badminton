@@ -23,8 +23,9 @@ export default function ScheduleMatch() {
 		CallApiUpdateVer2,
 		CallApiCreateMatchNextRound,
 	} = useScheduleMatch();
-	const { seed_donNam, seed_donNu, seed_doiNam, seed_doiNu, seed_doiNamNu } =
-		{ ...schedule_match };
+	const { seed_donNam, seed_donNu, seed_doiNam, seed_doiNu, seed_doiNamNu } = {
+		...schedule_match,
+	};
 
 	const { openToast } = useToast();
 
@@ -81,8 +82,7 @@ export default function ScheduleMatch() {
 		const newRounds = [..._seeds];
 		if (isExist(value) && value !== '-') {
 			if (Number(value) <= 31 && Number(value) >= 0 && isNumeric(value)) {
-				const _seedIndex =
-					newRounds[index].data[roundIndex].seeds[seedIndex];
+				const _seedIndex = newRounds[index].data[roundIndex].seeds[seedIndex];
 				if (`${_seedIndex.teams[position].score}` !== value) {
 					_seedIndex.teams[position].score = Number(value);
 					setSeeds(newRounds);
@@ -183,9 +183,7 @@ export default function ScheduleMatch() {
 										>
 											<TournamentBrackets
 												rounds={item?.data}
-												handleChangeSeedScore={
-													handleChangeSeedScore
-												}
+												handleChangeSeedScore={handleChangeSeedScore}
 												paramsFunc={{
 													index: index,
 												}}

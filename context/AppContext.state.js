@@ -1,5 +1,6 @@
 // SET_DATA
 export const DATA_STATE = {
+	user: null,
 	user_list_join: null,
 	schedule_match: null,
 };

@@ -418,3 +418,47 @@ export const CREATE_MATCH_NEXT_ROUND = async (props = {}) => {
 		});
 	}
 };
+
+export const HANDLE_LOGIN = async (props = {}) => {
+	const { dispatch, email, password, router, _setSubmitting } = { ...props };
+	_setSubmitting();
+	setTimeout(() => {
+		const payload = {
+			email,
+			password,
+		};
+		dispatch(
+			actions.SET_DATA_PAYLOAD({
+				key: 'data',
+				value: {
+					user: payload,
+				},
+			}),
+		);
+		localStorage.setItem('currentUser', JSON.stringify(payload));
+		router.push('/');
+		_setSubmitting();
+	}, 3000);
+};
+export const HANDLE_LOGOUT = async (props = {}) => {
+	const { dispatch, router, user, _setSubmitting } = { ...props };
+	_setSubmitting();
+	if (isExist(user)) {
+		setTimeout(() => {
+			dispatch(
+				actions.SET_DATA_PAYLOAD({
+					key: 'data',
+					value: {
+						user: null,
+					},
+				}),
+			);
+			localStorage.setItem('currentUser', null);
+			router.push('/');
+			_setSubmitting();
+		}, 3000);
+	} else {
+		router.push('/login');
+		_setSubmitting();
+	}
+};

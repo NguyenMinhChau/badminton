@@ -10,6 +10,7 @@ import prizeStructureImg from '../../public/img/prize_structure.png';
 
 import { benefitOne } from '@/components/data';
 import Image from 'next/image';
+import useToggle from '@/utils/useToogle';
 
 const DATA_TESTIMONIALS = [
 	{
@@ -38,9 +39,10 @@ const DATA_TESTIMONIALS = [
 export default function Home() {
 	const { state } = useAppContext();
 	const { isLoading } = state.set_toggle;
+	const { _submitting } = useToggle();
 	return (
 		<>
-			{isLoading && <LoadingScreen />}
+			{(isLoading || _submitting) && <LoadingScreen />}
 			<Container>
 				<Hero />
 
@@ -64,8 +66,8 @@ export default function Home() {
 				</div>
 
 				<SectionTitle preTitle="BENEFITS" title="LỢI ÍCH KHI THAM GIA">
-					Chơi cầu lông mang lại nhiều lợi ích cả về sức khỏe và tinh
-					thần. Dưới đây là một số lợi ích chính
+					Chơi cầu lông mang lại nhiều lợi ích cả về sức khỏe và tinh thần. Dưới
+					đây là một số lợi ích chính
 				</SectionTitle>
 
 				<Benefits data={benefitOne} />
