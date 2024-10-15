@@ -142,28 +142,28 @@ export default function ScheduleMatch() {
 		<>
 			{_submitting && <LoadingScreen />}
 			<Container className="!p-1">
-				{disabled && (
-					<div
-						class="flex items-center p-4 mb-4 text-sm text-red-600 rounded-lg bg-red-200 "
-						role="alert"
-					>
-						<svg
-							class="flex-shrink-0 inline w-4 h-4 me-3"
-							aria-hidden="true"
-							xmlns="http://www.w3.org/2000/svg"
-							fill="currentColor"
-							viewBox="0 0 20 20"
+				<div className="sticky top-2 right-2 z-50 w-full flex flex-col items-end justify-end">
+					{disabled && (
+						<div
+							class="flex w-full items-center p-4 mb-4 text-sm text-red-600 rounded-lg bg-red-200 "
+							role="alert"
 						>
-							<path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-						</svg>
-						<span class="sr-only">Info</span>
-						<div>
-							Bạn không có quyền thao tác tại trang này, vui lòng đăng nhập bằng
-							tài khoản quản trị!
+							<svg
+								class="flex-shrink-0 inline w-4 h-4 me-3"
+								aria-hidden="true"
+								xmlns="http://www.w3.org/2000/svg"
+								fill="currentColor"
+								viewBox="0 0 20 20"
+							>
+								<path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+							</svg>
+							<span class="sr-only">Info</span>
+							<div>
+								Bạn không có quyền thao tác tại trang này, vui lòng đăng nhập
+								bằng tài khoản quản trị!
+							</div>
 						</div>
-					</div>
-				)}
-				<div className="sticky top-2 right-2 z-50 w-full flex items-end justify-end">
+					)}
 					<div className="flex flex-row flex-wrap gap-2 items-center">
 						<button
 							className="px-6 py-2 text-[#ea580c] bg-white rounded-md font-bold disabled:bg-gray-400 disabled:text-white"
