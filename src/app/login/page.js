@@ -11,6 +11,7 @@ export default function Login() {
 	const { dispatch } = useAppContext();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [showPassword, setShowPassword] = useState(false);
 	const router = useRouter();
 	const { _setSubmitting, _submitting } = useToggle();
 	const { openToast } = useToast();
@@ -47,7 +48,7 @@ export default function Login() {
 										}}
 									/>
 								</div>
-								<div className="mb-8">
+								<div className="mb-8 relative">
 									<label
 										htmlFor="password"
 										className="mb-3 block text-sm font-medium text-black dark:text-white"
@@ -55,15 +56,27 @@ export default function Login() {
 										Mật khẩu
 									</label>
 									<input
-										type="password"
+										type={showPassword ? 'text' : 'password'}
 										name="password"
 										placeholder="Nhập mật khẩu"
-										className="w-full rounded-md border border-transparent py-3 px-6 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0000006a] dark:shadow-signUp"
+										className="w-full rounded-md border border-transparent py-3 pl-6 pr-10 text-base text-body-color placeholder-body-color shadow-one outline-none focus:border-primary focus-visible:shadow-none dark:bg-[#0000006a] dark:shadow-signUp"
 										value={password}
 										onChange={(e) => {
 											setPassword(e.target.value);
 										}}
 									/>
+									<div
+										className="absolute bottom-3 right-3 cursor-pointer"
+										onClick={() => {
+											setShowPassword(!showPassword);
+										}}
+									>
+										{showPassword ? (
+											<i class="fa-regular fa-eye"></i>
+										) : (
+											<i class="fa-regular fa-eye-slash"></i>
+										)}
+									</div>
 								</div>
 								{/* <div className="mb-8 flex flex-col justify-between sm:flex-row sm:items-center">
 									<div>

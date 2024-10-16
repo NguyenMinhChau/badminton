@@ -67,7 +67,6 @@ export const Navbar = () => {
 										_setSubmitting,
 										dispatch,
 										router,
-										user,
 									});
 								}}
 							>
@@ -136,7 +135,6 @@ export const Navbar = () => {
 													_setSubmitting,
 													dispatch,
 													router,
-													user,
 												});
 											}}
 										>

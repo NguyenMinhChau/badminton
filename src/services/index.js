@@ -458,9 +458,9 @@ export const HANDLE_LOGIN = async (props = {}) => {
 	}, 3000);
 };
 export const HANDLE_LOGOUT = async (props = {}) => {
-	const { dispatch, router, user, _setSubmitting, openToast } = { ...props };
+	const { dispatch, router, _setSubmitting, openToast } = { ...props };
 	_setSubmitting();
-	if (isExist(user)) {
+	if (isExist(localStorage.getItem('currentUser'))) {
 		setTimeout(() => {
 			dispatch(
 				actions.SET_DATA_PAYLOAD({
