@@ -60,6 +60,8 @@ const RENDER_SEEDS = (data = []) => {
 							],
 							noiDungDangKy: item.noiDungDangKy,
 							bypass: type === 'BYPASS_THI_DAU',
+							round: round,
+							teamId: team1?._id,
 						},
 						{
 							id: _id,
@@ -81,6 +83,8 @@ const RENDER_SEEDS = (data = []) => {
 							],
 							noiDungDangKy: item.noiDungDangKy,
 							bypass: type === 'BYPASS_THI_DAU',
+							round: round,
+							teamId: team2?._id,
 						},
 				  ]
 				: [
@@ -117,6 +121,8 @@ const RENDER_SEEDS = (data = []) => {
 									? 'Vận động viên trong lượt thi đấu này được bypass vào vòng tiếp theo'
 									: '',
 							bypass: type === 'BYPASS_THI_DAU',
+							round: round,
+							teamId: team1?._id,
 						},
 						{
 							id: _id,
@@ -151,6 +157,8 @@ const RENDER_SEEDS = (data = []) => {
 									? 'Vận động viên trong lượt thi đấu này được bypass vào vòng tiếp theo'
 									: '',
 							bypass: type === 'BYPASS_THI_DAU',
+							round: round,
+							teamId: team2?._id,
 						},
 				  ],
 			...rest,
@@ -275,43 +283,23 @@ export const GET_LIST_SCHEDULE_MATCH = async (props = {}) => {
 };
 
 export const UPDATE_CA_THI_DAU = async (props = {}) => {
-	const { dispatch, id, payload, _setSubmitting, openToast } = { ...props };
-	_setSubmitting();
-	try {
-		const resPut = await axiosPut(
-			`/games/badminton/update-schedules/${id}`,
-			payload,
-		);
-		GET_LIST_SCHEDULE_MATCH({
-			dispatch,
-			_setSubmitting,
-			openToast,
-		});
-		_setSubmitting();
-		openToast({
-			type: TYPE_TOAST.SUCCESS,
-			message: 'Cập nhật thành công!',
-		});
-	} catch (error) {
-		_setSubmitting();
-		openToast({
-			type: TYPE_TOAST.ERROR,
-			message: errorMessage(error),
-		});
-	}
-};
-
-export const UPDATE_CA_THI_DAU_VER2 = async (props = {}) => {
-	const { dispatch, _setSubmitting, openToast, data } = { ...props };
+	const { dispatch, _setSubmitting, openToast, data, _seeds } = { ...props };
 	_setSubmitting();
 	const arrayData = data?.map((item) => {
+		const _getNoiDung = _seeds.find((x) => {
+			return x?.question === item?.noiDungDangKy;
+		});
+		const _getRound = _getNoiDung?.data?.find((x) => {
+			return x?.title?.toLowerCase() === item?.round?.toLowerCase();
+		});
+		const _getSeeds = _getRound?.seeds?.filter((x) => {
+			return x?.id === item?.id;
+		});
 		return {
 			id: item?.id,
 			payload: {
-				score_team1:
-					item?.teams[0].team === 'team1' ? item?.teams[0].score : null,
-				score_team2:
-					item?.teams[0].team === 'team2' ? item?.teams[0].score : null,
+				score_team1: _getSeeds?.[0]?.teams[0].score || 0,
+				score_team2: _getSeeds?.[1]?.teams[0].score || 0,
 			},
 		};
 	});
@@ -354,40 +342,13 @@ export const CREATE_MATCH_NEXT_ROUND = async (props = {}) => {
 		const resGet = await axiosGet(
 			'/games/badminton/schedule/create-match-next-round',
 		);
-		// GET PLAYERS
+		// GET SCHEDULE_MATCH
 		setTimeout(async () => {
-			const resGet = await axiosGet('games/badminton/get-players');
-
-			const DATA_DON_NAM = resGet?.payload?.filter(
-				(item) => item?.noiDungDangKy === TYPE_PLAY.DON_NAM,
-			);
-			const DATA_DON_NU = resGet?.payload?.filter(
-				(item) => item?.noiDungDangKy === TYPE_PLAY.DON_NU,
-			);
-			const DATA_DOI_NAM = resGet?.payload?.filter(
-				(item) => item?.noiDungDangKy === TYPE_PLAY.DOI_NAM,
-			);
-			const DATA_DOI_NU = resGet?.payload?.filter(
-				(item) => item?.noiDungDangKy === TYPE_PLAY.DOI_NU,
-			);
-			const DATA_DOI_NAM_NU = resGet?.payload?.filter(
-				(item) => item?.noiDungDangKy === TYPE_PLAY.DOI_NAM_NU,
-			);
-
-			dispatch(
-				actions.SET_DATA_PAYLOAD({
-					key: 'data',
-					value: {
-						user_list_join: {
-							donNam: DATA_DON_NAM,
-							donNu: DATA_DON_NU,
-							doiNam: DATA_DOI_NAM,
-							doiNu: DATA_DOI_NU,
-							doiNamNu: DATA_DOI_NAM_NU,
-						},
-					},
-				}),
-			);
+			GET_LIST_SCHEDULE_MATCH({
+				dispatch,
+				_setSubmitting,
+				openToast,
+			});
 			_setSubmitting();
 			openToast({
 				type: TYPE_TOAST.INFO,

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 'use client';
 import React from 'react';
@@ -29,10 +30,18 @@ export const TournamentBrackets = ({
 		const _checkDisabled = roundIndex !== rounds?.length - 1 || bypass;
 
 		const _checkWin0 = seed?.teams[0]?.winner;
+		const _checkWinFinal = seed?.isWinner;
 
-		const textWin =
-			_checkWin0 && !desc_bypass ? 'text-green-500' : 'text-gray-500';
-		const bgWin = _checkWin0 && !desc_bypass ? 'bg-green-500' : 'bg-gray-500';
+		const textWin = _checkWinFinal
+			? 'text-orange-500'
+			: _checkWin0 && !desc_bypass
+			? 'text-green-500'
+			: 'text-gray-500';
+		const bgWin = _checkWinFinal
+			? 'bg-orange-500'
+			: _checkWin0 && !desc_bypass
+			? 'bg-green-500'
+			: 'bg-gray-500';
 
 		const _uriImgPlayer1 =
 			getDriveIdBeforeView(seed?.teams[0]?.image) ||
@@ -61,7 +70,7 @@ export const TournamentBrackets = ({
 				{!checkHideSeed && (
 					<SeedItem
 						style={{
-							backgroundColor: '#FFF',
+							backgroundColor: _checkWinFinal ? '#fde047' : '#FFF',
 						}}
 						className={`border-color-tournament`}
 					>
@@ -176,30 +185,41 @@ export const TournamentBrackets = ({
 										</div>
 									)}
 								</div>
-								<input
-									type="text"
-									defaultValue={
-										bypass
-											? '-'
-											: score0 || score0 === 0
-											? score0?.toString()
-											: '-'
-									}
-									onBlur={(e) => {
-										handleChangeSeedScore(
-											roundIndex,
-											seedIndex,
-											0,
-											e.target.value,
-											paramsFunc,
-										);
-									}}
-									className={`w-[50px] bg-opacity-30 py-2 outline-none border-none text-[14px] ${textWin} ${bgWin} font-bold p-[2px] rounded-tr-md rounded-bl-md text-center`}
-									disabled={_checkDisabled || disabled}
-									readOnly={_checkDisabled || disabled}
-								/>
+								{_checkWinFinal ? (
+									<div className="w-[40px] h-[35px]">
+										<img
+											src="./crown-vector.png"
+											width="35"
+											height="35"
+											className="w-full h-full aspect-auto object-contain"
+										/>
+									</div>
+								) : (
+									<input
+										type="text"
+										defaultValue={
+											bypass
+												? '-'
+												: score0 || score0 === 0
+												? score0?.toString()
+												: '-'
+										}
+										onBlur={(e) => {
+											handleChangeSeedScore(
+												roundIndex,
+												seedIndex,
+												0,
+												e.target.value,
+												paramsFunc,
+											);
+										}}
+										className={`w-[50px] bg-opacity-30 py-2 outline-none border-none text-[14px] ${textWin} ${bgWin} font-bold p-[2px] rounded-tr-md rounded-bl-md text-center`}
+										disabled={_checkDisabled || disabled}
+										readOnly={_checkDisabled || disabled}
+									/>
+								)}
 							</div>
-							{desc_bypass && (
+							{desc_bypass && !_checkWinFinal && (
 								<div className="text-[13px] italic text-blue-500 m-1">
 									{desc_bypass}
 								</div>
@@ -216,12 +236,27 @@ export const TournamentBrackets = ({
 			{rounds?.length > 0 ? (
 				<Bracket
 					mobileBreakpoint={0} // clear
-					// bracketClassName="flex flex-row flex-wrap"
+					bracketClassName="flex flex-row gap-[50px]"
 					rounds={rounds}
 					roundTitleComponent={(title, roundIndex) => {
+						const _checkWinner = title === 'WINNER';
 						return (
-							<div className="font-bold text-center uppercase text-green-500">
-								{title}
+							<div className="flex flex-row gap-2 items-center justify-center">
+								<div
+									className={`font-bold text-center uppercase ${
+										_checkWinner ? 'text-[#fcbd4a]' : 'text-green-500'
+									}`}
+								>
+									{title}
+								</div>
+								{_checkWinner && (
+									<img
+										src="./crown-vector.png"
+										width="35"
+										height="35"
+										className="w-[35px] h-[35px] aspect-auto object-contain"
+									/>
+								)}
 							</div>
 						);
 					}}

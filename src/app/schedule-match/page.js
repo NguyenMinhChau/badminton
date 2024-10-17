@@ -21,7 +21,6 @@ export default function ScheduleMatch() {
 		schedule_match,
 		CallApiGetListScheduleMatch,
 		CallApiUpdate,
-		CallApiUpdateVer2,
 		CallApiCreateMatchNextRound,
 	} = useScheduleMatch();
 	const { seed_donNam, seed_donNu, seed_doiNam, seed_doiNu, seed_doiNamNu } = {
@@ -32,31 +31,149 @@ export default function ScheduleMatch() {
 
 	const { openToast } = useToast();
 
+	const checkDone = (data) => {
+		const _data = data[data?.length - 1]?.seeds;
+		const isAllScoresValid = _data.every((match) =>
+			match.teams.every((team) => team.score !== null && team.score >= 0),
+		);
+		return _data?.length === 2 && isAllScoresValid;
+	};
+
+	const handleGetPlayerWinner = (checkDone, data) => {
+		if (checkDone) {
+			const _dataFinal = data[data?.length - 1]?.seeds;
+			const _playerWinner = _dataFinal.reduce((prev, curr) => {
+				if (prev.teams[0]?.score > curr.teams[0]?.score) return prev;
+				return curr;
+			});
+			return {
+				..._playerWinner,
+				isWinner: true,
+			};
+		}
+		return {};
+	};
+
 	const seedData = [
 		{
 			question: 'ĐƠN NAM',
 			color: '#0ea5e9',
-			data: seed_donNam || [],
+			data: seed_donNam
+				? [
+						...seed_donNam,
+						...(checkDone(seed_donNam)
+							? [
+									{
+										title: 'WINNER',
+										seeds: [
+											{
+												...handleGetPlayerWinner(
+													checkDone(seed_donNam),
+													seed_donNam,
+												),
+											},
+										],
+									},
+							  ]
+							: []),
+				  ]
+				: [],
 		},
 		{
 			question: 'ĐƠN NỮ',
 			color: '#6366f1',
-			data: seed_donNu || [],
+			data: seed_donNu
+				? [
+						...seed_donNu,
+						...(checkDone(seed_donNu)
+							? [
+									{
+										title: 'WINNER',
+										seeds: [
+											{
+												...handleGetPlayerWinner(
+													checkDone(seed_donNu),
+													seed_donNu,
+												),
+											},
+										],
+									},
+							  ]
+							: []),
+				  ]
+				: [],
 		},
 		{
 			question: 'ĐÔI NAM',
 			color: '#a855f7',
-			data: seed_doiNam || [],
+			data: seed_doiNam
+				? [
+						...seed_doiNam,
+						...(checkDone(seed_doiNam)
+							? [
+									{
+										title: 'WINNER',
+										seeds: [
+											{
+												...handleGetPlayerWinner(
+													checkDone(seed_doiNam),
+													seed_doiNam,
+												),
+											},
+										],
+									},
+							  ]
+							: []),
+				  ]
+				: [],
 		},
 		{
 			question: 'ĐÔI NỮ',
 			color: '#ec4899',
-			data: seed_doiNu || [],
+			data: seed_doiNu
+				? [
+						...seed_doiNu,
+						...(checkDone(seed_doiNu)
+							? [
+									{
+										title: 'WINNER',
+										seeds: [
+											{
+												...handleGetPlayerWinner(
+													checkDone(seed_doiNu),
+													seed_doiNu,
+												),
+											},
+										],
+									},
+							  ]
+							: []),
+				  ]
+				: [],
 		},
 		{
 			question: 'ĐÔI NAM NỮ',
 			color: '#059669',
-			data: seed_doiNamNu || [],
+			data: seed_doiNamNu
+				? [
+						...seed_doiNamNu,
+						...(checkDone(seed_doiNamNu)
+							? [
+									{
+										title: 'WINNER',
+										seeds: [
+											{
+												...handleGetPlayerWinner(
+													checkDone(seed_doiNamNu),
+													seed_doiNamNu,
+												),
+											},
+										],
+									},
+							  ]
+							: []),
+				  ]
+				: [],
 		},
 	];
 
@@ -89,18 +206,6 @@ export default function ScheduleMatch() {
 				if (`${_seedIndex.teams[position].score}` !== value) {
 					_seedIndex.teams[position].score = Number(value);
 					setSeeds(newRounds);
-					// const payload = {
-					// 	score_team1:
-					// 		_seedIndex?.teams[0].team === 'team1'
-					// 			? _seedIndex?.teams[0].score
-					// 			: null,
-					// 	score_team2:
-					// 		_seedIndex?.teams[0].team === 'team2'
-					// 			? _seedIndex?.teams[0].score
-					// 			: null,
-					// };
-					// CallApiUpdate(_seedIndex?.id, payload);
-
 					setSeedsSubmit([..._seedsSubmit, _seedIndex]);
 				}
 			} else {
@@ -133,8 +238,7 @@ export default function ScheduleMatch() {
 		}
 
 		const uniqueData = Array.from(uniqueTeamsMap.values());
-		// console.log({ uniqueData });
-		CallApiUpdateVer2(uniqueData);
+		CallApiUpdate(uniqueData, _seeds);
 		setSeedsSubmit([]);
 	};
 
