@@ -33,8 +33,8 @@ export default function ScheduleMatch() {
 
 	const checkDone = (data) => {
 		const _data = data[data?.length - 1]?.seeds;
-		const isAllScoresValid = _data.every((match) =>
-			match.teams.every((team) => team.score !== null && team.score >= 0),
+		const isAllScoresValid = _data?.every((match) =>
+			match?.teams?.every((team) => team?.score !== null && team?.score >= 0),
 		);
 		return _data?.length === 2 && isAllScoresValid;
 	};
