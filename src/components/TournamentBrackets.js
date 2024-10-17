@@ -151,7 +151,7 @@ export const TournamentBrackets = ({
 																	<img
 																		src={_uriImgPlayer2}
 																		width="150"
-																		alt={seed.teams[0]?.name}
+																		alt={seed.teams[1]?.name}
 																		height="150"
 																		className="w-[300px] h-[300px] cursor-pointer object-contain aspect-auto rounded-lg"
 																		onClick={() => {
