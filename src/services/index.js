@@ -358,13 +358,18 @@ export const CREATE_MATCH_NEXT_ROUND = async (props = {}) => {
 				Message: () => {
 					return (
 						<>
-							{Object.entries(resGet.payload)?.map(([key, val], index) => {
-								return (
-									<p key={index} className="mb-3">
-										{key}: {val}
-									</p>
-								);
-							})}
+							{Object.entries(resGet.payload || {})?.map(
+								([key, val], index) => {
+									return (
+										<p key={index} className="mb-3">
+											{key}:{' '}
+											{typeof val === 'string'
+												? val
+												: 'Đã tạo lịch thi đấu vòng tiếp theo thành công!'}
+										</p>
+									);
+								},
+							)}
 						</>
 					);
 				},
