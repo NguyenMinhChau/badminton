@@ -21,6 +21,7 @@ export default function ScheduleMatch() {
 		schedule_match,
 		CallApiGetListScheduleMatch,
 		CallApiUpdate,
+		CallApiCreateMatchFirstRound,
 		CallApiCreateMatchNextRound,
 	} = useScheduleMatch();
 	const { seed_donNam, seed_donNu, seed_doiNam, seed_doiNu, seed_doiNamNu } = {
@@ -242,6 +243,8 @@ export default function ScheduleMatch() {
 		setSeedsSubmit([]);
 	};
 
+	const _checkHaveFirstRounded = _seeds?.some((item) => isExist(item?.data));
+
 	return (
 		<>
 			{_submitting && <LoadingScreen />}
@@ -272,12 +275,17 @@ export default function ScheduleMatch() {
 						<button
 							className="px-6 py-2 text-[#ea580c] bg-white rounded-md font-bold disabled:bg-gray-400 disabled:text-white"
 							onClick={() => {
-								CallApiCreateMatchNextRound();
+								if (!_checkHaveFirstRounded) {
+									CallApiCreateMatchFirstRound();
+								} else {
+									CallApiCreateMatchNextRound();
+								}
 								setSeedsSubmit([]);
 							}}
 							disabled={disabled}
 						>
-							Tạo lịch thi đấu vòng tiếp theo
+							Tạo lịch thi đấu vòng{' '}
+							{!_checkHaveFirstRounded ? 'đầu tiên' : 'tiếp theo'}
 						</button>
 						<button
 							className="px-6 py-2 text-blue-500 bg-white rounded-md font-bold disabled:bg-gray-400 disabled:text-white"

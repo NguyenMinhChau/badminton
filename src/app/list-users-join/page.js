@@ -14,10 +14,18 @@ import { useModal } from '../../../hooks';
 import { getDriveIdBeforeView } from '@/utils/helpers';
 
 export default function ListUsersJoin() {
-	const { _submitting, user_list_join, CallApiGetListPlayers } =
-		useListUserJoin();
+	const {
+		_submitting,
+		user_list_join,
+		user,
+		CallApiGetListPlayers,
+		handleDownloadFileTemplate,
+		handleUploadFileTemplate,
+	} = useListUserJoin();
 	const { openModal } = useModal();
 	const { donNam, donNu, doiNam, doiNu, doiNamNu } = { ...user_list_join };
+
+	const disabled = user?.email !== process.env.NEXT_PUBLIC_EMAIL;
 
 	const _columns = [
 		{
@@ -62,10 +70,7 @@ export default function ListUsersJoin() {
 													height="150"
 													className="w-[300px] h-[300px] cursor-pointer object-contain aspect-auto rounded-lg"
 													onClick={() => {
-														window.open(
-															_uriImgPlayer1,
-															'_blank',
-														);
+														window.open(_uriImgPlayer1, '_blank');
 													}}
 												/>
 											</div>
@@ -75,9 +80,7 @@ export default function ListUsersJoin() {
 							}}
 						/>
 						{row.player2 &&
-							!row?.noiDungDangKy
-								?.toLowerCase()
-								?.includes('đơn') && (
+							!row?.noiDungDangKy?.toLowerCase()?.includes('đơn') && (
 								<img
 									src={_uriImgPlayer2}
 									width="45"
@@ -97,10 +100,7 @@ export default function ListUsersJoin() {
 															height="150"
 															className="w-[300px] h-[300px] cursor-pointer object-contain aspect-auto rounded-lg"
 															onClick={() => {
-																window.open(
-																	_uriImgPlayer2,
-																	'_blank',
-																);
+																window.open(_uriImgPlayer2, '_blank');
 															}}
 														/>
 													</div>
@@ -122,9 +122,9 @@ export default function ListUsersJoin() {
 					<div className="flex flex-col gap-4 w-full justify-between">
 						<div>{row.player1 || '---'}</div>
 						{row.player2 &&
-							!row?.noiDungDangKy
-								?.toLowerCase()
-								?.includes('đơn') && <div>{row.player2}</div>}
+							!row?.noiDungDangKy?.toLowerCase()?.includes('đơn') && (
+								<div>{row.player2}</div>
+							)}
 					</div>
 				);
 			},
@@ -137,9 +137,7 @@ export default function ListUsersJoin() {
 					<div className="flex flex-col gap-4 w-full justify-between">
 						<div>{row.department1 || '---'}</div>
 						{row.player2 &&
-							!row?.noiDungDangKy
-								?.toLowerCase()
-								?.includes('đơn') && (
+							!row?.noiDungDangKy?.toLowerCase()?.includes('đơn') && (
 								<div>{row.department2 || '---'}</div>
 							)}
 					</div>
@@ -200,6 +198,24 @@ export default function ListUsersJoin() {
 		<>
 			{_submitting && <LoadingScreen />}
 			<Container className="!p-1">
+				{/* <div className="sticky top-2 right-2 z-50 w-full flex flex-col items-end justify-end">
+					<div className="flex flex-row flex-wrap gap-2 items-center">
+						<button
+							className="px-6 py-2 text-[#ea580c] bg-white rounded-md font-bold disabled:bg-gray-400 disabled:text-white"
+							onClick={handleDownloadFileTemplate}
+							disabled={disabled}
+						>
+							Tải template danh sách
+						</button>
+						<button
+							className="px-6 py-2 text-blue-500 bg-white rounded-md font-bold disabled:bg-gray-400 disabled:text-white"
+							onClick={handleUploadFileTemplate}
+							disabled={disabled}
+						>
+							Upload template danh sách
+						</button>
+					</div>
+				</div> */}
 				{dataManagement.map((item, index) => (
 					<div key={index} className="mb-10 w-full">
 						<Disclosure defaultOpen={index === 0}>
@@ -229,19 +245,12 @@ export default function ListUsersJoin() {
 													</span>
 													<span className="text-gray-500 text-[13px]">
 														Size:{' '}
-														{(
-															item?.file?.size /
-															(1024 * 1024)
-														).toFixed(2)}{' '}
-														MB
+														{(item?.file?.size / (1024 * 1024)).toFixed(2)} MB
 													</span>
 												</div>
 											</div>
 										)}
-										<Table
-											columns={item.columns}
-											data={item.data}
-										/>
+										<Table columns={item.columns} data={item.data} />
 									</DisclosurePanel>
 								</>
 							)}

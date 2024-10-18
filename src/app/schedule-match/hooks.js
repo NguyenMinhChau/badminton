@@ -1,6 +1,7 @@
 'use client';
 import { useAppContext, useModal, useToast } from '../../../hooks/';
 import {
+	CREATE_FIRST_ROUND,
 	CREATE_MATCH_NEXT_ROUND,
 	GET_LIST_SCHEDULE_MATCH,
 	UPDATE_CA_THI_DAU,
@@ -43,6 +44,26 @@ export const useScheduleMatch = () => {
 			},
 		});
 	};
+	const CallApiCreateMatchFirstRound = () => {
+		openModal({
+			title: 'Xác nhận tạo lịch thi đấu vòng đầu tiên',
+			children: () => {
+				return (
+					<div className="text-orange-500">
+						Bạn có chắc muốn tạo lịch thi đấu vòng đầu tiên cho các trận đấu?
+					</div>
+				);
+			},
+			showSubmitted: true,
+			funcSubmitted: () => {
+				CREATE_FIRST_ROUND({
+					dispatch,
+					_setSubmitting,
+					openToast,
+				});
+			},
+		});
+	};
 
 	const CallApiUpdate = (data, _seeds) => {
 		openModal({
@@ -74,6 +95,7 @@ export const useScheduleMatch = () => {
 
 		CallApiGetListScheduleMatch,
 		CallApiUpdate,
+		CallApiCreateMatchFirstRound,
 		CallApiCreateMatchNextRound,
 	};
 };

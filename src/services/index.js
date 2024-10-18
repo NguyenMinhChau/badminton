@@ -1,6 +1,6 @@
 import { TYPE_TOAST } from '@/components/Toast';
 import { actions } from '../../context';
-import { axiosGet, axiosPut } from '../utils/axios';
+import { axiosGet, axiosPost, axiosPut } from '../utils/axios';
 import moment from 'moment';
 import { errorMessage } from '../utils/handleMessageAPI';
 import { isExist } from '../utils/helpers';
@@ -304,7 +304,12 @@ export const UPDATE_CA_THI_DAU = async (props = {}) => {
 		};
 	});
 	const requests = arrayData?.map((item) =>
-		axiosPut(`/games/badminton/update-schedules/${item?.id}`, item?.payload)
+		axiosPut(`/games/badminton/update-schedules/${item?.id}`, {
+			...item?.payload,
+			username: process.env.NEXT_PUBLIC_EMAIL,
+			password: process.env.NEXT_PUBLIC_PASSWORD,
+			secretKey: process.env.NEXT_PUBLIC_SECRET,
+		})
 			.then((response) => {
 				return 'Cập nhật thành công!';
 			})
@@ -335,12 +340,75 @@ export const UPDATE_CA_THI_DAU = async (props = {}) => {
 	});
 };
 
+export const CREATE_FIRST_ROUND = async (props = {}) => {
+	const { dispatch, _setSubmitting, openToast } = { ...props };
+	_setSubmitting();
+	try {
+		await axiosPost('/games/badminton/schedule/create', {
+			username: process.env.NEXT_PUBLIC_EMAIL,
+			password: process.env.NEXT_PUBLIC_PASSWORD,
+			secretKey: process.env.NEXT_PUBLIC_SECRET,
+		});
+		setTimeout(async () => {
+			GET_LIST_SCHEDULE_MATCH({
+				dispatch,
+				_setSubmitting,
+				openToast,
+			});
+			_setSubmitting();
+			openToast({
+				type: TYPE_TOAST.SUCCESS,
+				message: 'Tạo lịch thi đấu vòng đầu tiên thành công!',
+			});
+		}, 3000);
+	} catch (error) {
+		_setSubmitting();
+		openToast({
+			type: TYPE_TOAST.ERROR,
+			message: errorMessage(error),
+		});
+	}
+};
+
+export const UPLOAD_TEMPLATE = async (props = {}) => {
+	const { dispatch, _setSubmitting, openToast } = { ...props };
+	_setSubmitting();
+	try {
+		await axiosPost('/games/badminton/import-player', {
+			username: process.env.NEXT_PUBLIC_EMAIL,
+			password: process.env.NEXT_PUBLIC_PASSWORD,
+			secretKey: process.env.NEXT_PUBLIC_SECRET,
+		});
+		GET_LIST_PLAYERS({
+			dispatch,
+			_setSubmitting,
+			openToast,
+		});
+		_setSubmitting();
+		openToast({
+			type: TYPE_TOAST.SUCCESS,
+			message: 'Upload danh sách tham gia thành công!',
+		});
+	} catch (error) {
+		_setSubmitting();
+		openToast({
+			type: TYPE_TOAST.ERROR,
+			message: errorMessage(error),
+		});
+	}
+};
+
 export const CREATE_MATCH_NEXT_ROUND = async (props = {}) => {
 	const { dispatch, _setSubmitting, openToast } = { ...props };
 	_setSubmitting();
 	try {
-		const resGet = await axiosGet(
+		const resPost = await axiosPost(
 			'/games/badminton/schedule/create-match-next-round',
+			{
+				username: process.env.NEXT_PUBLIC_EMAIL,
+				password: process.env.NEXT_PUBLIC_PASSWORD,
+				secretKey: process.env.NEXT_PUBLIC_SECRET,
+			},
 		);
 		// GET SCHEDULE_MATCH
 		setTimeout(async () => {
@@ -352,13 +420,13 @@ export const CREATE_MATCH_NEXT_ROUND = async (props = {}) => {
 			_setSubmitting();
 			openToast({
 				type: TYPE_TOAST.INFO,
-				message: isExist(resGet.payload)
+				message: isExist(resPost.payload)
 					? ''
 					: 'Tạo lịch thi đấu vòng tiếp theo thành công!',
 				Message: () => {
 					return (
 						<>
-							{Object.entries(resGet.payload || {})?.map(
+							{Object.entries(resPost.payload || {})?.map(
 								([key, val], index) => {
 									return (
 										<p key={index} className="mb-3">
@@ -373,7 +441,7 @@ export const CREATE_MATCH_NEXT_ROUND = async (props = {}) => {
 						</>
 					);
 				},
-				autoClose: !isExist(resGet.payload),
+				autoClose: !isExist(resPost.payload),
 			});
 		}, 3000);
 	} catch (error) {
@@ -390,7 +458,7 @@ export const HANDLE_LOGIN = async (props = {}) => {
 		...props,
 	};
 	_setSubmitting();
-	setTimeout(() => {
+	setTimeout(async () => {
 		if (
 			email !== process.env.NEXT_PUBLIC_EMAIL ||
 			password !== process.env.NEXT_PUBLIC_PASSWORD
@@ -423,6 +491,7 @@ export const HANDLE_LOGIN = async (props = {}) => {
 		}
 	}, 3000);
 };
+
 export const HANDLE_LOGOUT = async (props = {}) => {
 	const { dispatch, router, _setSubmitting, openToast } = { ...props };
 	_setSubmitting();
