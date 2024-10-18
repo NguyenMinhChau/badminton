@@ -18,9 +18,8 @@ export const useScheduleMatch = () => {
 	const { openToast } = useToast();
 	const { openModal } = useModal();
 
-	const userID = localStorage.getItem('user_id');
-
 	React.useEffect(() => {
+		const userID = localStorage.getItem('user_id');
 		fetchDataRead({
 			collection: TYPE_COLLECTIONS.BADMINTON_FTEL,
 			docId: userID,
