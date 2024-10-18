@@ -4,6 +4,7 @@ import { axiosGet, axiosPost, axiosPut } from '../utils/axios';
 import moment from 'moment';
 import { errorMessage } from '../utils/handleMessageAPI';
 import { isExist } from '../utils/helpers';
+import { TYPE_COLLECTIONS, writeDataToFirestore } from '../firebase';
 
 export const TYPE_PLAY = {
 	DON_NAM: 'ĐƠN NAM',
@@ -478,7 +479,11 @@ export const HANDLE_LOGIN = async (props = {}) => {
 					},
 				}),
 			);
-			localStorage.setItem('currentUser', JSON.stringify(payload));
+			writeDataToFirestore({
+				collection: TYPE_COLLECTIONS.BADMINTON_FTEL,
+				data: payload,
+				docId: process.env.NEXT_PUBLIC_EMAIL,
+			});
 			router.push('/');
 			_setSubmitting();
 			openToast({
@@ -490,19 +495,24 @@ export const HANDLE_LOGIN = async (props = {}) => {
 };
 
 export const HANDLE_LOGOUT = async (props = {}) => {
-	const { dispatch, router, _setSubmitting, openToast } = { ...props };
+	const { dispatch, router, _setSubmitting, openToast, user } = { ...props };
 	_setSubmitting();
-	if (isExist(localStorage.getItem('currentUser'))) {
+	if (user?.isLogin) {
 		setTimeout(() => {
+			const payload = { isLogin: false };
 			dispatch(
 				actions.SET_DATA_PAYLOAD({
 					key: 'data',
 					value: {
-						user: null,
+						user: payload,
 					},
 				}),
 			);
-			localStorage.setItem('currentUser', null);
+			writeDataToFirestore({
+				collection: TYPE_COLLECTIONS.BADMINTON_FTEL,
+				data: payload,
+				docId: process.env.NEXT_PUBLIC_EMAIL,
+			});
 			router.push('/');
 			_setSubmitting();
 			openToast({

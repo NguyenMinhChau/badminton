@@ -18,6 +18,7 @@ export default function ScheduleMatch() {
 	const {
 		_submitting,
 		schedule_match,
+		user,
 		CallApiGetListScheduleMatch,
 		CallApiUpdate,
 		CallApiCreateMatchFirstRound,
@@ -26,6 +27,8 @@ export default function ScheduleMatch() {
 	const { seed_donNam, seed_donNu, seed_doiNam, seed_doiNu, seed_doiNamNu } = {
 		...schedule_match,
 	};
+
+	const disabled = !user?.isLogin;
 
 	const { openToast } = useToast();
 
@@ -258,6 +261,7 @@ export default function ScheduleMatch() {
 								}
 								setSeedsSubmit([]);
 							}}
+							disabled={disabled}
 						>
 							Tạo lịch thi đấu vòng{' '}
 							{!_checkHaveFirstRounded ? 'đầu tiên' : 'tiếp theo'}
@@ -265,7 +269,7 @@ export default function ScheduleMatch() {
 						<button
 							className="px-6 py-2 text-blue-500 bg-white rounded-md font-bold disabled:bg-gray-400 disabled:text-white"
 							onClick={handleSubmitSeed}
-							disabled={!isExist(_seedsSubmit)}
+							disabled={!isExist(_seedsSubmit) || disabled}
 						>
 							Cập nhật tỉ số thi đấu
 						</button>

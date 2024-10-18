@@ -13,6 +13,11 @@ export const TournamentBrackets = ({
 }) => {
 	const { state } = useAppContext();
 
+	const { data } = state.set_data;
+	const { user } = { ...data };
+
+	const disabled = !user?.isLogin;
+
 	const { openModal } = useModal();
 
 	const CustomSeed = ({ seed, breakpoint, roundIndex, seedIndex }) => {
@@ -211,8 +216,8 @@ export const TournamentBrackets = ({
 											);
 										}}
 										className={`w-[50px] bg-opacity-30 py-2 outline-none border-none text-[14px] ${textWin} ${bgWin} font-bold p-[2px] rounded-tr-md rounded-bl-md text-center`}
-										disabled={_checkDisabled}
-										readOnly={_checkDisabled}
+										disabled={_checkDisabled || disabled}
+										readOnly={_checkDisabled || disabled}
 									/>
 								)}
 							</div>

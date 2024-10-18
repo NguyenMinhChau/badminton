@@ -5,11 +5,12 @@ import Image from 'next/image';
 import { Disclosure } from '@headlessui/react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAppContext, useToast } from '../../hooks';
-import { isExist } from '@/utils/helpers';
 import { HANDLE_LOGOUT } from '@/services';
 import React from 'react';
 import useToggle from '@/utils/useToogle';
 import { LoadingScreen } from './LoadingScreen';
+import { fetchDataRead, TYPE_COLLECTIONS } from '@/firebase';
+import { actions } from '../../context';
 
 export const Navbar = () => {
 	const { state, dispatch } = useAppContext();
@@ -31,6 +32,22 @@ export const Navbar = () => {
 	const checkActiveRoute = (route) => {
 		return route?.href === pathName;
 	};
+
+	React.useEffect(() => {
+		fetchDataRead({
+			collection: TYPE_COLLECTIONS.BADMINTON_FTEL,
+			docId: process.env.NEXT_PUBLIC_EMAIL,
+		}).then((data) => {
+			dispatch(
+				actions.SET_DATA_PAYLOAD({
+					key: 'data',
+					value: {
+						user: data,
+					},
+				}),
+			);
+		});
+	}, []);
 
 	return (
 		<>
@@ -59,7 +76,7 @@ export const Navbar = () => {
 							<div
 								className={`px-6 py-2 text-white rounded-md cursor-pointer`}
 								style={{
-									backgroundColor: isExist(user) ? '#dc2626' : '#ea580c',
+									backgroundColor: user?.isLogin ? '#dc2626' : '#ea580c',
 								}}
 								onClick={() => {
 									HANDLE_LOGOUT({
@@ -67,10 +84,11 @@ export const Navbar = () => {
 										_setSubmitting,
 										dispatch,
 										router,
+										user,
 									});
 								}}
 							>
-								{isExist(user) ? 'Đăng xuất' : 'Đăng nhập'}
+								{user?.isLogin ? 'Đăng xuất' : 'Đăng nhập'}
 							</div>
 						</div>
 						{/* <div className="hidden lg:flex nav__item">
@@ -127,7 +145,7 @@ export const Navbar = () => {
 										<div
 											className={`w-full px-6 py-2 mt-3 text-center text-white  rounded-md lg:ml-5 cursor-pointer`}
 											style={{
-												backgroundColor: isExist(user) ? '#dc2626' : '#ea580c',
+												backgroundColor: user?.isLogin ? '#dc2626' : '#ea580c',
 											}}
 											onClick={() => {
 												HANDLE_LOGOUT({
@@ -135,10 +153,11 @@ export const Navbar = () => {
 													_setSubmitting,
 													dispatch,
 													router,
+													user,
 												});
 											}}
 										>
-											{isExist(user) ? 'Đăng xuất' : 'Đăng nhập'}
+											{user?.isLogin ? 'Đăng xuất' : 'Đăng nhập'}
 										</div>
 										{/* <Link
 											href="/"

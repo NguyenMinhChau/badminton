@@ -1,4 +1,5 @@
 'use client';
+import { fetchDataRead, TYPE_COLLECTIONS } from '@/firebase';
 import { useAppContext, useModal, useToast } from '../../../hooks/';
 import {
 	CREATE_FIRST_ROUND,
@@ -7,6 +8,7 @@ import {
 	UPDATE_CA_THI_DAU,
 } from '../../services';
 import useToggle from '../../utils/useToogle';
+import React from 'react';
 
 export const useScheduleMatch = () => {
 	const { state, dispatch } = useAppContext();
@@ -15,6 +17,22 @@ export const useScheduleMatch = () => {
 	const { schedule_match, user } = { ...data };
 	const { openToast } = useToast();
 	const { openModal } = useModal();
+
+	React.useEffect(() => {
+		fetchDataRead({
+			collection: TYPE_COLLECTIONS.BADMINTON_FTEL,
+			docId: process.env.NEXT_PUBLIC_EMAIL,
+		}).then((data) => {
+			dispatch(
+				actions.SET_DATA_PAYLOAD({
+					key: 'data',
+					value: {
+						user: data,
+					},
+				}),
+			);
+		});
+	}, []);
 
 	const CallApiGetListScheduleMatch = () => {
 		GET_LIST_SCHEDULE_MATCH({
@@ -92,6 +110,7 @@ export const useScheduleMatch = () => {
 		_submitting,
 		user,
 		schedule_match,
+		user,
 
 		CallApiGetListScheduleMatch,
 		CallApiUpdate,
