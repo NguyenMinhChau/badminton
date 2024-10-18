@@ -26,6 +26,7 @@ export const Navbar = () => {
 		// { label: 'Quản lý', href: '/management' },
 		{ label: 'Lịch thi đấu', href: '/schedule-match' },
 	];
+	let userID = localStorage.getItem('user_id');
 
 	const [navigation, setNavigation] = React.useState(NAVIGATION_DATA);
 
@@ -36,7 +37,7 @@ export const Navbar = () => {
 	React.useEffect(() => {
 		fetchDataRead({
 			collection: TYPE_COLLECTIONS.BADMINTON_FTEL,
-			docId: process.env.NEXT_PUBLIC_EMAIL,
+			docId: userID,
 		}).then((data) => {
 			dispatch(
 				actions.SET_DATA_PAYLOAD({

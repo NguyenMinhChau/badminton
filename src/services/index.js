@@ -3,8 +3,12 @@ import { actions } from '../../context';
 import { axiosGet, axiosPost, axiosPut } from '../utils/axios';
 import moment from 'moment';
 import { errorMessage } from '../utils/handleMessageAPI';
-import { isExist } from '../utils/helpers';
-import { TYPE_COLLECTIONS, writeDataToFirestore } from '../firebase';
+import uuidv4, { isExist } from '../utils/helpers';
+import {
+	deleteDataFromFirestore,
+	TYPE_COLLECTIONS,
+	writeDataToFirestore,
+} from '../firebase';
 
 export const TYPE_PLAY = {
 	DON_NAM: 'ĐƠN NAM',
@@ -470,6 +474,11 @@ export const HANDLE_LOGIN = async (props = {}) => {
 				message: 'Sai tài khoản hoặc mật khẩu!',
 			});
 		} else {
+			let userID = localStorage.getItem('user_id');
+			if (!userID) {
+				userID = uuidv4();
+				localStorage.setItem('user_id', userID);
+			}
 			const payload = { isLogin: true };
 			dispatch(
 				actions.SET_DATA_PAYLOAD({
@@ -482,7 +491,7 @@ export const HANDLE_LOGIN = async (props = {}) => {
 			writeDataToFirestore({
 				collection: TYPE_COLLECTIONS.BADMINTON_FTEL,
 				data: payload,
-				docId: process.env.NEXT_PUBLIC_EMAIL,
+				docId: userID,
 			});
 			router.push('/');
 			_setSubmitting();
@@ -499,6 +508,7 @@ export const HANDLE_LOGOUT = async (props = {}) => {
 	_setSubmitting();
 	if (user?.isLogin) {
 		setTimeout(() => {
+			let userID = localStorage.getItem('user_id');
 			const payload = { isLogin: false };
 			dispatch(
 				actions.SET_DATA_PAYLOAD({
@@ -508,10 +518,9 @@ export const HANDLE_LOGOUT = async (props = {}) => {
 					},
 				}),
 			);
-			writeDataToFirestore({
+			deleteDataFromFirestore({
 				collection: TYPE_COLLECTIONS.BADMINTON_FTEL,
-				data: payload,
-				docId: process.env.NEXT_PUBLIC_EMAIL,
+				docId: userID,
 			});
 			router.push('/');
 			_setSubmitting();
