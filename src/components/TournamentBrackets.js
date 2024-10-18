@@ -12,9 +12,6 @@ export const TournamentBrackets = ({
 	paramsFunc = {},
 }) => {
 	const { state } = useAppContext();
-	const { user } = state.set_data.data;
-
-	const disabled = user?.email !== process.env.NEXT_PUBLIC_EMAIL;
 
 	const { openModal } = useModal();
 
@@ -214,8 +211,8 @@ export const TournamentBrackets = ({
 											);
 										}}
 										className={`w-[50px] bg-opacity-30 py-2 outline-none border-none text-[14px] ${textWin} ${bgWin} font-bold p-[2px] rounded-tr-md rounded-bl-md text-center`}
-										disabled={_checkDisabled || disabled}
-										readOnly={_checkDisabled || disabled}
+										disabled={_checkDisabled}
+										readOnly={_checkDisabled}
 									/>
 								)}
 							</div>

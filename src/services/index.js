@@ -469,10 +469,7 @@ export const HANDLE_LOGIN = async (props = {}) => {
 				message: 'Sai tài khoản hoặc mật khẩu!',
 			});
 		} else {
-			const payload = {
-				email,
-				password,
-			};
+			const payload = { isLogin: true };
 			dispatch(
 				actions.SET_DATA_PAYLOAD({
 					key: 'data',

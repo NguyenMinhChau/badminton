@@ -8,7 +8,7 @@ export const useListUserJoin = () => {
 	const { state, dispatch } = useAppContext();
 	const { data } = state.set_data;
 	const { _submitting, _setSubmitting } = useToggle();
-	const { user_list_join, user } = { ...data };
+	const { user_list_join } = { ...data };
 	const { openToast } = useToast();
 	const { openModal } = useModal();
 
@@ -70,7 +70,6 @@ export const useListUserJoin = () => {
 	return {
 		_submitting,
 		user_list_join,
-		user,
 
 		CallApiGetListPlayers,
 		handleDownloadFileTemplate,

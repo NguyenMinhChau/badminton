@@ -14,18 +14,10 @@ import { useModal } from '../../../hooks';
 import { getDriveIdBeforeView } from '@/utils/helpers';
 
 export default function ListUsersJoin() {
-	const {
-		_submitting,
-		user_list_join,
-		user,
-		CallApiGetListPlayers,
-		handleDownloadFileTemplate,
-		handleUploadFileTemplate,
-	} = useListUserJoin();
+	const { _submitting, user_list_join, CallApiGetListPlayers } =
+		useListUserJoin();
 	const { openModal } = useModal();
 	const { donNam, donNu, doiNam, doiNu, doiNamNu } = { ...user_list_join };
-
-	const disabled = user?.email !== process.env.NEXT_PUBLIC_EMAIL;
 
 	const _columns = [
 		{
