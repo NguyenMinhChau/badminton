@@ -21,10 +21,10 @@ export const useListUserJoin = () => {
 	};
 
 	const handleDownloadFileTemplate = () => {
-		const link = document.createElement('a');
-		link.href = '/TemplateBadmintonPlayers.xlsx';
-		link.download = 'TemplateBadmintonPlayers.xlsx';
-		link.click();
+		// const link = document.createElement('a');
+		// link.href = '/TemplateBadmintonPlayers.xlsx';
+		// link.download = 'TemplateBadmintonPlayers.xlsx';
+		// link.click();
 	};
 
 	const handleUploadFileTemplate = () => {
