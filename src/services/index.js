@@ -508,7 +508,7 @@ export const HANDLE_LOGOUT = async (props = {}) => {
 	_setSubmitting();
 	if (user?.isLogin) {
 		setTimeout(() => {
-			let userID = localStorage.getItem('user_id');
+			const userID = localStorage.getItem('user_id');
 			const payload = { isLogin: false };
 			dispatch(
 				actions.SET_DATA_PAYLOAD({

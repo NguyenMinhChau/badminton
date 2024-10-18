@@ -18,7 +18,7 @@ export const useScheduleMatch = () => {
 	const { openToast } = useToast();
 	const { openModal } = useModal();
 
-	let userID = localStorage.getItem('user_id');
+	const userID = localStorage.getItem('user_id');
 
 	React.useEffect(() => {
 		fetchDataRead({
