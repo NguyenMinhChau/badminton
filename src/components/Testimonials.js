@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from 'react';
 
 export const Testimonials = ({ data }) => {
@@ -9,11 +10,7 @@ export const Testimonials = ({ data }) => {
 					return (
 						<div key={index} className="">
 							<div className="flex flex-col w-full h-full bg-gray-200 rounded-2xl overflow-hidden">
-								<Avatar
-									image={image}
-									name={fullName}
-									title={position}
-								/>
+								<Avatar image={image} name={fullName} title={position} />
 								<p className="text-[18px] p-5 pt-0 leading-normal text-black text-justify mt-3">
 									<q>{content}</q>
 								</p>
@@ -49,7 +46,7 @@ function Avatar(props) {
 		<div className="flex flex-col items-start">
 			<div className="w-full h-[300px] relative">
 				<div
-					className="absolute top-0 right-0 bottom-0 top-0 left-0 z-50"
+					className="absolute top-0 right-0 bottom-0 left-0 z-50"
 					style={{
 						backgroundImage: `url(${props.image})`,
 						backgroundSize: 'cover',
@@ -71,9 +68,7 @@ function Avatar(props) {
 				/>
 			</div>
 			<div className="px-5 pt-3">
-				<div className="text-lg font-medium text-black">
-					{props.name}
-				</div>
+				<div className="text-lg font-medium text-black">{props.name}</div>
 				<div className="text-gray-400">{props.title}</div>
 			</div>
 		</div>

@@ -8,14 +8,8 @@ import { isExist } from '@/utils/helpers';
 export const Modal = () => {
 	const { state } = useAppContext();
 	const { closeModal } = useModal();
-	const {
-		showSubmitted,
-		funcSubmitted,
-		funcCancel,
-		visible,
-		title,
-		children,
-	} = state.set_data.modal;
+	const { showSubmitted, funcSubmitted, funcCancel, visible, title, children } =
+		state.set_data.modal;
 	return (
 		<>
 			{visible && (
@@ -58,12 +52,8 @@ export const Modal = () => {
 										className="w-[130px]"
 									/>
 								</div>
-								<h3 class="mb-3 text-lg font-normal text-white">
-									{title}
-								</h3>
-								{children && (
-									<div className="mb-2">{children()}</div>
-								)}
+								<h3 class="mb-3 text-lg font-normal text-white">{title}</h3>
+								{children && <div className="mb-2">{children()}</div>}
 								<button
 									data-modal-hide="popup-modal"
 									type="button"
