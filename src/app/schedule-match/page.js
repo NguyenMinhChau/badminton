@@ -250,7 +250,7 @@ export default function ScheduleMatch() {
 			{_submitting && <LoadingScreen />}
 			<Container className="!p-1">
 				<div className="sticky top-2 right-2 z-50 w-full flex flex-col items-end justify-end">
-					{disabled && (
+					{/* {disabled && (
 						<div
 							class="flex w-full items-center p-4 mb-4 text-sm text-red-600 rounded-lg bg-red-200 "
 							role="alert"
@@ -270,7 +270,7 @@ export default function ScheduleMatch() {
 								bằng tài khoản quản trị!
 							</div>
 						</div>
-					)}
+					)} */}
 					<div className="flex flex-row flex-wrap gap-2 items-center">
 						<button
 							className="px-6 py-2 text-[#ea580c] bg-white rounded-md font-bold disabled:bg-gray-400 disabled:text-white"
