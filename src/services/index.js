@@ -1,6 +1,11 @@
 import { TYPE_TOAST } from '@/components/Toast';
 import { actions } from '../../context';
-import { axiosGet, axiosPost, axiosPut } from '../utils/axios';
+import {
+	axiosGet,
+	axiosPost,
+	axiosPostFormData,
+	axiosPut,
+} from '../utils/axios';
 import moment from 'moment';
 import { errorMessage } from '../utils/handleMessageAPI';
 import uuidv4, { isExist } from '../utils/helpers';
@@ -379,7 +384,7 @@ export const UPLOAD_TEMPLATE = async (props = {}) => {
 	const { dispatch, _setSubmitting, openToast } = { ...props };
 	_setSubmitting();
 	try {
-		await axiosPost('/games/badminton/import-player', {
+		await axiosPostFormData('/games/badminton/import-player', {
 			username: process.env.NEXT_PUBLIC_EMAIL,
 			password: process.env.NEXT_PUBLIC_PASSWORD,
 			secretKey: process.env.NEXT_PUBLIC_SECRET,
