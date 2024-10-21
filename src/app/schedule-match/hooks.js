@@ -63,7 +63,7 @@ export const useScheduleMatch = () => {
 			},
 		});
 	};
-	const CallApiCreateMatchFirstRound = () => {
+	const CallApiCreateMatchFirstRound = (noiDungThiDau) => {
 		openModal({
 			title: 'Xác nhận tạo lịch thi đấu vòng đầu tiên',
 			children: () => {
@@ -79,6 +79,7 @@ export const useScheduleMatch = () => {
 					dispatch,
 					_setSubmitting,
 					openToast,
+					noiDungThiDau,
 				});
 			},
 		});

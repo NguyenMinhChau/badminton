@@ -282,7 +282,7 @@ export default function ScheduleMatch() {
 					</div>
 				</div>
 				{_seeds.map((item, index) => (
-					<div key={index} className="mb-5 w-full">
+					<div key={index} className="my-5 w-full">
 						<Disclosure defaultOpen={index === 0}>
 							{({ open }) => (
 								<>
@@ -296,6 +296,24 @@ export default function ScheduleMatch() {
 											<span className="text-xl underline">
 												NỘI DUNG: {item.question}
 											</span>
+											{/* <button
+												className="px-6 py-2 text-[#ea580c] bg-white rounded-md font-bold disabled:bg-gray-400 disabled:text-white"
+												onClick={(e) => {
+													e.stopPropagation();
+													if (
+														!item?.data?.some((item) => isExist(item?.data))
+													) {
+														CallApiCreateMatchFirstRound(item?.question);
+													} else {
+														CallApiCreateMatchNextRound();
+													}
+													setSeedsSubmit([]);
+												}}
+												disabled={disabled}
+											>
+												Tạo lịch thi đấu vòng{' '}
+												{!item?.data?.some((item) => isExist(item?.data)) ? 'đầu tiên' : 'tiếp theo'}
+											</button> */}
 										</DisclosureButton>
 									</div>
 									<DisclosurePanel className="text-white rounded-lg p-2 bg-white bg-opacity-10">

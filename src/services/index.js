@@ -49,7 +49,7 @@ function fillArrayToLength(arr, { count, lengthArr }, type) {
 	// Thêm phần tử vào mảng
 	for (let i = 0; i < itemsToAdd; i++) {
 		arr.push({
-			title: `Rounded ${i + 2}`,
+			title: `Round ${i + 2}`,
 			inactive: false,
 			seeds: type?.toLowerCase()?.includes('đơn')
 				? Array.from({ length: lengthArr[i + 1] })
@@ -473,13 +473,14 @@ export const UPDATE_CA_THI_DAU = async (props = {}) => {
 };
 
 export const CREATE_FIRST_ROUND = async (props = {}) => {
-	const { dispatch, _setSubmitting, openToast } = { ...props };
+	const { dispatch, _setSubmitting, openToast, noiDungThiDau } = { ...props };
 	_setSubmitting();
 	try {
 		await axiosPost('/games/badminton/schedule/create', {
 			username: process.env.NEXT_PUBLIC_EMAIL,
 			password: process.env.NEXT_PUBLIC_PASSWORD,
 			secretKey: process.env.NEXT_PUBLIC_SECRET,
+			// noiDungThiDau: noiDungThiDau
 		});
 		setTimeout(async () => {
 			GET_LIST_SCHEDULE_MATCH({
