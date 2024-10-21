@@ -120,6 +120,15 @@ export default function Home() {
 								className="w-[130px]"
 							/>
 						</div>
+						<div className="pt-2 text-gray-400">
+							<Image
+								src="/sponsors/pocari_logo_transparent.png"
+								width="130"
+								alt="POCARI LOGO"
+								height="120"
+								className="w-[120px]"
+							/>
+						</div>
 					</div>
 				</div>
 			</Container>
