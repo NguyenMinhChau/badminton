@@ -111,6 +111,15 @@ export default function Home() {
 								className="w-[130px]"
 							/>
 						</div>
+						<div className="pt-2 text-gray-400">
+							<Image
+								src="/sponsors/play_logo.png"
+								width="130"
+								alt="PLAY LOGO"
+								height="150"
+								className="w-[130px]"
+							/>
+						</div>
 					</div>
 				</div>
 			</Container>

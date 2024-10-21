@@ -23,6 +23,35 @@ export const TYPE_PLAY = {
 	DOI_NAM_NU: 'ĐÔI NAM NỮ',
 };
 
+function divideArrayLength(arr) {
+	let count = 1;
+	let lengthArr = [];
+	let length = arr.length;
+	while (length > 1) {
+		length = Math.floor(length / 2);
+		lengthArr.push(length);
+		count++;
+	}
+	return {
+		count,
+		lengthArr,
+	};
+}
+
+function fillArrayToLength(arr, { count, lengthArr }) {
+	// Tính số phần tử cần thêm
+	const itemsToAdd = count - arr.length;
+
+	if (itemsToAdd <= 0) {
+		return arr;
+	}
+
+	// Thêm phần tử vào mảng
+	for (let i = 0; i < itemsToAdd; i++) {}
+
+	return arr;
+}
+
 const RENDER_SEEDS = (data = []) => {
 	const date = moment('2024-10-27')
 		.set({
