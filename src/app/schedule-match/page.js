@@ -34,10 +34,16 @@ export default function ScheduleMatch() {
 
 	const checkDone = (data) => {
 		const _data = data[data?.length - 1]?.seeds;
+		const _data_pre = data[data?.length - 2]?.seeds;
 		const isAllScoresValid = _data?.every((match) =>
 			match?.teams?.every((team) => team?.score !== null && team?.score >= 0),
 		);
-		return _data?.length === 2 && isAllScoresValid;
+		const isCheckPlaceholderValid = _data_pre?.every((match) =>
+			match?.teams?.some((team) => team?.isPlaceHolder),
+		);
+		return _data?.length === 2 && isCheckPlaceholderValid
+			? true
+			: isAllScoresValid;
 	};
 
 	const handleGetPlayerWinner = (checkDone, data) => {

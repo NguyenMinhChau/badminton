@@ -29,16 +29,16 @@ function divideArrayLength(arr) {
 	let length = arr.length;
 	while (length > 1) {
 		length = Math.floor(length / 2);
-		lengthArr.push(length);
+		lengthArr.push(length % 2 === 0 ? length : length + 1);
 		count++;
 	}
 	return {
 		count,
-		lengthArr,
+		lengthArr: [...lengthArr, 1],
 	};
 }
 
-function fillArrayToLength(arr, { count, lengthArr }) {
+function fillArrayToLength(arr, { count, lengthArr }, type) {
 	// Tính số phần tử cần thêm
 	const itemsToAdd = count - arr.length;
 
@@ -47,7 +47,65 @@ function fillArrayToLength(arr, { count, lengthArr }) {
 	}
 
 	// Thêm phần tử vào mảng
-	for (let i = 0; i < itemsToAdd; i++) {}
+	for (let i = 0; i < itemsToAdd; i++) {
+		arr.push({
+			title: `Rounded ${i + 2}`,
+			inactive: false,
+			seeds: type?.toLowerCase()?.includes('đơn')
+				? Array.from({ length: lengthArr[i + 1] })
+						?.map((item) => {
+							return [
+								{
+									teams: [
+										{
+											name: '-',
+											isPlaceHolder: true,
+										},
+									],
+								},
+								{
+									teams: [
+										{
+											name: '-',
+											isPlaceHolder: true,
+										},
+									],
+								},
+							];
+						})
+						.flat()
+				: Array.from({ length: lengthArr[i + 1] })
+						?.map((item) => {
+							return [
+								{
+									teams: [
+										{
+											name: '-',
+											isPlaceHolder: true,
+										},
+										{
+											name: '-',
+											isPlaceHolder: true,
+										},
+									],
+								},
+								{
+									teams: [
+										{
+											name: '-',
+											isPlaceHolder: true,
+										},
+										{
+											name: '-',
+											isPlaceHolder: true,
+										},
+									],
+								},
+							];
+						})
+						.flat(),
+		});
+	}
 
 	return arr;
 }
@@ -94,6 +152,7 @@ const RENDER_SEEDS = (data = []) => {
 										type === 'BYPASS_THI_DAU' && isExist(team1?.player1)
 											? 'Vận động viên trong lượt thi đấu này được bypass vào vòng tiếp theo'
 											: '',
+									active_typing: true,
 									...restTeam1,
 								},
 							],
@@ -117,6 +176,7 @@ const RENDER_SEEDS = (data = []) => {
 										type === 'BYPASS_THI_DAU' && isExist(team2?.player1)
 											? 'Vận động viên trong lượt thi đấu này được bypass vào vòng tiếp theo'
 											: '',
+									active_typing: true,
 									...restTeam2,
 								},
 							],
@@ -139,6 +199,7 @@ const RENDER_SEEDS = (data = []) => {
 									image: team1?.imagePlayer1,
 									winner: Number(score_team1 || 0) > Number(score_team2 || 0),
 									team: 'team1',
+									active_typing: true,
 									...restTeam1,
 								},
 								{
@@ -149,6 +210,7 @@ const RENDER_SEEDS = (data = []) => {
 									image: team1?.imagePlayer2,
 									winner: Number(score_team1 || 0) > Number(score_team2 || 0),
 									team: 'team1',
+									active_typing: true,
 									...restTeam1,
 								},
 							],
@@ -175,6 +237,7 @@ const RENDER_SEEDS = (data = []) => {
 									image: team2?.imagePlayer1,
 									winner: Number(score_team2 || 0) > Number(score_team1 || 0),
 									team: 'team2',
+									active_typing: true,
 									...restTeam2,
 								},
 								{
@@ -185,6 +248,7 @@ const RENDER_SEEDS = (data = []) => {
 									image: team2?.imagePlayer2,
 									winner: Number(score_team2 || 0) > Number(score_team1 || 0),
 									team: 'team2',
+									active_typing: true,
 									...restTeam2,
 								},
 							],
@@ -200,7 +264,6 @@ const RENDER_SEEDS = (data = []) => {
 							teamId: team2?._id,
 						},
 				  ],
-			...rest,
 		};
 	});
 };
@@ -302,11 +365,41 @@ export const GET_LIST_SCHEDULE_MATCH = async (props = {}) => {
 				key: 'data',
 				value: {
 					schedule_match: {
-						seed_donNam: FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DON_NAM),
-						seed_donNu: FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DON_NU),
-						seed_doiNam: FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DOI_NAM),
-						seed_doiNu: FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DOI_NU),
-						seed_doiNamNu: FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DOI_NAM_NU),
+						seed_donNam: fillArrayToLength(
+							FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DON_NAM),
+							divideArrayLength(
+								FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DON_NAM)?.[0].seeds,
+							),
+							TYPE_PLAY.DON_NAM,
+						),
+						seed_donNu: fillArrayToLength(
+							FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DON_NU),
+							divideArrayLength(
+								FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DON_NU)?.[0].seeds,
+							),
+							TYPE_PLAY.DON_NU,
+						),
+						seed_doiNam: fillArrayToLength(
+							FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DOI_NAM),
+							divideArrayLength(
+								FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DOI_NAM)?.[0].seeds,
+							),
+							TYPE_PLAY.DOI_NAM,
+						),
+						seed_doiNu: fillArrayToLength(
+							FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DOI_NU),
+							divideArrayLength(
+								FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DOI_NU)?.[0].seeds,
+							),
+							TYPE_PLAY.DOI_NU,
+						),
+						seed_doiNamNu: fillArrayToLength(
+							FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DOI_NAM_NU),
+							divideArrayLength(
+								FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DOI_NAM_NU)?.[0].seeds,
+							),
+							TYPE_PLAY.DOI_NAM_NU,
+						),
 					},
 				},
 			}),

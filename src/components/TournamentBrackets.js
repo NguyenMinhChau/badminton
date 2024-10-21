@@ -21,17 +21,23 @@ export const TournamentBrackets = ({
 	const { openModal } = useModal();
 
 	const CustomSeed = ({ seed, breakpoint, roundIndex, seedIndex }) => {
-		const score0 = isExist(seed?.teams[0]?.score)
-			? Number(seed?.teams[0]?.score)
+		const score0 = isExist(seed?.teams?.[0]?.score)
+			? Number(seed?.teams?.[0]?.score)
 			: '-';
 		const _noiDungDon = seed?.noiDungDangKy?.toLowerCase()?.includes('đơn');
 		const desc_bypass = _noiDungDon
-			? seed?.teams[0]?.desc_bypass
+			? seed?.teams?.[0]?.desc_bypass
 			: seed?.desc_bypass;
+		const checkHideSeed = _noiDungDon
+			? !seed?.teams?.[0]?.name
+			: !seed?.teams?.[0]?.name && !seed?.teams?.[1]?.name;
+		const checkEnableTyping = _noiDungDon
+			? seed?.teams?.[0]?.active_typing
+			: seed?.teams?.[0]?.active_typing && seed?.teams?.[1]?.active_typing;
 		const bypass = seed.bypass;
-		const _checkDisabled = roundIndex !== rounds?.length - 1 || bypass;
+		const _checkDisabled = !checkEnableTyping || bypass;
 
-		const _checkWin0 = seed?.teams[0]?.winner;
+		const _checkWin0 = seed?.teams?.[0]?.winner;
 		const _checkWinFinal = seed?.isWinner;
 
 		const textWin = _checkWinFinal
@@ -46,16 +52,12 @@ export const TournamentBrackets = ({
 			: 'bg-gray-500';
 
 		const _uriImgPlayer1 =
-			getDriveIdBeforeView(seed?.teams[0]?.image) ||
+			getDriveIdBeforeView(seed?.teams?.[0]?.image) ||
 			'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPHVvfXupg0nld10nBo2PfTM6Zi_l-CUy1GQ&s';
 
 		const _uriImgPlayer2 =
-			getDriveIdBeforeView(seed?.teams[1]?.image) ||
+			getDriveIdBeforeView(seed?.teams?.[1]?.image) ||
 			'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPHVvfXupg0nld10nBo2PfTM6Zi_l-CUy1GQ&s';
-
-		const checkHideSeed = _noiDungDon
-			? !seed?.teams[0]?.name
-			: !seed?.teams[0]?.name && !seed?.teams[1]?.name;
 
 		return (
 			<Seed
@@ -80,7 +82,7 @@ export const TournamentBrackets = ({
 							<div
 								className="flex flex-row gap-1 m-2"
 								style={{
-									alignItems: seed.teams[1]?.name ? 'center' : 'start',
+									alignItems: seed.teams?.[1]?.name ? 'center' : 'start',
 								}}
 							>
 								<div className="flex flex-col gap-1">
@@ -88,19 +90,20 @@ export const TournamentBrackets = ({
 										<img
 											src={_uriImgPlayer1}
 											width="45"
-											alt={seed.teams[0]?.name}
+											alt={seed.teams?.[0]?.name}
 											height="45"
 											className="min-w-[25px] min-h-[25px] max-w-[35px] max-h-[35px] cursor-pointer rounded-lg overflow-hidden object-cover aspect-auto"
 											onClick={() => {
+												if (!seed.teams?.[0]?.name) return;
 												openModal({
-													title: `${seed.teams[0]?.name} [${seed.teams[0]?.department}]`,
+													title: `${seed.teams?.[0]?.name} [${seed.teams?.[0]?.department}]`,
 													children: () => {
 														return (
 															<div className="flex items-center justify-center">
 																<img
 																	src={_uriImgPlayer1}
 																	width="150"
-																	alt={seed.teams[0]?.name}
+																	alt={seed.teams?.[0]?.name}
 																	height="150"
 																	className="w-[300px] h-[300px] cursor-pointer object-contain aspect-auto rounded-lg"
 																	onClick={() => {
@@ -117,43 +120,44 @@ export const TournamentBrackets = ({
 											<input
 												type="text"
 												value={
-													(seed.teams[0]?.name || '-') +
+													(seed.teams?.[0]?.name || '-') +
 													`${
-														seed?.teams[0]?.department
-															? ` [${seed?.teams[0]?.department}]`
+														seed?.teams?.[0]?.department
+															? ` [${seed?.teams?.[0]?.department}]`
 															: ''
 													}`
 												}
 												className={`bg-opacity-30 w-[200px] outline-none border-none py-2 text-[14px] ${
-													desc_bypass && seed.teams[0]?.name
+													desc_bypass && seed.teams?.[0]?.name
 														? 'text-blue-500'
 														: textWin
 												} ${
-													desc_bypass && seed.teams[0]?.name
+													desc_bypass && seed.teams?.[0]?.name
 														? 'bg-blue-500'
 														: bgWin
 												} font-bold p-[2px] rounded-tl-md rounded-br-md text-center`}
 											/>
 										</div>
 									</div>
-									{seed.teams[1]?.name && (
+									{seed.teams?.[1]?.name && (
 										<div className="flex flex-row gap-1 items-center">
 											<img
 												src={_uriImgPlayer2}
 												width="45"
-												alt={seed.teams[1]?.name}
+												alt={seed.teams?.[1]?.name}
 												height="45"
 												className="min-w-[25px] min-h-[25px] max-w-[35px] max-h-[35px] cursor-pointer rounded-lg overflow-hidden object-cover aspect-auto"
 												onClick={() => {
+													if (!seed.teams?.[1]?.name) retrun;
 													openModal({
-														title: `${seed.teams[1]?.name} [${seed.teams[1]?.department}]`,
+														title: `${seed.teams?.[1]?.name} [${seed.teams?.[1]?.department}]`,
 														children: () => {
 															return (
 																<div className="flex items-center justify-center">
 																	<img
 																		src={_uriImgPlayer2}
 																		width="150"
-																		alt={seed.teams[1]?.name}
+																		alt={seed.teams?.[1]?.name}
 																		height="150"
 																		className="w-[300px] h-[300px] cursor-pointer object-contain aspect-auto rounded-lg"
 																		onClick={() => {
@@ -170,10 +174,10 @@ export const TournamentBrackets = ({
 												<input
 													type="text"
 													value={
-														(seed.teams[1]?.name || '-') +
+														(seed.teams?.[1]?.name || '-') +
 														`${
-															seed?.teams[1]?.department
-																? ` [${seed?.teams[1]?.department}]`
+															seed?.teams?.[1]?.department
+																? ` [${seed?.teams?.[1]?.department}]`
 																: ''
 														}`
 													}
@@ -243,7 +247,7 @@ export const TournamentBrackets = ({
 					roundTitleComponent={(title, roundIndex) => {
 						const _checkWinner = title === 'WINNER';
 						return (
-							<div className="flex flex-row gap-2 items-center justify-center">
+							<div className="flex flex-row gap-2 items-center justify-center min-w-[200px]">
 								<div
 									className={`font-bold text-center uppercase ${
 										_checkWinner ? 'text-[#fcbd4a]' : 'text-green-500'
