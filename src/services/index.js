@@ -26,7 +26,7 @@ export const TYPE_PLAY = {
 function divideArrayLength(arr) {
 	let count = 1;
 	let lengthArr = [];
-	let length = arr.length;
+	let length = arr?.length;
 	while (length > 1) {
 		length = Math.floor(length / 2);
 		lengthArr.push(length % 2 === 0 ? length : length + 1);
@@ -365,41 +365,61 @@ export const GET_LIST_SCHEDULE_MATCH = async (props = {}) => {
 				key: 'data',
 				value: {
 					schedule_match: {
-						seed_donNam: fillArrayToLength(
-							FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DON_NAM),
-							divideArrayLength(
-								FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DON_NAM)?.[0].seeds,
-							),
-							TYPE_PLAY.DON_NAM,
-						),
-						seed_donNu: fillArrayToLength(
-							FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DON_NU),
-							divideArrayLength(
-								FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DON_NU)?.[0].seeds,
-							),
-							TYPE_PLAY.DON_NU,
-						),
-						seed_doiNam: fillArrayToLength(
-							FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DOI_NAM),
-							divideArrayLength(
-								FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DOI_NAM)?.[0].seeds,
-							),
-							TYPE_PLAY.DOI_NAM,
-						),
-						seed_doiNu: fillArrayToLength(
-							FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DOI_NU),
-							divideArrayLength(
-								FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DOI_NU)?.[0].seeds,
-							),
-							TYPE_PLAY.DOI_NU,
-						),
-						seed_doiNamNu: fillArrayToLength(
-							FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DOI_NAM_NU),
-							divideArrayLength(
-								FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DOI_NAM_NU)?.[0].seeds,
-							),
-							TYPE_PLAY.DOI_NAM_NU,
-						),
+						seed_donNam: isExist(
+							FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DON_NAM)?.[0]?.seeds,
+						)
+							? fillArrayToLength(
+									FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DON_NAM),
+									divideArrayLength(
+										FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DON_NAM)?.[0]?.seeds,
+									),
+									TYPE_PLAY.DON_NAM,
+							  )
+							: [],
+						seed_donNu: isExist(
+							FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DON_NU)?.[0]?.seeds,
+						)
+							? fillArrayToLength(
+									FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DON_NU),
+									divideArrayLength(
+										FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DON_NU)?.[0]?.seeds,
+									),
+									TYPE_PLAY.DON_NU,
+							  )
+							: [],
+						seed_doiNam: isExist(
+							FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DOI_NAM)?.[0]?.seeds,
+						)
+							? fillArrayToLength(
+									FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DOI_NAM),
+									divideArrayLength(
+										FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DOI_NAM)?.[0]?.seeds,
+									),
+									TYPE_PLAY.DOI_NAM,
+							  )
+							: [],
+						seed_doiNu: isExist(
+							FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DOI_NU)?.[0]?.seeds,
+						)
+							? fillArrayToLength(
+									FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DOI_NU),
+									divideArrayLength(
+										FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DOI_NU)?.[0]?.seeds,
+									),
+									TYPE_PLAY.DOI_NU,
+							  )
+							: [],
+						seed_doiNamNu: isExist(
+							FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DOI_NAM_NU)?.[0]?.seeds,
+						)
+							? fillArrayToLength(
+									FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DOI_NAM_NU),
+									divideArrayLength(
+										FORMAT_SEED_BY_ROUND(DATA_SCHEDULE_DOI_NAM_NU)?.[0]?.seeds,
+									),
+									TYPE_PLAY.DOI_NAM_NU,
+							  )
+							: [],
 					},
 				},
 			}),

@@ -12,7 +12,7 @@ import {
 	DisclosurePanel,
 } from '@headlessui/react';
 import { LoadingScreen } from '@/components/LoadingScreen';
-import { isExist } from '../../utils/helpers';
+import { fList, isExist } from '../../utils/helpers';
 
 export default function ScheduleMatch() {
 	const {
@@ -49,8 +49,8 @@ export default function ScheduleMatch() {
 	const handleGetPlayerWinner = (checkDone, data) => {
 		if (checkDone) {
 			const _dataFinal = data[data?.length - 1]?.seeds;
-			const _playerWinner = _dataFinal.reduce((prev, curr) => {
-				if (prev.teams[0]?.score > curr.teams[0]?.score) return prev;
+			const _playerWinner = fList(_dataFinal).reduce((prev, curr) => {
+				if (prev.teams[0]?.score > curr?.teams[0]?.score) return prev;
 				return curr;
 			});
 			return {
