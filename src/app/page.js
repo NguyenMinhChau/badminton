@@ -123,16 +123,25 @@ export default function Home() {
 							/>
 						</div>
 						<div className="pt-2 text-gray-400 flex bg-white rounded-xl bg-opacity-10 flex-col items-center justify-center">
-							<div className="font-bold text-[20px] text-yellow-500">
+							<div className="font-bold text-[20px] text-[#fed537]">
 								NHÀ TÀI TRỢ VÀNG
 							</div>
-							<Image
-								src="/sponsors/play_logo.png"
-								width="130"
-								alt="PLAY LOGO"
-								height="120"
-								className="w-[230px]"
-							/>
+							<div className="flex flex-col flex-1 w-[230px] h-[120px] items-center gap-3 my-2 justify-center">
+								<Image
+									src="/sponsors/play_logo_top.png"
+									width="130"
+									alt="PLAY TOP LOGO"
+									height="120"
+									className="w-[230px]"
+								/>
+								<Image
+									src="/sponsors/play_logo_bottom.png"
+									width="130"
+									alt="PLAY BOTTOM LOGO"
+									height="120"
+									className="w-[230px]"
+								/>
+							</div>
 						</div>
 						<div className="pt-2 text-gray-400">
 							<Image
