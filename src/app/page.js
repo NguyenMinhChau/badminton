@@ -131,7 +131,7 @@ export default function Home() {
 								width="130"
 								alt="PLAY LOGO"
 								height="120"
-								className="w-[230px] filter-yellow"
+								className="w-[230px]"
 							/>
 						</div>
 						<div className="pt-2 text-gray-400">
