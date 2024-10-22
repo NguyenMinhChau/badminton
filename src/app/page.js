@@ -93,10 +93,10 @@ export default function Home() {
 						<div className="pt-2 text-gray-400">
 							<Image
 								src="/fpt-logo.png"
-								width="130"
+								width="150"
 								alt="INF LOGO"
-								height="130"
-								className="w-[130px]"
+								height="140"
+								className="w-[150px]"
 							/>
 						</div>
 						<div className="pt-2 text-gray-400">
@@ -118,8 +118,8 @@ export default function Home() {
 								src="/sponsors/INF_logo.png"
 								width="130"
 								alt="INF LOGO"
-								height="120"
-								className="w-[120px]"
+								height="130"
+								className="w-[130px]"
 							/>
 						</div>
 						<div className="pt-2 text-gray-400 flex bg-white rounded-xl bg-opacity-10 flex-col items-center justify-center">
@@ -139,8 +139,8 @@ export default function Home() {
 								src="/sponsors/pocari_logo_transparent.png"
 								width="130"
 								alt="POCARI LOGO"
-								height="100"
-								className="w-[100px]"
+								height="110"
+								className="w-[110px]"
 							/>
 						</div>
 					</div>
