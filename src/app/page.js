@@ -138,8 +138,8 @@ export default function Home() {
 									src="/sponsors/play_logo_bottom.png"
 									width="130"
 									alt="PLAY BOTTOM LOGO"
-									height="120"
-									className="w-[230px]"
+									height="100"
+									className="w-[200px]"
 								/>
 							</div>
 						</div>
