@@ -224,13 +224,6 @@ export default function ScheduleMatch() {
 				return;
 			}
 		}
-		//  else {
-		// 	openToast({
-		// 		type: TYPE_TOAST.WARNING,
-		// 		message: 'Tỉ số không được để trống',
-		// 	});
-		// 	return;
-		// }
 	};
 
 	const handleSubmitSeed = () => {
@@ -249,29 +242,12 @@ export default function ScheduleMatch() {
 		setSeedsSubmit([]);
 	};
 
-	const _checkHaveFirstRounded = _seeds?.some((item) => isExist(item?.data));
-
 	return (
 		<>
 			{_submitting && <LoadingScreen />}
 			<Container className="!p-1">
 				<div className="sticky top-2 right-2 z-30 w-full flex flex-col items-end justify-end">
 					<div className="flex flex-row flex-wrap gap-2 items-center">
-						<button
-							className="px-6 py-2 text-[#ea580c] bg-white rounded-md font-bold disabled:bg-gray-400 disabled:text-white"
-							onClick={() => {
-								if (!_checkHaveFirstRounded) {
-									CallApiCreateMatchFirstRound();
-								} else {
-									CallApiCreateMatchNextRound();
-								}
-								setSeedsSubmit([]);
-							}}
-							disabled={disabled}
-						>
-							Tạo lịch thi đấu vòng{' '}
-							{!_checkHaveFirstRounded ? 'đầu tiên' : 'tiếp theo'}
-						</button>
 						<button
 							className="px-6 py-2 text-blue-500 bg-white rounded-md font-bold disabled:bg-gray-400 disabled:text-white"
 							onClick={handleSubmitSeed}
@@ -281,60 +257,71 @@ export default function ScheduleMatch() {
 						</button>
 					</div>
 				</div>
-				{_seeds.map((item, index) => (
-					<div key={index} className="my-5 w-full">
-						<Disclosure defaultOpen={index === 0}>
-							{({ open }) => (
-								<>
-									<div className="flex flex-row">
-										<DisclosureButton
-											className={`flex items-center justify-between gap-3 font-bold w-full px-2 py-3 text-l text-left rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-indigo-100 focus-visible:ring-opacity-75`}
-											style={{
-												color: '#FFF',
-											}}
-										>
-											<span className="text-xl underline">
-												NỘI DUNG: {item.question}
-											</span>
-											{/* <button
-												className="px-6 py-2 text-[#ea580c] bg-white rounded-md font-bold disabled:bg-gray-400 disabled:text-white"
-												onClick={(e) => {
-													e.stopPropagation();
-													if (
-														!item?.data?.some((item) => isExist(item?.data))
-													) {
-														CallApiCreateMatchFirstRound(item?.question);
-													} else {
-														CallApiCreateMatchNextRound();
-													}
-													setSeedsSubmit([]);
+				{_seeds.map((item, index) => {
+					const _checkThiDauXong =
+						item.data.some((x) => x.title === 'WINNER') &&
+						item.data
+							.filter((y) => y.title === 'WINNER')[0]
+							?.seeds?.every((z) =>
+								z?.teams?.every((s) => s.score !== null && s.score >= 0),
+							);
+
+					return (
+						<div key={index} className="mb-5 mt-10 w-full">
+							<Disclosure defaultOpen={index === 0}>
+								{({ open }) => (
+									<>
+										<div className="flex flex-row">
+											<DisclosureButton
+												className={`flex items-center justify-between gap-3 font-bold w-full px-2 py-3 text-l text-left rounded-lg focus:outline-none focus-visible:ring focus-visible:ring-indigo-100 focus-visible:ring-opacity-75`}
+												style={{
+													color: '#FFF',
 												}}
-												disabled={disabled}
 											>
-												Tạo lịch thi đấu vòng{' '}
-												{!item?.data?.some((item) => isExist(item?.data)) ? 'đầu tiên' : 'tiếp theo'}
-											</button> */}
-										</DisclosureButton>
-									</div>
-									<DisclosurePanel className="text-white rounded-lg p-2 bg-white bg-opacity-10">
-										<div
-											className="max-w-full overflow-y-hidden"
-											id="schedule_match"
-										>
-											<TournamentBrackets
-												rounds={item?.data}
-												handleChangeSeedScore={handleChangeSeedScore}
-												paramsFunc={{
-													index: index,
-												}}
-											/>
+												<span className="text-xl underline">
+													NỘI DUNG: {item.question}
+												</span>
+												<button
+													className={`px-6 py-2 text-[#ea580c] bg-white rounded-md font-bold disabled:bg-gray-400 disabled:text-white`}
+													onClick={(e) => {
+														e.stopPropagation();
+														if (!isExist(item?.data)) {
+															CallApiCreateMatchFirstRound(item?.question);
+														} else {
+															CallApiCreateMatchNextRound(item?.question);
+														}
+														setSeedsSubmit([]);
+													}}
+													disabled={disabled || _checkThiDauXong}
+												>
+													{_checkThiDauXong
+														? 'Đã thi đấu xong'
+														: `Tạo lịch thi đấu vòng ${
+																!isExist(item?.data) ? '1' : 'tiếp theo'
+														  }`}
+												</button>
+											</DisclosureButton>
 										</div>
-									</DisclosurePanel>
-								</>
-							)}
-						</Disclosure>
-					</div>
-				))}
+										<DisclosurePanel className="text-white rounded-lg p-2 bg-white bg-opacity-10">
+											<div
+												className="max-w-full overflow-y-hidden"
+												id="schedule_match"
+											>
+												<TournamentBrackets
+													rounds={item?.data}
+													handleChangeSeedScore={handleChangeSeedScore}
+													paramsFunc={{
+														index: index,
+													}}
+												/>
+											</div>
+										</DisclosurePanel>
+									</>
+								)}
+							</Disclosure>
+						</div>
+					);
+				})}
 			</Container>
 		</>
 	);

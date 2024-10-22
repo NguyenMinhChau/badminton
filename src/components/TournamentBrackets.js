@@ -94,9 +94,8 @@ export const TournamentBrackets = ({
 											height="45"
 											className="min-w-[25px] min-h-[25px] max-w-[35px] max-h-[35px] cursor-pointer rounded-lg overflow-hidden object-cover aspect-auto"
 											onClick={() => {
-												if (!seed.teams?.[0]?.name) return;
 												openModal({
-													title: `${seed.teams?.[0]?.name} [${seed.teams?.[0]?.department}]`,
+													title: `${seed.teams?.[0]?.name} [${seed.teams?.[0]?.department || '-'}]`,
 													children: () => {
 														return (
 															<div className="flex items-center justify-center">
@@ -148,9 +147,8 @@ export const TournamentBrackets = ({
 												height="45"
 												className="min-w-[25px] min-h-[25px] max-w-[35px] max-h-[35px] cursor-pointer rounded-lg overflow-hidden object-cover aspect-auto"
 												onClick={() => {
-													if (!seed.teams?.[1]?.name) retrun;
 													openModal({
-														title: `${seed.teams?.[1]?.name} [${seed.teams?.[1]?.department}]`,
+														title: `${seed.teams?.[1]?.name} [${seed.teams?.[1]?.department || '-'}]`,
 														children: () => {
 															return (
 																<div className="flex items-center justify-center">

@@ -86,10 +86,7 @@ export default function Home() {
 				</SectionTitle>
 				<Faq /> */}
 
-				<SectionTitle
-					preTitle="SPONSORS"
-					title="ĐƠN VỊ ĐỒNG HÀNH CÙNG GIẢI ĐẤU"
-				></SectionTitle>
+				<SectionTitle preTitle="" title="ĐƠN VỊ TỔ CHỨC"></SectionTitle>
 
 				<div className="flex flex-col justify-center">
 					<div className="flex flex-wrap items-center justify-center gap-10 md:justify-center">
@@ -104,20 +101,37 @@ export default function Home() {
 						</div>
 						<div className="pt-2 text-gray-400">
 							<Image
+								src="/FUN_Logo.png"
+								width="130"
+								alt="FUN LOGO"
+								height="120"
+								className="w-[120px]"
+							/>
+						</div>
+					</div>
+				</div>
+				<SectionTitle preTitle="" title="ĐƠN VỊ ĐỒNG HÀNH"></SectionTitle>
+				<div className="flex flex-col justify-center">
+					<div className="flex flex-wrap items-center justify-center gap-10 md:justify-center">
+						<div className="pt-2 text-gray-400">
+							<Image
 								src="/sponsors/INF_logo.png"
 								width="130"
 								alt="INF LOGO"
-								height="130"
-								className="w-[130px]"
+								height="120"
+								className="w-[120px]"
 							/>
 						</div>
-						<div className="pt-2 text-gray-400">
+						<div className="pt-2 text-gray-400 flex bg-white rounded-xl bg-opacity-10 flex-col items-center justify-center">
+							<div className="font-bold text-[20px] text-yellow-500">
+								NHÀ TÀI TRỢ VÀNG
+							</div>
 							<Image
 								src="/sponsors/play_logo.png"
 								width="130"
 								alt="PLAY LOGO"
-								height="150"
-								className="w-[130px]"
+								height="120"
+								className="w-[230px] filter-yellow"
 							/>
 						</div>
 						<div className="pt-2 text-gray-400">
@@ -125,8 +139,8 @@ export default function Home() {
 								src="/sponsors/pocari_logo_transparent.png"
 								width="130"
 								alt="POCARI LOGO"
-								height="120"
-								className="w-[120px]"
+								height="100"
+								className="w-[100px]"
 							/>
 						</div>
 					</div>

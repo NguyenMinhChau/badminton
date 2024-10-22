@@ -452,6 +452,7 @@ export const UPDATE_CA_THI_DAU = async (props = {}) => {
 			payload: {
 				score_team1: _getSeeds?.[0]?.teams[0].score || 0,
 				score_team2: _getSeeds?.[1]?.teams[0].score || 0,
+				noiDungThiDau: item?.noiDungDangKy
 			},
 		};
 	});
@@ -500,7 +501,7 @@ export const CREATE_FIRST_ROUND = async (props = {}) => {
 			username: process.env.NEXT_PUBLIC_EMAIL,
 			password: process.env.NEXT_PUBLIC_PASSWORD,
 			secretKey: process.env.NEXT_PUBLIC_SECRET,
-			// noiDungThiDau: noiDungThiDau
+			noiDungThiDau: noiDungThiDau
 		});
 		setTimeout(async () => {
 			GET_LIST_SCHEDULE_MATCH({
@@ -552,7 +553,7 @@ export const UPLOAD_TEMPLATE = async (props = {}) => {
 };
 
 export const CREATE_MATCH_NEXT_ROUND = async (props = {}) => {
-	const { dispatch, _setSubmitting, openToast } = { ...props };
+	const { dispatch, _setSubmitting, openToast, noiDungThiDau } = { ...props };
 	_setSubmitting();
 	try {
 		const resPost = await axiosPost(
@@ -561,6 +562,7 @@ export const CREATE_MATCH_NEXT_ROUND = async (props = {}) => {
 				username: process.env.NEXT_PUBLIC_EMAIL,
 				password: process.env.NEXT_PUBLIC_PASSWORD,
 				secretKey: process.env.NEXT_PUBLIC_SECRET,
+				noiDungThiDau:  noiDungThiDau
 			},
 		);
 		// GET SCHEDULE_MATCH

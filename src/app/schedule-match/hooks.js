@@ -44,13 +44,13 @@ export const useScheduleMatch = () => {
 		});
 	};
 
-	const CallApiCreateMatchNextRound = () => {
+	const CallApiCreateMatchNextRound = (noiDungThiDau) => {
 		openModal({
 			title: 'Xác nhận tạo lịch thi đấu vòng tiếp theo',
 			children: () => {
 				return (
 					<div className="text-orange-500">
-						Bạn có chắc muốn tạo lịch thi đấu vòng tiếp theo cho các trận đấu?
+						Bạn có chắc muốn tạo lịch thi đấu vòng tiếp theo cho nội dung {noiDungThiDau}?
 					</div>
 				);
 			},
@@ -60,6 +60,7 @@ export const useScheduleMatch = () => {
 					dispatch,
 					_setSubmitting,
 					openToast,
+					noiDungThiDau,
 				});
 			},
 		});
@@ -70,7 +71,7 @@ export const useScheduleMatch = () => {
 			children: () => {
 				return (
 					<div className="text-orange-500">
-						Bạn có chắc muốn tạo lịch thi đấu vòng đầu tiên cho các trận đấu?
+						Bạn có chắc muốn tạo lịch thi đấu vòng đầu tiên cho nội dung {noiDungThiDau}?
 					</div>
 				);
 			},

@@ -8,6 +8,10 @@
 		@apply dark:bg-trueGray-900;
 	}
 
+	.filter-yellow {
+		filter: sepia(1) saturate(10000%) hue-rotate(45deg);
+	}
+
 	body {
 		background-image: url('/img/home_background.jpg');
 		height: 100%;
