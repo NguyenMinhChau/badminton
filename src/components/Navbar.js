@@ -25,6 +25,11 @@ export const Navbar = () => {
 		// { label: 'Xếp hạng', href: '/range' },
 		// { label: 'Quản lý', href: '/management' },
 		{ label: 'Lịch thi đấu', href: '/schedule-match' },
+		// {
+		// 	label: 'Giờ thi đấu',
+		// 	href: 'https://drive.google.com/file/d/1zV2hj3E4zKecQcJIOEoBvuWLPmTANo3i/view?usp=sharing',
+		// 	target: '_blank',
+		// },
 	];
 
 	const [navigation, setNavigation] = React.useState(NAVIGATION_DATA);
@@ -139,6 +144,7 @@ export const Navbar = () => {
 												className={`w-full text-white uppercase font-bold px-4 py-2 -ml-4 rounded-md hover:text-[#ea580c] focus:text-[#ea580c] focus:bg-[#ea580c3a] focus:outline-none ${
 													checkActiveRoute(item) ? 'active' : ''
 												}`}
+												target={item?.target || '_parent'}
 											>
 												{item?.label}
 											</Link>
@@ -183,6 +189,7 @@ export const Navbar = () => {
 											className={`inline-block uppercase text-white font-bold px-4 py-2 text-lg no-underline rounded-md hover:text-[#ea580c] focus:text-[#ea580c] focus:bg-[#ea580c3a] focus:outline-none ${
 												checkActiveRoute(menu) ? 'active' : ''
 											}`}
+											target={menu?.target || '_parent'}
 										>
 											{menu?.label}
 										</Link>
