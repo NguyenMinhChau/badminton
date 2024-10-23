@@ -62,6 +62,7 @@ function fillArrayToLength(arr, { count, lengthArr }, type) {
 											isPlaceHolder: true,
 										},
 									],
+									noDescription: true,
 								},
 								{
 									teams: [
@@ -70,6 +71,7 @@ function fillArrayToLength(arr, { count, lengthArr }, type) {
 											isPlaceHolder: true,
 										},
 									],
+									noDescription: true,
 								},
 							];
 						})
@@ -88,6 +90,7 @@ function fillArrayToLength(arr, { count, lengthArr }, type) {
 											isPlaceHolder: true,
 										},
 									],
+									noDescription: true,
 								},
 								{
 									teams: [
@@ -100,6 +103,7 @@ function fillArrayToLength(arr, { count, lengthArr }, type) {
 											isPlaceHolder: true,
 										},
 									],
+									noDescription: true,
 								},
 							];
 						})
@@ -127,6 +131,7 @@ const RENDER_SEEDS = (data = []) => {
 			team2,
 			score_team1,
 			score_team2,
+			description,
 			winner,
 			type,
 			...rest
@@ -160,6 +165,7 @@ const RENDER_SEEDS = (data = []) => {
 							bypass: type === 'BYPASS_THI_DAU',
 							round: round,
 							teamId: team1?._id,
+							description: description,
 						},
 						{
 							id: _id,
@@ -184,6 +190,7 @@ const RENDER_SEEDS = (data = []) => {
 							bypass: type === 'BYPASS_THI_DAU',
 							round: round,
 							teamId: team2?._id,
+							noDescription: true,
 						},
 				  ]
 				: [
@@ -224,6 +231,7 @@ const RENDER_SEEDS = (data = []) => {
 							bypass: type === 'BYPASS_THI_DAU',
 							round: round,
 							teamId: team1?._id,
+							description: description,
 						},
 						{
 							id: _id,
@@ -262,6 +270,7 @@ const RENDER_SEEDS = (data = []) => {
 							bypass: type === 'BYPASS_THI_DAU',
 							round: round,
 							teamId: team2?._id,
+							noDescription: true,
 						},
 				  ],
 		};
@@ -447,12 +456,14 @@ export const UPDATE_CA_THI_DAU = async (props = {}) => {
 		const _getSeeds = _getRound?.seeds?.filter((x) => {
 			return x?.id === item?.id;
 		});
+
 		return {
 			id: item?.id,
 			payload: {
 				score_team1: _getSeeds?.[0]?.teams[0].score || 0,
 				score_team2: _getSeeds?.[1]?.teams[0].score || 0,
-				noiDungThiDau: item?.noiDungDangKy
+				noiDungThiDau: item?.noiDungDangKy,
+				description: item?.description,
 			},
 		};
 	});
@@ -501,7 +512,7 @@ export const CREATE_FIRST_ROUND = async (props = {}) => {
 			username: process.env.NEXT_PUBLIC_EMAIL,
 			password: process.env.NEXT_PUBLIC_PASSWORD,
 			secretKey: process.env.NEXT_PUBLIC_SECRET,
-			noiDungThiDau: noiDungThiDau
+			noiDungThiDau: noiDungThiDau,
 		});
 		setTimeout(async () => {
 			GET_LIST_SCHEDULE_MATCH({
@@ -562,7 +573,7 @@ export const CREATE_MATCH_NEXT_ROUND = async (props = {}) => {
 				username: process.env.NEXT_PUBLIC_EMAIL,
 				password: process.env.NEXT_PUBLIC_PASSWORD,
 				secretKey: process.env.NEXT_PUBLIC_SECRET,
-				noiDungThiDau:  noiDungThiDau
+				noiDungThiDau: noiDungThiDau,
 			},
 		);
 		// GET SCHEDULE_MATCH

@@ -78,6 +78,7 @@ export default function ScheduleMatch() {
 													checkDone(seed_donNam),
 													seed_donNam,
 												),
+												noDescription: true,
 											},
 										],
 									},
@@ -102,6 +103,7 @@ export default function ScheduleMatch() {
 													checkDone(seed_donNu),
 													seed_donNu,
 												),
+												noDescription: true,
 											},
 										],
 									},
@@ -126,6 +128,7 @@ export default function ScheduleMatch() {
 													checkDone(seed_doiNam),
 													seed_doiNam,
 												),
+												noDescription: true,
 											},
 										],
 									},
@@ -150,6 +153,7 @@ export default function ScheduleMatch() {
 													checkDone(seed_doiNu),
 													seed_doiNu,
 												),
+												noDescription: true,
 											},
 										],
 									},
@@ -174,6 +178,7 @@ export default function ScheduleMatch() {
 													checkDone(seed_doiNamNu),
 													seed_doiNamNu,
 												),
+												noDescription: true,
 											},
 										],
 									},
@@ -190,6 +195,9 @@ export default function ScheduleMatch() {
 
 	const [_seeds, setSeeds] = React.useState(seedData);
 	const [_seedsSubmit, setSeedsSubmit] = React.useState([]);
+	const [_seedsSubmitDescriptions, setSeedsSubmitDescription] = React.useState(
+		[],
+	);
 
 	React.useEffect(() => {
 		setSeeds(seedData);
@@ -226,8 +234,26 @@ export default function ScheduleMatch() {
 		}
 	};
 
+	const handleChangeSeedDescription = (
+		roundIndex,
+		seedIndex,
+		value,
+		{ index },
+	) => {
+		const newRounds = [..._seeds];
+		if (isExist(value) && value !== '-') {
+			const _seedIndex = newRounds[index].data[roundIndex].seeds[seedIndex];
+			if (`${_seedIndex.description}` !== value) {
+				_seedIndex.description = value;
+				setSeeds(newRounds);
+				setSeedsSubmitDescription([..._seedsSubmitDescriptions, _seedIndex]);
+			}
+		}
+	};
+
 	const handleSubmitSeed = () => {
 		const uniqueTeamsMap = new Map();
+		const uniqueTeamsDescMap = new Map();
 
 		// Duyệt ngược mảng để ưu tiên lấy phần tử cuối cùng có `_id` trùng lặp
 		for (let i = _seedsSubmit.length - 1; i >= 0; i--) {
@@ -236,9 +262,17 @@ export default function ScheduleMatch() {
 				uniqueTeamsMap.set(teamId, _seedsSubmit[i]);
 			}
 		}
+		// Duyệt ngược mảng để ưu tiên lấy phần tử cuối cùng có `_id` trùng lặp
+		for (let i = _seedsSubmitDescriptions.length - 1; i >= 0; i--) {
+			const teamId = _seedsSubmitDescriptions[i]?.teams[0]?._id;
+			if (teamId && !uniqueTeamsDescMap.has(teamId)) {
+				uniqueTeamsDescMap.set(teamId, _seedsSubmitDescriptions[i]);
+			}
+		}
 
 		const uniqueData = Array.from(uniqueTeamsMap.values());
-		CallApiUpdate(uniqueData, _seeds);
+		const uniqueDataDesc = Array.from(uniqueTeamsDescMap.values());
+		CallApiUpdate([...uniqueData, ...uniqueDataDesc], _seeds);
 		setSeedsSubmit([]);
 	};
 
@@ -253,7 +287,7 @@ export default function ScheduleMatch() {
 							onClick={handleSubmitSeed}
 							disabled={!isExist(_seedsSubmit) || disabled}
 						>
-							Cập nhật tỉ số thi đấu
+							Cập nhật tỉ số/thông tin thi đấu
 						</button>
 					</div>
 				</div>
@@ -310,6 +344,9 @@ export default function ScheduleMatch() {
 												<TournamentBrackets
 													rounds={item?.data}
 													handleChangeSeedScore={handleChangeSeedScore}
+													handleChangeSeedDescription={
+														handleChangeSeedDescription
+													}
 													paramsFunc={{
 														index: index,
 													}}

@@ -9,6 +9,7 @@ import { getDriveIdBeforeView, isExist } from '@/utils/helpers';
 export const TournamentBrackets = ({
 	rounds = [],
 	handleChangeSeedScore,
+	handleChangeSeedDescription,
 	paramsFunc = {},
 }) => {
 	const { state } = useAppContext();
@@ -25,6 +26,8 @@ export const TournamentBrackets = ({
 			? Number(seed?.teams?.[0]?.score)
 			: '-';
 		const _noiDungDon = seed?.noiDungDangKy?.toLowerCase()?.includes('đơn');
+		const _description = seed?.description;
+		const _noDescription = seed?.noDescription;
 		const desc_bypass = _noiDungDon
 			? seed?.teams?.[0]?.desc_bypass
 			: seed?.desc_bypass;
@@ -79,6 +82,24 @@ export const TournamentBrackets = ({
 						className={`border-color-tournament`}
 					>
 						<div>
+							{!_noDescription && !desc_bypass && (
+								<input
+									type="text"
+									defaultValue={_description}
+									placeholder="Nhập thông tin về sân/thời gian thi đấu..."
+									onBlur={(e) => {
+										handleChangeSeedDescription(
+											roundIndex,
+											seedIndex,
+											e.target.value,
+											paramsFunc,
+										);
+									}}
+									className={`w-full px-2 font-medium bg-black bg-opacity-5 py-1 outline-none text-orange-500 border-none text-[13px] text-center`}
+									disabled={_checkDisabled || disabled}
+									readOnly={_checkDisabled || disabled}
+								/>
+							)}
 							<div
 								className="flex flex-row gap-1 m-2"
 								style={{
@@ -95,7 +116,9 @@ export const TournamentBrackets = ({
 											className="min-w-[25px] min-h-[25px] max-w-[35px] max-h-[35px] cursor-pointer rounded-lg overflow-hidden object-cover aspect-auto"
 											onClick={() => {
 												openModal({
-													title: `${seed.teams?.[0]?.name} [${seed.teams?.[0]?.department || '-'}]`,
+													title: `${seed.teams?.[0]?.name} [${
+														seed.teams?.[0]?.department || '-'
+													}]`,
 													children: () => {
 														return (
 															<div className="flex items-center justify-center">
@@ -148,7 +171,9 @@ export const TournamentBrackets = ({
 												className="min-w-[25px] min-h-[25px] max-w-[35px] max-h-[35px] cursor-pointer rounded-lg overflow-hidden object-cover aspect-auto"
 												onClick={() => {
 													openModal({
-														title: `${seed.teams?.[1]?.name} [${seed.teams?.[1]?.department || '-'}]`,
+														title: `${seed.teams?.[1]?.name} [${
+															seed.teams?.[1]?.department || '-'
+														}]`,
 														children: () => {
 															return (
 																<div className="flex items-center justify-center">
