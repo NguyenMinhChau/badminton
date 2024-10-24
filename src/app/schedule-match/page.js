@@ -285,7 +285,11 @@ export default function ScheduleMatch() {
 						<button
 							className="px-6 py-2 text-blue-500 bg-white rounded-md font-bold disabled:bg-gray-400 disabled:text-white"
 							onClick={handleSubmitSeed}
-							disabled={!isExist(_seedsSubmit) || disabled}
+							disabled={
+								(!isExist(_seedsSubmit) &&
+									!isExist(_seedsSubmitDescriptions)) ||
+								disabled
+							}
 						>
 							Cập nhật tỉ số/thông tin thi đấu
 						</button>
