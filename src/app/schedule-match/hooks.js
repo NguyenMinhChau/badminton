@@ -50,7 +50,8 @@ export const useScheduleMatch = () => {
 			children: () => {
 				return (
 					<div className="text-orange-500">
-						Bạn có chắc muốn tạo lịch thi đấu vòng tiếp theo cho nội dung {noiDungThiDau}?
+						Bạn có chắc muốn tạo lịch thi đấu vòng tiếp theo cho nội dung{' '}
+						{noiDungThiDau}?
 					</div>
 				);
 			},
@@ -71,7 +72,8 @@ export const useScheduleMatch = () => {
 			children: () => {
 				return (
 					<div className="text-orange-500">
-						Bạn có chắc muốn tạo lịch thi đấu vòng đầu tiên cho nội dung {noiDungThiDau}?
+						Bạn có chắc muốn tạo lịch thi đấu vòng đầu tiên cho nội dung{' '}
+						{noiDungThiDau}?
 					</div>
 				);
 			},
@@ -87,7 +89,7 @@ export const useScheduleMatch = () => {
 		});
 	};
 
-	const CallApiUpdate = (data, _seeds) => {
+	const CallApiUpdate = (data, _seeds, updateDesc) => {
 		openModal({
 			title: 'Xác nhận cập nhật tỉ số thi đấu',
 			children: () => {
@@ -105,6 +107,7 @@ export const useScheduleMatch = () => {
 					_setSubmitting,
 					openToast,
 					_seeds,
+					updateDesc,
 				});
 			},
 		});

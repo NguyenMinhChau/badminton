@@ -253,7 +253,6 @@ export default function ScheduleMatch() {
 
 	const handleSubmitSeed = () => {
 		const uniqueTeamsMap = new Map();
-		const uniqueTeamsDescMap = new Map();
 
 		// Duyệt ngược mảng để ưu tiên lấy phần tử cuối cùng có `_id` trùng lặp
 		for (let i = _seedsSubmit.length - 1; i >= 0; i--) {
@@ -262,6 +261,14 @@ export default function ScheduleMatch() {
 				uniqueTeamsMap.set(teamId, _seedsSubmit[i]);
 			}
 		}
+		const uniqueData = Array.from(uniqueTeamsMap.values());
+		CallApiUpdate(uniqueData, _seeds);
+		setSeedsSubmit([]);
+	};
+
+	const handleSubmitSeedDesc = () => {
+		const uniqueTeamsDescMap = new Map();
+
 		// Duyệt ngược mảng để ưu tiên lấy phần tử cuối cùng có `_id` trùng lặp
 		for (let i = _seedsSubmitDescriptions.length - 1; i >= 0; i--) {
 			const teamId = _seedsSubmitDescriptions[i]?.teams[0]?._id;
@@ -270,10 +277,9 @@ export default function ScheduleMatch() {
 			}
 		}
 
-		const uniqueData = Array.from(uniqueTeamsMap.values());
 		const uniqueDataDesc = Array.from(uniqueTeamsDescMap.values());
-		CallApiUpdate([...uniqueData, ...uniqueDataDesc], _seeds);
-		setSeedsSubmit([]);
+		CallApiUpdate(uniqueDataDesc, _seeds, true);
+		setSeedsSubmitDescription([]);
 	};
 
 	return (
@@ -285,13 +291,16 @@ export default function ScheduleMatch() {
 						<button
 							className="px-6 py-2 text-blue-500 bg-white rounded-md font-bold disabled:bg-gray-400 disabled:text-white"
 							onClick={handleSubmitSeed}
-							disabled={
-								(!isExist(_seedsSubmit) &&
-									!isExist(_seedsSubmitDescriptions)) ||
-								disabled
-							}
+							disabled={!isExist(_seedsSubmit) || disabled}
 						>
-							Cập nhật tỉ số/thông tin thi đấu
+							Cập nhật tỉ số trận đấu
+						</button>
+						<button
+							className="px-6 py-2 text-blue-500 bg-white rounded-md font-bold disabled:bg-gray-400 disabled:text-white"
+							onClick={handleSubmitSeedDesc}
+							disabled={!isExist(_seedsSubmitDescriptions) || disabled}
+						>
+							Cập nhật thông tin trận đấu
 						</button>
 					</div>
 				</div>

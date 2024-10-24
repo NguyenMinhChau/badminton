@@ -444,7 +444,9 @@ export const GET_LIST_SCHEDULE_MATCH = async (props = {}) => {
 };
 
 export const UPDATE_CA_THI_DAU = async (props = {}) => {
-	const { dispatch, _setSubmitting, openToast, data, _seeds } = { ...props };
+	const { dispatch, _setSubmitting, openToast, data, _seeds, updateDesc } = {
+		...props,
+	};
 	_setSubmitting();
 	const arrayData = data?.map((item) => {
 		const _getNoiDung = _seeds.find((x) => {
@@ -464,6 +466,7 @@ export const UPDATE_CA_THI_DAU = async (props = {}) => {
 				score_team2: _getSeeds?.[1]?.teams[0].score || 0,
 				noiDungThiDau: item?.noiDungDangKy,
 				description: item?.description,
+				updateDesc: updateDesc,
 			},
 		};
 	});
