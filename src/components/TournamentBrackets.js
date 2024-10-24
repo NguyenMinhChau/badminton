@@ -95,7 +95,7 @@ export const TournamentBrackets = ({
 											paramsFunc,
 										);
 									}}
-									className={`w-full px-2 bg-black bg-opacity-5 py-1 outline-none font-bold text-[#ea580c] border-none text-[13px] text-center`}
+									className={`w-full px-2 py-1 outline-none font-bold text-[#ea580c] border-none text-[13px] text-center`}
 									disabled={_checkDisabled || disabled}
 									readOnly={_checkDisabled || disabled}
 								/>
