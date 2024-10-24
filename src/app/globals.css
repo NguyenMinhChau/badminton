@@ -3,10 +3,10 @@
 @tailwind utilities;
 
 @layer base {
-	html,
+	/* html,
 	body {
 		@apply dark:bg-trueGray-900;
-	}
+	} */
 
 	.filter-yellow {
 		filter: sepia(1) saturate(10000%) hue-rotate(45deg);
